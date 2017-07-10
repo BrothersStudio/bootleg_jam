@@ -8,11 +8,9 @@ public class CornGameController : MonoBehaviour
     public GameObject corn_prefab;
     public GameObject bug_prefab;
 
-    public float click_circle_radius;
-
     public float bug_spawn_percent;
 
-    public float spawn_rate;
+    public float fallers_per_second;
     float last_spawn = 0f;
 
     float screen_width_pos;
@@ -25,7 +23,7 @@ public class CornGameController : MonoBehaviour
         screen_top_pos = -far_corner.y;
     }
 
-    void Update ()
+    void Update()
     {
         // Move circle cursor
         Camera cam = Camera.main;
@@ -34,22 +32,23 @@ public class CornGameController : MonoBehaviour
         corn_cursor.transform.position = mouse_pos;
 
         // Spawn things
-        if (Time.timeSinceLevelLoad > last_spawn)
+        for (float i = 0; i < (int)((Time.timeSinceLevelLoad - last_spawn) * fallers_per_second); i++)
         {
-            last_spawn = Time.timeSinceLevelLoad + spawn_rate;
-
-            float spawn_x = Random.Range(-screen_width_pos, screen_width_pos);
             if (Random.Range(0f, 100f) <= bug_spawn_percent)
             {
-                GameObject bug = Instantiate(bug_prefab, new Vector2(spawn_x, screen_top_pos), Quaternion.identity);
-                bug.GetComponent<Faller>().Bottom = -screen_top_pos;
+                // I don't want the bugs to spawn too close to the edge
+                float spawn_x = Random.Range(-screen_width_pos + 2f, screen_width_pos - 2f);
+                GameObject thing = Instantiate(bug_prefab, new Vector2(spawn_x, screen_top_pos), Quaternion.identity);
+                thing.transform.Rotate(0f, 0f, Random.Range(0f, 360f));
             }
             else
             {
-                GameObject corn = Instantiate(corn_prefab, new Vector2(spawn_x, screen_top_pos), Quaternion.identity);
-                corn.GetComponent<Faller>().Bottom = -screen_top_pos;
+                float spawn_x = Random.Range(-screen_width_pos, screen_width_pos);
+                GameObject thing = Instantiate(corn_prefab, new Vector2(spawn_x, screen_top_pos), Quaternion.identity);
+                thing.transform.Rotate(0f, 0f, Random.Range(0f, 360f));
             }
         }
+        last_spawn = Time.timeSinceLevelLoad;
 
         // Scoop things
         if (Input.GetMouseButton(0))
