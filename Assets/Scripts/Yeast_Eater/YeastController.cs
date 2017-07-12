@@ -60,6 +60,7 @@ public class YeastController : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        other.gameObject.GetComponent<SugarController>().Shrink();
+        if (other.tag != "Wall")
+            other.gameObject.GetComponent<SugarController>().Shrink();
     }
 }
