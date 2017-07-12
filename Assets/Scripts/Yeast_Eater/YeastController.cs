@@ -9,7 +9,7 @@ public class YeastController : MonoBehaviour
     Animator anim;
 
     bool chomping = false;
-    float next_chomp;
+    float next_chomp = 0f;
     float chomp_cooldown = 1f;
 
     void Start()
@@ -34,7 +34,7 @@ public class YeastController : MonoBehaviour
             SetCircleColliders(true);
 
             anim.SetTrigger("chomp");
-            GetComponent<Rigidbody2D>().AddForce(Vector3.Normalize(new Vector3(mouse_pos.x - transform.position.x, mouse_pos.y - transform.position.y, 0f)) * yeast_speed * 3f);
+            GetComponent<Rigidbody2D>().AddForce(Vector3.Normalize(new Vector3(mouse_pos.x - transform.position.x, mouse_pos.y - transform.position.y, 0f)) * yeast_speed * 10f);
         }
         else if (Time.timeSinceLevelLoad > next_chomp)
         {
@@ -42,7 +42,7 @@ public class YeastController : MonoBehaviour
             SetCircleColliders(false);
         }
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButtonDown(1))
         {
             GetComponent<Rigidbody2D>().AddForce(Vector3.Normalize(new Vector3(mouse_pos.x - transform.position.x, mouse_pos.y - transform.position.y, 0f)) * yeast_speed);
         }
