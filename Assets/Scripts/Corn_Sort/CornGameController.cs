@@ -28,24 +28,24 @@ public class CornGameController : MonoBehaviour
         // Move circle cursor
         Camera cam = Camera.main;
         Vector3 mouse_pos = cam.ScreenToWorldPoint(Input.mousePosition);
-        mouse_pos.z = 0;
+        mouse_pos.z = corn_cursor.transform.position.z;
         corn_cursor.transform.position = mouse_pos;
 
         // Spawn things
-        for (float i = 0; i < (int)((Time.timeSinceLevelLoad - last_spawn) * fallers_per_second); i++)
+        for (float i = 0; i < (int)((Time.timeSinceLevelLoad - last_spawn) * fallers_per_second) + 1; ++i)
         {
             if (Random.Range(0f, 100f) <= bug_spawn_percent)
             {
                 // I don't want the bugs to spawn too close to the edge
                 float spawn_x = Random.Range(-screen_width_pos + 2f, screen_width_pos - 2f);
-                GameObject thing = Instantiate(bug_prefab, new Vector2(spawn_x, screen_top_pos), Quaternion.identity);
-                thing.transform.Rotate(0f, 0f, Random.Range(0f, 360f));
+                GameObject thing = Instantiate(bug_prefab, new Vector3(spawn_x, screen_top_pos + 8f, -2f), Quaternion.identity);
+                thing.transform.Rotate(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
             }
             else
             {
                 float spawn_x = Random.Range(-screen_width_pos, screen_width_pos);
-                GameObject thing = Instantiate(corn_prefab, new Vector2(spawn_x, screen_top_pos), Quaternion.identity);
-                thing.transform.Rotate(0f, 0f, Random.Range(0f, 360f));
+                GameObject thing = Instantiate(corn_prefab, new Vector3(spawn_x, screen_top_pos + 4f, 2f), Quaternion.identity);
+                thing.transform.Rotate(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
             }
         }
         last_spawn = Time.timeSinceLevelLoad;
