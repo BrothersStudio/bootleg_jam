@@ -39,7 +39,7 @@ public class CornGameController : MonoBehaviour
                 // I don't want the bugs to spawn too close to the edge
                 float spawn_x = Random.Range(-screen_width_pos + 2f, screen_width_pos - 2f);
                 GameObject thing = Instantiate(bug_prefab, new Vector3(spawn_x, screen_top_pos + 8f, -2f), Quaternion.identity);
-                thing.transform.Rotate(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
+                thing.transform.Rotate(Random.Range(0f, 360f), 90f, 0f);
             }
             else
             {
