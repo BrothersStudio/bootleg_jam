@@ -10,8 +10,8 @@ public class CornGameController : MonoBehaviour
     Vector3 spawn_vel;
     public float bug_spawn_percent;
 
-    public float fallers_per_second;
-    float last_spawn = 0f;
+    public float faller_cooldown = 0.1f;
+    float next_spawn = 0f;
 
     float screen_width_pos;
     float screen_top_pos;
@@ -24,6 +24,8 @@ public class CornGameController : MonoBehaviour
 
         spawn_loc = new Vector3(0f, 0f, 0f);
         spawn_vel = new Vector3(0f, 0f, 0f);
+
+        Physics.gravity = new Vector3(0, -4.0F, 0);
     }
 
     void Update()
@@ -35,8 +37,10 @@ public class CornGameController : MonoBehaviour
         corn_cursor.transform.position = mouse_pos;
 
         // Spawn things
-        for (float i = 0; i < (int)((Time.timeSinceLevelLoad - last_spawn) * fallers_per_second) + 1; ++i)
+        if (Time.timeSinceLevelLoad > next_spawn)
         {
+            next_spawn = Time.timeSinceLevelLoad + faller_cooldown;
+
             if (Random.Range(0f, 100f) <= bug_spawn_percent)
             {
                 GameObject bug = CornGamePool.current.GetPooledBug();
@@ -63,7 +67,6 @@ public class CornGameController : MonoBehaviour
                 corn.SetActive(true);
             }
         }
-        last_spawn = Time.timeSinceLevelLoad;
 
         // Scoop things
         if (Input.GetMouseButton(0))
