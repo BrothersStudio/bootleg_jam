@@ -47,6 +47,7 @@ public class CornGameController : MonoBehaviour
                 spawn_loc.z = -2f;
                 bug.transform.position = spawn_loc;
                 bug.GetComponent<Rigidbody>().velocity = spawn_vel;
+                bug.transform.Rotate(Random.Range(0f, 360f), 0f, 0f);
                 bug.SetActive(true);
             }
             else
