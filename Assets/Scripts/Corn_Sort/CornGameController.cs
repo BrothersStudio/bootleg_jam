@@ -5,9 +5,9 @@ using UnityEngine;
 public class CornGameController : MonoBehaviour
 {
     public GameObject corn_cursor;
-    public GameObject corn_prefab;
-    public GameObject bug_prefab;
 
+    Vector3 spawn_loc;
+    Vector3 spawn_vel;
     public float bug_spawn_percent;
 
     public float fallers_per_second;
@@ -21,6 +21,9 @@ public class CornGameController : MonoBehaviour
         Vector3 far_corner = Camera.main.ScreenToWorldPoint(new Vector3(0f, 0f));
         screen_width_pos = -far_corner.x;
         screen_top_pos = -far_corner.y;
+
+        spawn_loc = new Vector3(0f, 0f, 0f);
+        spawn_vel = new Vector3(0f, 0f, 0f);
     }
 
     void Update()
@@ -36,16 +39,27 @@ public class CornGameController : MonoBehaviour
         {
             if (Random.Range(0f, 100f) <= bug_spawn_percent)
             {
+                GameObject bug = CornGamePool.current.GetPooledBug();
+
                 // I don't want the bugs to spawn too close to the edge
-                float spawn_x = Random.Range(-screen_width_pos + 2f, screen_width_pos - 2f);
-                GameObject thing = Instantiate(bug_prefab, new Vector3(spawn_x, screen_top_pos + 8f, -2f), Quaternion.identity);
-                thing.transform.Rotate(Random.Range(0f, 360f), 90f, 0f);
+                spawn_loc.x = Random.Range(-screen_width_pos + 2f, screen_width_pos - 2f);
+                spawn_loc.y = screen_top_pos + 8f;
+                spawn_loc.z = -2f;
+                bug.transform.position = spawn_loc;
+                bug.GetComponent<Rigidbody>().velocity = spawn_vel;
+                bug.SetActive(true);
             }
             else
             {
-                float spawn_x = Random.Range(-screen_width_pos, screen_width_pos);
-                GameObject thing = Instantiate(corn_prefab, new Vector3(spawn_x, screen_top_pos + 4f, 2f), Quaternion.identity);
-                thing.transform.Rotate(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
+                GameObject corn = CornGamePool.current.GetPooledCorn();
+
+                spawn_loc.x = Random.Range(-screen_width_pos, screen_width_pos);
+                spawn_loc.y = screen_top_pos + 4f;
+                spawn_loc.z = 2f;
+                corn.transform.position = spawn_loc;
+                corn.GetComponent<Rigidbody>().velocity = spawn_vel;
+                corn.transform.Rotate(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
+                corn.SetActive(true);
             }
         }
         last_spawn = Time.timeSinceLevelLoad;

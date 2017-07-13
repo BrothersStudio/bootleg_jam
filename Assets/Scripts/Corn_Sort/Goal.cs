@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider collision)
+    string faller_tag = "Faller";
+
+    void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Faller")
-            Destroy(collision.gameObject);
+        if (collision.gameObject.CompareTag(faller_tag))
+            collision.gameObject.SetActive(false);
     }
 }

@@ -6,6 +6,8 @@ public class CornCursor : MonoBehaviour
 {
     bool scoop;
 
+    string faller_tag = "Faller";
+
     public bool Scoop
     {
         get
@@ -23,7 +25,8 @@ public class CornCursor : MonoBehaviour
     {
         if (scoop)
         {
-            Destroy(collision.gameObject);
+            if (collision.gameObject.CompareTag(faller_tag))
+                collision.gameObject.SetActive(false);
         }
     }
 }
