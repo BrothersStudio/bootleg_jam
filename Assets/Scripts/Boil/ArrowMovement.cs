@@ -17,14 +17,14 @@ public class ArrowMovement : MonoBehaviour
         {
             last_click = Time.timeSinceLevelLoad + click_cooldown;
 
-            GetComponent<Rigidbody2D>().AddForce(transform.up * arrow_speed);
+            GetComponent<Rigidbody>().AddForce(-transform.forward * arrow_speed);
         }
 
-        GetComponent<Rigidbody2D>().velocity = new Vector2(0f, Mathf.Clamp(GetComponent<Rigidbody2D>().velocity.y, -200f, 200f));
+        //GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, Mathf.Clamp(GetComponent<Rigidbody>().velocity.y, -200f, 200f));
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay(Collider collision)
     {
-        score++;
+        Debug.Log(score++);
     }
 }

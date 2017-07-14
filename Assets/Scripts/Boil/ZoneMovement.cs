@@ -12,8 +12,8 @@ public class ZoneMovement : MonoBehaviour
     float last_flip = 0f;
 
     Vector3 dest;
-    Vector3 top_pos = new Vector3(-13f, 188.81f, 0f);
-    Vector3 bot_pos = new Vector3(-13f, -172.03f, 0f);
+    Vector3 top_pos = new Vector3(4.5f, 4.15f, -1.03f);
+    Vector3 bot_pos = new Vector3(4.5f, -4.8f, -1.03f);
     Vector3 last_pos;
 
     void Start()
@@ -21,14 +21,14 @@ public class ZoneMovement : MonoBehaviour
         orig_zone_speed = zone_speed;
 
         dest = bot_pos;
-        last_pos = GetComponent<RectTransform>().localPosition;
+        last_pos = transform.position;
     }
 
     void Update()
     {
-        GetComponent<RectTransform>().localPosition = Vector3.MoveTowards(GetComponent<RectTransform>().localPosition, dest, Time.deltaTime * zone_speed);
+        transform.position = Vector3.MoveTowards(transform.position, dest, Time.deltaTime * zone_speed);
 
-        if (zoom_mode && GetComponent<RectTransform>().localPosition == dest)
+        if (zoom_mode && transform.position == dest)
         {
             zoom_mode = false;
             zone_speed = orig_zone_speed;
@@ -36,25 +36,25 @@ public class ZoneMovement : MonoBehaviour
             dest = bot_pos;
         }
 
-        if (GetComponent<RectTransform>().localPosition == last_pos)
+        if (transform.position == last_pos)
         {
             zoom_mode = true;
             zone_speed = zone_speed * 2;
 
-            dest = new Vector3(-13f, Random.Range(bot_pos.y, top_pos.y), 0f);
+            dest = new Vector3(4.5f, Random.Range(bot_pos.y, top_pos.y), -1.03f);
         }
 
 		if (Time.timeSinceLevelLoad > last_flip)
         {
             last_flip = Time.timeSinceLevelLoad + flip_cooldown + Random.Range(-1f, 1f);
 
-            zone_speed = zone_speed * Random.Range(0.7f, 1.5f);
+            zone_speed = zone_speed * Random.Range(0.7f, 1.2f);
 
             if (dest == top_pos)
                 dest = bot_pos;
             else if (dest == bot_pos)
                 dest = top_pos;
         }
-        last_pos = GetComponent<RectTransform>().localPosition;
+        last_pos = transform.position;
     }
 }
