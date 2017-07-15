@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject yeast;
+    public GameObject to_track;
 
     Vector3 offset;
 
 	void Start ()
     {
-        offset = transform.position - yeast.transform.position;
+        offset = transform.position - to_track.transform.position;
     }
 	
 	void LateUpdate ()
     {
-        transform.position = yeast.transform.position + offset;
+        transform.position = to_track.transform.position + offset;
     }
 }
