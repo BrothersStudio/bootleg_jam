@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerTownController : MonoBehaviour
 {
     public float player_speed = 1f;
+    public LayerMask person_mask;
     public LayerMask ground_mask;
     public Image dialogue_box;
 
@@ -28,23 +29,32 @@ public class PlayerTownController : MonoBehaviour
     void FixedUpdate()
     {
         // Player travel
+        transform.position = Vector3.MoveTowards(transform.position, dest, player_speed * Time.deltaTime);
+
         if (Input.GetMouseButton(1) && !speaking)
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, ground_mask))
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, person_mask))
+            {
+                return;
+            }
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 Debug.DrawLine(ray.origin, hit.point);
                 dest = hit.point;
                 dest.y = 0;
             }
         }
-        transform.position = Vector3.MoveTowards(transform.position, dest, player_speed * Time.deltaTime);
 
         // Player dialogue
         if (Input.GetMouseButton(0) && Time.timeSinceLevelLoad > next_talk)
         {
+            dest = transform.position;
             next_talk = Time.timeSinceLevelLoad + talk_cooldown;
+
             Talk();
         }
     }
