@@ -20,10 +20,9 @@ public class KettleController : MonoBehaviour
 	
 	void Update ()
     {
-        Debug.Log(IsGrounded());
         if (IsGrounded() && Input.GetMouseButton(0))
         {
-            GetComponent<Rigidbody>().AddForce(new Vector3(0f, jump_power));
+            GetComponent<Rigidbody>().AddForce(new Vector3(0f, jump_power), ForceMode.Impulse);
         }
     }
 
