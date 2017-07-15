@@ -6,7 +6,7 @@ public class YeastGameController : MonoBehaviour
 {
     public Transform yeast;
 
-    public int num_sugar = 10;
+    public int num_sugar = 100;
     public GameObject sugar_prefab;
 
     void Start()
@@ -14,11 +14,13 @@ public class YeastGameController : MonoBehaviour
         for (int ii = 0; ii < num_sugar; ii++)
         {
             float x_pos = Random.Range(yeast.position.x - 30f, yeast.position.x + 30f);
-            float y_pos = Random.Range(yeast.position.y - 30f, yeast.position.x + 30f);
+            float z_pos = Random.Range(yeast.position.z - 30f, yeast.position.z + 30f);
 
-            GameObject sugar = Instantiate(sugar_prefab, new Vector3(x_pos, y_pos, 0f), Quaternion.identity);
-            sugar.transform.Rotate(0f, 0f, Random.Range(0f, 360f));
-            sugar.GetComponent<Rigidbody2D>().velocity = Random.onUnitSphere * 1f;
+            GameObject sugar = Instantiate(sugar_prefab, new Vector3(x_pos, sugar_prefab.transform.position.y, z_pos), Quaternion.identity);
+            sugar.transform.Rotate(Random.Range(0f, 90f), Random.Range(0f, 90f), Random.Range(0f, 90f));
+            Vector3 sugar_velocity = Random.onUnitSphere * 1f;
+            sugar_velocity.y = 0f;
+            sugar.GetComponent<Rigidbody>().velocity = sugar_velocity;
         }
     }
 }
