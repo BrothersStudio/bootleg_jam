@@ -13,14 +13,24 @@ public class YeastGameController : MonoBehaviour
     {
         for (int ii = 0; ii < num_sugar; ii++)
         {
-            float x_pos = Random.Range(yeast.position.x - 30f, yeast.position.x + 30f);
-            float z_pos = Random.Range(yeast.position.z - 30f, yeast.position.z + 30f);
-
-            GameObject sugar = Instantiate(sugar_prefab, new Vector3(x_pos, sugar_prefab.transform.position.y, z_pos), Quaternion.identity);
+            GameObject sugar = Instantiate(sugar_prefab, GetRandVec3InCircle(5f, 40f), Quaternion.identity);
             sugar.transform.Rotate(Random.Range(0f, 90f), Random.Range(0f, 90f), Random.Range(0f, 90f));
             Vector3 sugar_velocity = Random.onUnitSphere * 1f;
             sugar_velocity.y = 0f;
             sugar.GetComponent<Rigidbody>().velocity = sugar_velocity;
         }
+    }
+
+    Vector3 GetRandVec3InCircle(float min_buffer, float radius)
+    {
+        float angle = Random.Range(0f, Mathf.PI * 2f);
+        float dist = Random.Range(min_buffer, radius);
+
+        Vector3 output = new Vector3();
+        output.x = Mathf.Cos(angle) * dist;
+        output.y = 0f;
+        output.z = Mathf.Sin(angle) * dist;
+        
+        return output;
     }
 }
