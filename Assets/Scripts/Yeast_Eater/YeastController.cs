@@ -8,7 +8,20 @@ public class YeastController : MonoBehaviour
 
     bool chomping = false;
     float next_chomp = 0f;
-    float chomp_cooldown = 1f;
+    float chomp_cooldown = 0.75f;
+
+    private void Update()
+    {
+        Camera cam = Camera.main;
+
+        Vector3 mouse_pos = cam.ScreenToWorldPoint(Input.mousePosition);
+        mouse_pos.y = 0;
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(mouse_pos.x - transform.position.x, 0f, mouse_pos.z - transform.position.z)) * yeast_speed);
+        }
+    }
 
     void FixedUpdate ()
     {
@@ -34,11 +47,6 @@ public class YeastController : MonoBehaviour
         {
             chomping = false;
             SetSphereColliders(false);
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(mouse_pos.x - transform.position.x, 0f, mouse_pos.z - transform.position.z)) * yeast_speed);
         }
 	}
 
