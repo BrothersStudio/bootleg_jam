@@ -14,7 +14,7 @@ public class PlayerTownController : MonoBehaviour
 
     bool speaking;
     float next_talk;
-    float talk_cooldown = 0.3f;
+    string slow_string;
     Camera cam;
     Vector3 dest;
 
@@ -30,6 +30,12 @@ public class PlayerTownController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Player dialogue
+        if (Input.GetMouseButton(0) && Time.timeSinceLevelLoad > next_talk)
+        {
+            Talk();
+        }
+
         // Player travel
         transform.position = Vector3.MoveTowards(transform.position, dest, player_speed * Time.deltaTime);
 
@@ -50,18 +56,6 @@ public class PlayerTownController : MonoBehaviour
                 dest.y = 0;
             }
         }
-
-        // Player dialogue
-        if (Input.GetMouseButton(0) && Time.timeSinceLevelLoad > next_talk)
-        {
-            Debug.Log(next_talk);
-            Debug.Log(Time.timeSinceLevelLoad);
-
-            dest = transform.position;
-            next_talk = Time.timeSinceLevelLoad + talk_cooldown;
-
-            Talk();
-        }
     }
 
     public void Talk()
@@ -69,41 +63,69 @@ public class PlayerTownController : MonoBehaviour
         PlayerDialogueController dialogue_controller = GetComponentInChildren<PlayerDialogueController>();
         if (dialogue_controller.in_talk_range)
         {
-            speaking = true;
             Dialogue next_dialogue = dialogue_controller.GetNextDialogue();
             if (next_dialogue != null)
             {
+                dest = transform.position;
+                speaking = true;
+
                 if (next_dialogue.isChoice)
                 {
-                    choice_box.GetComponentInChildren<Text>().text = next_dialogue.line;
+                    AnimateText(choice_box, next_dialogue.line);
                     choice_box.SetActive(true);
-                    dialogue_box.SetActive(true);
+                    next_talk = Time.timeSinceLevelLoad + talk_cooldown;
+
                     Button[] buttons = choice_box.GetComponentsInChildren<Button>();
+
                     buttons[0].onClick.RemoveAllListeners();
                     buttons[0].onClick.AddListener(() =>
                     {
-                        dialogue_box.GetComponentInChildren<Text>().text = next_dialogue.yes_line;
+                        AnimateText(dialogue_box, next_dialogue.yes_line);
                         choice_box.SetActive(false);
+                        dialogue_box.SetActive(true);
+                        next_talk = Time.timeSinceLevelLoad + talk_cooldown;
                     });
+
                     buttons[1].onClick.RemoveAllListeners();
                     buttons[1].onClick.AddListener(() =>
                     {
-                        dialogue_box.GetComponentInChildren<Text>().text = next_dialogue.no_line;
+                        AnimateText(dialogue_box, next_dialogue.no_line);
                         choice_box.SetActive(false);
+                        dialogue_box.SetActive(true);
+                        next_talk = Time.timeSinceLevelLoad + talk_cooldown;
                     });
                 }
                 else
                 {
-                    dialogue_box.GetComponentInChildren<Text>().text = next_dialogue.line;
+                    AnimateText(dialogue_box, next_dialogue.line);
                     dialogue_box.SetActive(true);
-                    choice_box.SetActive(false);
+                    next_talk = Time.timeSinceLevelLoad + talk_cooldown;
                 }
             }
             else
             {
                 speaking = false;
                 dialogue_box.SetActive(false);
+                next_talk = Time.timeSinceLevelLoad + talk_cooldown;
             }
+        }
+    }
+
+    void AnimateText(GameObject box, string str)
+    {
+        StopAllCoroutines();
+        StartCoroutine(AnimateTextRoutine(box, str));
+    }
+
+    IEnumerator AnimateTextRoutine(GameObject box, string strComplete)
+    {
+        slow_string = "";
+        int i = 0;
+        while (i < strComplete.Length)
+        {
+            slow_string += strComplete[i++];
+            box.GetComponentInChildren<Text>().text = slow_string;
+            yield return new WaitForSeconds(0.05F);
         }
     }
 }
