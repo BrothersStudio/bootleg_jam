@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueController : MonoBehaviour {
+public class PlayerDialogueController : MonoBehaviour {
 
     public bool in_talk_range = false;
 
-    public List<string> dialogue;
+    public List<Dialogue> dialogue;
 
     void OnTriggerEnter(Collider other)
     {
@@ -33,13 +33,13 @@ public class DialogueController : MonoBehaviour {
         }
     }
 
-    public string GetNextLine()
+    public Dialogue GetNextDialogue()
     {
         if (dialogue.Count > 0)
         {
-            string next_line = dialogue[0];
+            Dialogue next_dialogue = dialogue[0];
             dialogue.RemoveAt(0);
-            return next_line;
+            return next_dialogue;
         }
         else
         {

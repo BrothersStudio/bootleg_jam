@@ -8,7 +8,9 @@ public class PlayerTownController : MonoBehaviour
     public float player_speed = 1f;
     public LayerMask person_mask;
     public LayerMask ground_mask;
-    public Image dialogue_box;
+
+    public GameObject dialogue_box;
+    public GameObject choice_box;
 
     bool speaking;
     float next_talk;
@@ -52,6 +54,9 @@ public class PlayerTownController : MonoBehaviour
         // Player dialogue
         if (Input.GetMouseButton(0) && Time.timeSinceLevelLoad > next_talk)
         {
+            Debug.Log(next_talk);
+            Debug.Log(Time.timeSinceLevelLoad);
+
             dest = transform.position;
             next_talk = Time.timeSinceLevelLoad + talk_cooldown;
 
@@ -61,20 +66,43 @@ public class PlayerTownController : MonoBehaviour
 
     public void Talk()
     {
-        DialogueController dialogue_controller = GetComponentInChildren<DialogueController>();
+        PlayerDialogueController dialogue_controller = GetComponentInChildren<PlayerDialogueController>();
         if (dialogue_controller.in_talk_range)
         {
             speaking = true;
-            string line = dialogue_controller.GetNextLine();
-            if (line != null)
+            Dialogue next_dialogue = dialogue_controller.GetNextDialogue();
+            if (next_dialogue != null)
             {
-                dialogue_box.GetComponentInChildren<Text>().text = line;
-                dialogue_box.gameObject.SetActive(true);
+                if (next_dialogue.isChoice)
+                {
+                    choice_box.GetComponentInChildren<Text>().text = next_dialogue.line;
+                    choice_box.SetActive(true);
+                    dialogue_box.SetActive(true);
+                    Button[] buttons = choice_box.GetComponentsInChildren<Button>();
+                    buttons[0].onClick.RemoveAllListeners();
+                    buttons[0].onClick.AddListener(() =>
+                    {
+                        dialogue_box.GetComponentInChildren<Text>().text = next_dialogue.yes_line;
+                        choice_box.SetActive(false);
+                    });
+                    buttons[1].onClick.RemoveAllListeners();
+                    buttons[1].onClick.AddListener(() =>
+                    {
+                        dialogue_box.GetComponentInChildren<Text>().text = next_dialogue.no_line;
+                        choice_box.SetActive(false);
+                    });
+                }
+                else
+                {
+                    dialogue_box.GetComponentInChildren<Text>().text = next_dialogue.line;
+                    dialogue_box.SetActive(true);
+                    choice_box.SetActive(false);
+                }
             }
             else
             {
                 speaking = false;
-                dialogue_box.gameObject.SetActive(false);
+                dialogue_box.SetActive(false);
             }
         }
     }

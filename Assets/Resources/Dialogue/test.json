@@ -1,0 +1,10 @@
+{
+    "all_dialogue" : [{
+            "id": 1,
+            "line": "Would you like to buy an apple?",
+            "isChoice": 1,
+            "yes_line": "Here you go!",
+            "no_line": "Suit yourself."
+        }
+    ]
+}
