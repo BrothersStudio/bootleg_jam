@@ -9,12 +9,13 @@ public class PlayerTownController : MonoBehaviour
     public LayerMask person_mask;
     public LayerMask ground_mask;
 
+    string slow_string;
     public GameObject dialogue_box;
     public GameObject choice_box;
 
     bool speaking;
     float next_talk;
-    string slow_string;
+    float talk_cooldown = 0.5f;
     Camera cam;
     Vector3 dest;
 
