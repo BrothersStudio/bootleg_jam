@@ -6,9 +6,13 @@ public class YeastController : MonoBehaviour
 {
     public float yeast_speed;
 
-    bool chomping = false;
     float next_chomp = 0f;
     float chomp_cooldown = 0.75f;
+
+    private void Start()
+    {
+        GetComponent<Animation>().Play("Idle");
+    }
 
     private void Update()
     {
@@ -20,6 +24,11 @@ public class YeastController : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(mouse_pos.x - transform.position.x, 0f, mouse_pos.z - transform.position.z)) * yeast_speed);
+        }
+
+        if (!GetComponent<Animation>().isPlaying)
+        {
+            GetComponent<Animation>().Play("Idle");
         }
     }
 
@@ -37,7 +46,6 @@ public class YeastController : MonoBehaviour
         {
             next_chomp = Time.timeSinceLevelLoad + chomp_cooldown;
 
-            chomping = true;
             SetSphereColliders(true);
 
             GetComponent<Animation>().Play("Eating");
@@ -45,7 +53,6 @@ public class YeastController : MonoBehaviour
         }
         else if (Time.timeSinceLevelLoad > next_chomp)
         {
-            chomping = false;
             SetSphereColliders(false);
         }
 	}
