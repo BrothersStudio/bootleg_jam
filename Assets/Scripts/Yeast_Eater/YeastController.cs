@@ -5,6 +5,7 @@ using UnityEngine;
 public class YeastController : MonoBehaviour
 {
     public float yeast_speed;
+    public Camera yeast_cam;
 
     float next_chomp = 0f;
     float chomp_cooldown = 0.75f;
@@ -16,9 +17,7 @@ public class YeastController : MonoBehaviour
 
     private void Update()
     {
-        Camera cam = Camera.main;
-
-        Vector3 mouse_pos = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mouse_pos = yeast_cam.ScreenToWorldPoint(Input.mousePosition);
         mouse_pos.y = 0;
 
         if (Input.GetMouseButtonDown(1))
@@ -34,10 +33,8 @@ public class YeastController : MonoBehaviour
 
     void FixedUpdate ()
     {
-        Camera cam = Camera.main;
-
         // Rotate yeast to face mouse pointer lmao sorry about this math
-        Vector3 mouse_pos = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mouse_pos = yeast_cam.ScreenToWorldPoint(Input.mousePosition);
         mouse_pos.y = 0;
         transform.rotation = Quaternion.LookRotation(mouse_pos - transform.position, new Vector3(0, 1, 0));
         transform.Rotate(0, -90, 0);

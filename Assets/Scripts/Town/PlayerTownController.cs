@@ -12,19 +12,17 @@ public class PlayerTownController : MonoBehaviour
     string slow_string;
     public GameObject dialogue_box;
     public GameObject choice_box;
+    public Camera town_cam;
 
     bool speaking;
     float next_talk;
     float talk_cooldown = 0.5f;
-    Camera cam;
     Vector3 dest;
 
 	void Start ()
     {
         speaking = false;
         next_talk = 0f;
-
-        cam = Camera.main;
 
         dest = transform.position;
 	}
@@ -42,7 +40,7 @@ public class PlayerTownController : MonoBehaviour
 
         if (Input.GetMouseButton(1) && !speaking)
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            Ray ray = town_cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, person_mask))

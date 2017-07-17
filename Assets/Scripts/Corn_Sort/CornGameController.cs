@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CornGameController : MonoBehaviour
 {
     public GameObject corn_cursor;
+    public Camera corn_camera;
 
     Vector3 spawn_loc;
     Vector3 spawn_vel;
@@ -18,7 +20,7 @@ public class CornGameController : MonoBehaviour
 
     void Start()
     {
-        Vector3 far_corner = Camera.main.ScreenToWorldPoint(new Vector3(0f, 0f));
+        Vector3 far_corner = corn_camera.ScreenToWorldPoint(new Vector3(0f, 0f));
         screen_width_pos = -far_corner.x;
         screen_top_pos = -far_corner.y;
 
@@ -26,13 +28,17 @@ public class CornGameController : MonoBehaviour
         spawn_vel = new Vector3(0f, 0f, 0f);
 
         Physics.gravity = new Vector3(0, -4.0F, 0);
+
+        if (SceneManager.sceneCount > 1)
+        {
+            Invoke("EndScene", 3f);
+        }
     }
 
     void Update()
     {
         // Move circle cursor
-        Camera cam = Camera.main;
-        Vector3 mouse_pos = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mouse_pos = corn_camera.ScreenToWorldPoint(Input.mousePosition);
         mouse_pos.z = corn_cursor.transform.position.z;
         corn_cursor.transform.position = mouse_pos;
 
@@ -76,6 +82,19 @@ public class CornGameController : MonoBehaviour
         else
         {
             corn_cursor.GetComponent<CornCursor>().Scoop = false;
+        }
+    }
+
+    void EndScene()
+    {
+        GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
+        for (int i = 0; i < main_objects.Length; i++)
+        {
+            if (main_objects[i].name == "MainController")
+            {
+                main_objects[i].GetComponent<MainController>().corn_done = true;
+                main_objects[i].GetComponent<MainController>().RunNext();
+            }
         }
     }
 }

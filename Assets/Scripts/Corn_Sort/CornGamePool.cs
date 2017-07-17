@@ -25,7 +25,7 @@ public class CornGamePool : MonoBehaviour
         corn_pool = new List<GameObject>();
         for (int i = 0; i < num_corn; i++)
         {
-            GameObject obj = Instantiate(corn_prefab) as GameObject;
+            GameObject obj = Instantiate(corn_prefab, transform) as GameObject;
             obj.SetActive(false);
             corn_pool.Add(obj);
         }
@@ -33,7 +33,7 @@ public class CornGamePool : MonoBehaviour
         bug_pool = new List<GameObject>();
         for (int i = 0; i < num_bugs; i++)
         {
-            GameObject obj = Instantiate(bug_prefab) as GameObject;
+            GameObject obj = Instantiate(bug_prefab, transform) as GameObject;
             obj.SetActive(false);
             bug_pool.Add(obj);
         }
@@ -49,7 +49,7 @@ public class CornGamePool : MonoBehaviour
             }
         }
 
-        GameObject obj = Instantiate(corn_prefab) as GameObject;
+        GameObject obj = Instantiate(corn_prefab, transform) as GameObject;
         corn_pool.Add(obj);
         return obj;
     }
@@ -64,7 +64,7 @@ public class CornGamePool : MonoBehaviour
             }
         }
 
-        GameObject obj = Instantiate(bug_prefab) as GameObject;
+        GameObject obj = Instantiate(bug_prefab, transform) as GameObject;
         bug_pool.Add(obj);
         return obj;
     }
