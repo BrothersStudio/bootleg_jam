@@ -12,8 +12,8 @@ public class CornGamePool : MonoBehaviour
     public int num_corn;
     public int num_bugs;
 
-    public List<GameObject> corn_pool;
-    public List<GameObject> bug_pool;
+    List<GameObject> corn_pool;
+    List<GameObject> bug_pool;
 
     void Awake()
     {
