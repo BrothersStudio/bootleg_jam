@@ -9,7 +9,7 @@ public class SanitizationController : MonoBehaviour
 
     public GameObject kettle_prefab;
     public GameObject infection_prefab;
-    public Material[] infection_mats;
+    public Material[] color_mats;
 
     public LayerMask red_mask;
     public LayerMask green_mask;
@@ -17,11 +17,23 @@ public class SanitizationController : MonoBehaviour
 
     public int current_selection = -1;
 
+    public float spray_speed;
+    Vector3 spray_velocity;
     public float spray_cooldown;
     float next_spray = 0f;
 
     public float kettle_spawn_period;
     float next_kettle = 0f;
+
+    void Start()
+    {
+        float x_angle = sanitization_cam.transform.localRotation.eulerAngles.x;
+
+        spray_velocity = new Vector3(
+            0f, 
+            Mathf.Sin(-x_angle * Mathf.PI / 180f), 
+            Mathf.Cos(-x_angle * Mathf.PI / 180f)) * spray_speed;
+    }
 
     void Update()
     {
@@ -60,7 +72,8 @@ public class SanitizationController : MonoBehaviour
 
                 GameObject disinfectannt = DisinfectantPool.current.GetPooledDisinfectant();
                 disinfectannt.transform.position = sanitization_cam.ScreenToWorldPoint(Input.mousePosition);
-                disinfectannt.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 60f);
+                disinfectannt.GetComponent<Rigidbody>().velocity = spray_velocity;
+                disinfectannt.GetComponent<MeshRenderer>().material = color_mats[current_selection];
                 disinfectannt.SetActive(true);
 
                 switch (current_selection)
@@ -91,8 +104,8 @@ public class SanitizationController : MonoBehaviour
             GameObject infection = Instantiate(infection_prefab, kettle.transform);
             infection.transform.localPosition = new Vector3(Random.Range(-1f, 1f), 1.62f, Random.Range(-0.5f, 1.5f));
 
-            int infection_roll = Random.Range(0, infection_mats.Length);
-            infection.GetComponent<MeshRenderer>().material = infection_mats[infection_roll];
+            int infection_roll = Random.Range(0, color_mats.Length);
+            infection.GetComponent<MeshRenderer>().material = color_mats[infection_roll];
             switch (infection_roll)
             {
                 case 0:
