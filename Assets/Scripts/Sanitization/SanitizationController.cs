@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SanitizationController : MonoBehaviour
 {
     public Camera sanitization_cam;
+    public GameObject sanitization_spawn_loc;
 
     public GameObject kettle_prefab;
     public GameObject infection_prefab;
@@ -18,22 +19,11 @@ public class SanitizationController : MonoBehaviour
     public int current_selection = -1;
 
     public float spray_speed;
-    Vector3 spray_velocity;
     public float spray_cooldown;
     float next_spray = 0f;
 
     public float kettle_spawn_period;
     float next_kettle = 0f;
-
-    void Start()
-    {
-        float x_angle = sanitization_cam.transform.localRotation.eulerAngles.x;
-
-        spray_velocity = new Vector3(
-            0f, 
-            Mathf.Sin(-x_angle * Mathf.PI / 180f), 
-            Mathf.Cos(-x_angle * Mathf.PI / 180f)) * spray_speed;
-    }
 
     void Update()
     {
@@ -71,8 +61,11 @@ public class SanitizationController : MonoBehaviour
                 next_spray = Time.timeSinceLevelLoad + spray_cooldown;
 
                 GameObject disinfectannt = DisinfectantPool.current.GetPooledDisinfectant();
-                disinfectannt.transform.position = sanitization_cam.ScreenToWorldPoint(Input.mousePosition);
-                disinfectannt.GetComponent<Rigidbody>().velocity = spray_velocity;
+                disinfectannt.transform.position = sanitization_spawn_loc.transform.position;
+
+                Debug.Log(sanitization_spawn_loc.transform.forward * spray_speed);
+                disinfectannt.GetComponent<Rigidbody>().velocity = sanitization_spawn_loc.transform.forward * spray_speed;
+
                 disinfectannt.GetComponent<MeshRenderer>().material = color_mats[current_selection];
                 disinfectannt.SetActive(true);
 
