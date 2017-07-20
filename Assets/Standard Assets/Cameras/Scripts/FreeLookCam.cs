@@ -18,6 +18,9 @@ namespace UnityStandardAssets.Cameras
         [SerializeField] private float m_TurnSmoothing = 0.0f;                // How much smoothing to apply to the turn input, to reduce mouse-turn jerkiness
         [SerializeField] private float m_TiltMax = 75f;                       // The maximum value of the x axis rotation of the pivot.
         [SerializeField] private float m_TiltMin = 45f;                       // The minimum value of the x axis rotation of the pivot.
+
+        [SerializeField] private float m_RotateMax = 45f;                       // The minimum value of the y axis rotation of the pivot.
+
         [SerializeField] private bool m_LockCursor = false;                   // Whether the cursor should be hidden and locked.
         [SerializeField] private bool m_VerticalAutoReturn = false;           // set wether or not the vertical axis should auto return
 
@@ -78,6 +81,7 @@ namespace UnityStandardAssets.Cameras
 
             // Adjust the look angle by an amount proportional to the turn speed and horizontal input.
             m_LookAngle += x*m_TurnSpeed;
+            m_LookAngle = Mathf.Clamp(m_LookAngle, -m_RotateMax, m_RotateMax);
 
             // Rotate the rig (the root object) around Y axis only:
             m_TransformTargetRot = Quaternion.Euler(0f, m_LookAngle, 0f);
