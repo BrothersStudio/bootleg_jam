@@ -7,6 +7,7 @@ public class SanitizationController : MonoBehaviour
 {
     public Camera sanitization_cam;
     public GameObject sanitization_spawn_loc;
+    public GameObject reticle;
 
     public GameObject kettle_prefab;
     public GameObject infection_prefab;
@@ -25,6 +26,16 @@ public class SanitizationController : MonoBehaviour
     public float kettle_spawn_period;
     float next_kettle = 0f;
 
+    void Start()
+    {
+        Cursor.visible = false;
+
+        if (SceneManager.sceneCount > 1)
+        {
+            //Invoke("EndScene", 10f);
+        }
+    }
+
     void Update()
     {
         HandleDisinfectant();
@@ -37,7 +48,7 @@ public class SanitizationController : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             // Select color
-            Ray ray = sanitization_cam.ScreenPointToRay(Input.mousePosition);
+            Ray ray = sanitization_cam.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, red_mask))
@@ -63,7 +74,6 @@ public class SanitizationController : MonoBehaviour
                 GameObject disinfectannt = DisinfectantPool.current.GetPooledDisinfectant();
                 disinfectannt.transform.position = sanitization_spawn_loc.transform.position;
 
-                Debug.Log(sanitization_spawn_loc.transform.forward * spray_speed);
                 disinfectannt.GetComponent<Rigidbody>().velocity = sanitization_spawn_loc.transform.forward * spray_speed;
 
                 disinfectannt.GetComponent<MeshRenderer>().material = color_mats[current_selection];
@@ -116,6 +126,8 @@ public class SanitizationController : MonoBehaviour
 
     void EndScene()
     {
+        Cursor.visible = true;
+
         GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
         for (int i = 0; i < main_objects.Length; i++)
         {
