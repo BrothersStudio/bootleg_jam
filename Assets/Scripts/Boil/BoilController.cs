@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class BoilController : GameControllers
 {
+    int game_score = 0;
+
 	new void Start ()
     {
         Cursor.visible = false;
@@ -32,6 +34,7 @@ public class BoilController : GameControllers
         {
             if (main_objects[i].name == "MainController")
             {
+                main_objects[i].GetComponent<MainController>().score += game_score;
                 main_objects[i].GetComponent<MainController>().boil_done = true;
                 main_objects[i].GetComponent<MainController>().RunNext();
             }

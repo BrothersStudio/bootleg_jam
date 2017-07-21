@@ -17,6 +17,7 @@ public class YeastController : MonoBehaviour
 
     private void Update()
     {
+
         Vector3 mouse_pos = yeast_cam.ScreenToWorldPoint(Input.mousePosition);
         mouse_pos.y = 0;
 
@@ -52,7 +53,9 @@ public class YeastController : MonoBehaviour
         {
             SetSphereColliders(false);
         }
-	}
+
+        GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody>().velocity, yeast_speed * 3);
+    }
 
     void SetSphereColliders(bool setter)
     {

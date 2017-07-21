@@ -11,6 +11,8 @@ public class MainController : MonoBehaviour
     public bool boil_done = false;
     public bool condenser_done = false;
 
+    public int score = 0;
+
     private void Start()
     {
         RunNext();

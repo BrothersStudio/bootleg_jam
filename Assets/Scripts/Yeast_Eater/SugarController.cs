@@ -3,9 +3,18 @@ using UnityEngine;
 
 public class SugarController : MonoBehaviour
 {
+    YeastGameController controller;
+
+    void Start()
+    {
+        controller = GameObject.Find("YeastGameController").GetComponent<YeastGameController>();
+    }
+
     public void Shrink()
     {
         GetComponent<BoxCollider>().enabled = false;
+        controller.game_score += 1;
+
         StartCoroutine(ShrinkCoroutine());
     }
 

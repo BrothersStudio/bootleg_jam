@@ -10,10 +10,10 @@ public class YeastGameController : GameControllers
     public int num_sugar = 100;
     public GameObject sugar_prefab;
 
+    public int game_score;
+
     new void Start()
     {
-        Cursor.visible = false;
-
         for (int ii = 0; ii < num_sugar; ii++)
         {
             GameObject sugar = Instantiate(sugar_prefab, GetRandVec3InCircle(5f, 40f), Quaternion.identity, transform);
@@ -51,13 +51,14 @@ public class YeastGameController : GameControllers
 
     new void EndScene()
     {
-        Cursor.visible = true;
+        game_score = Mathf.Clamp((int)(game_score * 5f * (100f / (float)num_sugar)), 0, 100);
 
         GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
         for (int i = 0; i < main_objects.Length; i++)
         {
             if (main_objects[i].name == "MainController")
             {
+                main_objects[i].GetComponent<MainController>().score += game_score;
                 main_objects[i].GetComponent<MainController>().yeast_done = true;
                 main_objects[i].GetComponent<MainController>().RunNext();
             }

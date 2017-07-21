@@ -26,6 +26,8 @@ public class SanitizationController : GameControllers
     public float kettle_spawn_period;
     float next_kettle = 0f;
 
+    int game_score = 0;
+
     new void Start()
     {
         Cursor.visible = false;
@@ -137,6 +139,7 @@ public class SanitizationController : GameControllers
         {
             if (main_objects[i].name == "MainController")
             {
+                main_objects[i].GetComponent<MainController>().score += game_score;
                 main_objects[i].GetComponent<MainController>().sanitization_done = true;
                 main_objects[i].GetComponent<MainController>().RunNext();
             }

@@ -18,6 +18,8 @@ public class CornGameController : GameControllers
     float screen_width_pos;
     float screen_top_pos;
 
+    int game_score = 0;
+
     new void Start()
     {
         Vector3 far_corner = corn_camera.ScreenToWorldPoint(new Vector3(0f, 0f));
@@ -96,6 +98,7 @@ public class CornGameController : GameControllers
         {
             if (main_objects[i].name == "MainController")
             {
+                main_objects[i].GetComponent<MainController>().score += game_score;
                 main_objects[i].GetComponent<MainController>().corn_done = true;
                 main_objects[i].GetComponent<MainController>().RunNext();
             }
