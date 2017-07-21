@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SanitizationController : MonoBehaviour
+public class SanitizationController : GameControllers
 {
     public Camera sanitization_cam;
     public GameObject sanitization_spawn_loc;
@@ -26,18 +26,22 @@ public class SanitizationController : MonoBehaviour
     public float kettle_spawn_period;
     float next_kettle = 0f;
 
-    void Start()
+    new void Start()
     {
         Cursor.visible = false;
 
         if (SceneManager.sceneCount > 1)
         {
-            //Invoke("EndScene", 10f);
+            Invoke("EndScene", 20f);
         }
+
+        base.Start();
     }
 
     void Update()
     {
+        HandleTime(-(Time.timeSinceLevelLoad - 20f));
+
         HandleDisinfectant();
 
         SpawnKettles();
@@ -124,7 +128,7 @@ public class SanitizationController : MonoBehaviour
         }
     }
 
-    void EndScene()
+    new void EndScene()
     {
         Cursor.visible = true;
 
@@ -137,5 +141,7 @@ public class SanitizationController : MonoBehaviour
                 main_objects[i].GetComponent<MainController>().RunNext();
             }
         }
+
+        base.EndScene();
     }
 }

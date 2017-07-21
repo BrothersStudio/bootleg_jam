@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class YeastGameController : MonoBehaviour
+public class YeastGameController : GameControllers
 {
     public Transform yeast;
 
     public int num_sugar = 100;
     public GameObject sugar_prefab;
 
-    void Start()
+    new void Start()
     {
+        Cursor.visible = false;
+
         for (int ii = 0; ii < num_sugar; ii++)
         {
             GameObject sugar = Instantiate(sugar_prefab, GetRandVec3InCircle(5f, 40f), Quaternion.identity, transform);
@@ -23,8 +25,15 @@ public class YeastGameController : MonoBehaviour
 
         if (SceneManager.sceneCount > 1)
         {
-            Invoke("EndScene", 3f);
+            Invoke("EndScene", 20f);
         }
+
+        base.Start();
+    }
+
+    void Update()
+    {
+        HandleTime(-(Time.timeSinceLevelLoad - 50f));
     }
 
     Vector3 GetRandVec3InCircle(float min_buffer, float radius)
@@ -40,8 +49,10 @@ public class YeastGameController : MonoBehaviour
         return output;
     }
 
-    void EndScene()
+    new void EndScene()
     {
+        Cursor.visible = true;
+
         GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
         for (int i = 0; i < main_objects.Length; i++)
         {
@@ -51,5 +62,7 @@ public class YeastGameController : MonoBehaviour
                 main_objects[i].GetComponent<MainController>().RunNext();
             }
         }
+
+        base.EndScene();
     }
 }

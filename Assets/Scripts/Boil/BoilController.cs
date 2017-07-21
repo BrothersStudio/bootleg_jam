@@ -3,18 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class BoilController : MonoBehaviour
+public class BoilController : GameControllers
 {
-	void Start ()
+	new void Start ()
     {
+        Cursor.visible = false;
+
         if (SceneManager.sceneCount > 1)
         {
-            Invoke("EndScene", 3f);
+            Invoke("EndScene", 10f);
         }
+
+        base.Start();
     }
 
-    void EndScene()
+    void Update()
     {
+        Debug.Log(Time.timeSinceLevelLoad);
+        HandleTime(-(Time.timeSinceLevelLoad - 60f));
+    }
+
+    new void EndScene()
+    {
+        Cursor.visible = true;
+
         GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
         for (int i = 0; i < main_objects.Length; i++)
         {
@@ -24,5 +36,7 @@ public class BoilController : MonoBehaviour
                 main_objects[i].GetComponent<MainController>().RunNext();
             }
         }
+
+        base.EndScene();
     }
 }

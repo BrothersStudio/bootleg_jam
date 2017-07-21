@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CornGameController : MonoBehaviour
+public class CornGameController : GameControllers
 {
     public GameObject corn_cursor;
     public Camera corn_camera;
@@ -18,7 +18,7 @@ public class CornGameController : MonoBehaviour
     float screen_width_pos;
     float screen_top_pos;
 
-    void Start()
+    new void Start()
     {
         Vector3 far_corner = corn_camera.ScreenToWorldPoint(new Vector3(0f, 0f));
         screen_width_pos = -far_corner.x;
@@ -31,12 +31,16 @@ public class CornGameController : MonoBehaviour
 
         if (SceneManager.sceneCount > 1)
         {
-            Invoke("EndScene", 3f);
+            Invoke("EndScene", 10f);
         }
+
+        base.Start();
     }
 
     void Update()
     {
+        HandleTime(-(Time.timeSinceLevelLoad - 30f));
+
         // Move circle cursor
         Vector3 mouse_pos = corn_camera.ScreenToWorldPoint(Input.mousePosition);
         mouse_pos.z = corn_cursor.transform.position.z;
@@ -85,7 +89,7 @@ public class CornGameController : MonoBehaviour
         }
     }
 
-    void EndScene()
+    new void EndScene()
     {
         GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
         for (int i = 0; i < main_objects.Length; i++)
@@ -96,5 +100,7 @@ public class CornGameController : MonoBehaviour
                 main_objects[i].GetComponent<MainController>().RunNext();
             }
         }
+
+        base.EndScene();
     }
 }
