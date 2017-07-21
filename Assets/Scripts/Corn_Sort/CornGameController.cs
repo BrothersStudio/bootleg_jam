@@ -18,7 +18,8 @@ public class CornGameController : GameControllers
     float screen_width_pos;
     float screen_top_pos;
 
-    int game_score = 0;
+    int total_bugs = 0;
+    public int game_score = 0;
 
     new void Start()
     {
@@ -55,6 +56,7 @@ public class CornGameController : GameControllers
 
             if (Random.Range(0f, 100f) <= bug_spawn_percent)
             {
+                total_bugs++;
                 GameObject bug = CornGamePool.current.GetPooledBug();
 
                 // I don't want the bugs to spawn too close to the edge
@@ -93,6 +95,10 @@ public class CornGameController : GameControllers
 
     new void EndScene()
     {
+        game_score = Mathf.Clamp((int)((total_bugs - game_score) / (float)total_bugs * 100f), 0, 100);
+        Debug.Log("Corn Game Score:");
+        Debug.Log(game_score);
+
         GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
         for (int i = 0; i < main_objects.Length; i++)
         {

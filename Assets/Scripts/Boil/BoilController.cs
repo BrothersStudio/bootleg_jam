@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class BoilController : GameControllers
 {
-    int game_score = 0;
+    public int potential_score = 0;
+    public int game_score = 0;
 
 	new void Start ()
     {
@@ -21,13 +22,18 @@ public class BoilController : GameControllers
 
     void Update()
     {
-        Debug.Log(Time.timeSinceLevelLoad);
+        potential_score++;
+
         HandleTime(-(Time.timeSinceLevelLoad - 60f));
     }
 
     new void EndScene()
     {
         Cursor.visible = true;
+        Debug.Log("Corn Game Score:");
+        game_score = Mathf.Clamp((int)((float)game_score / (float)potential_score * 100f * 3.5f), 0, 100);
+        
+        Debug.Log(game_score);
 
         GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
         for (int i = 0; i < main_objects.Length; i++)

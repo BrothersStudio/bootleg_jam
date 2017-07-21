@@ -51,7 +51,9 @@ public class YeastGameController : GameControllers
 
     new void EndScene()
     {
-        game_score = Mathf.Clamp((int)(game_score * 5f * (100f / (float)num_sugar)), 0, 100);
+        game_score = Mathf.Clamp((int)(game_score * 4f * (100f / (float)num_sugar)), 0, 100);
+        Debug.Log("Yeast Game Score:");
+        Debug.Log(game_score);
 
         GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
         for (int i = 0; i < main_objects.Length; i++)

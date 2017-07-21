@@ -13,7 +13,7 @@ public class SugarController : MonoBehaviour
     public void Shrink()
     {
         GetComponent<BoxCollider>().enabled = false;
-        controller.game_score += 1;
+        controller.game_score++;
 
         StartCoroutine(ShrinkCoroutine());
     }

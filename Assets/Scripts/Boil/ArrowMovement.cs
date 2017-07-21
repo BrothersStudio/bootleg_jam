@@ -9,9 +9,14 @@ public class ArrowMovement : MonoBehaviour
     float click_cooldown = 0.2f;
     float last_click = 0f;
 
-    int score = 0;
+    BoilController controller;
 
-	void Update ()
+    void Start()
+    {
+        controller = GameObject.Find("BoilController").GetComponent<BoilController>();
+    }
+
+    void Update ()
     {
         if (Input.GetMouseButton(0) && Time.timeSinceLevelLoad > last_click)
         {
@@ -19,12 +24,10 @@ public class ArrowMovement : MonoBehaviour
 
             GetComponent<Rigidbody>().AddForce(-transform.forward * arrow_speed);
         }
-
-        //GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, Mathf.Clamp(GetComponent<Rigidbody>().velocity.y, -200f, 200f));
     }
 
     private void OnTriggerStay(Collider collision)
     {
-        score++;
+        controller.game_score++;
     }
 }

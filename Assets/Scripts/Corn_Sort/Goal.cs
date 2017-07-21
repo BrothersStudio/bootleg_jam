@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    string faller_tag = "Faller";
+    CornGameController controller;
+
+    private void Start()
+    {
+        controller = GameObject.Find("CornGameController").GetComponent<CornGameController>();
+    }
 
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag(faller_tag))
+        if (collision.gameObject.name != "Cursor")
+            if (collision.tag == "Bug")
+                controller.game_score--;
             collision.gameObject.SetActive(false);
     }
 }

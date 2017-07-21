@@ -9,7 +9,6 @@ public class MainController : MonoBehaviour
     public bool corn_done = false;
     public bool yeast_done = false;
     public bool boil_done = false;
-    public bool condenser_done = false;
 
     public int score = 0;
 
@@ -39,23 +38,15 @@ public class MainController : MonoBehaviour
             SceneManager.LoadScene("Boil", LoadSceneMode.Additive);
             SceneManager.UnloadSceneAsync("Yeast_Eater");
         }
-        else if (!condenser_done)
-        {
-            //SceneManager.LoadScene("Condenser_Maze", LoadSceneMode.Additive);
-            SceneManager.UnloadSceneAsync("Boil");
-            condenser_done = true;
-            RunNext();
-        }
         else
         {
             SceneManager.LoadScene("Town", LoadSceneMode.Additive);
-            //SceneManager.UnloadSceneAsync("Condenser_Maze");
+            SceneManager.UnloadSceneAsync("Boil");
 
             sanitization_done = false;
             corn_done = false;
             yeast_done = false;
             boil_done = false;
-            condenser_done = false;
         }
     }
 }
