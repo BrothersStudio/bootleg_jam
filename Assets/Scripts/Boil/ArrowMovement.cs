@@ -25,6 +25,6 @@ public class ArrowMovement : MonoBehaviour
 
     private void OnTriggerStay(Collider collision)
     {
-        Debug.Log(score++);
+        score++;
     }
 }
