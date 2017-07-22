@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 public class YeastGameController : GameControllers
 {
     public Transform yeast;
+    public GameObject bad_yeast_prefab;
 
     public int num_sugar = 100;
     public GameObject sugar_prefab;
 
     public int game_score;
+    public int difficulty;
 
     new void Start()
     {
@@ -29,6 +31,26 @@ public class YeastGameController : GameControllers
         }
 
         base.Start();
+
+        if (main_controller != null)
+        {
+            difficulty = main_controller.current_difficulty;
+        }
+
+        SetDifficulty();
+    }
+
+    void SetDifficulty()
+    {
+        if (difficulty > 6)
+        {
+            Instantiate(bad_yeast_prefab, GetRandVec3InCircle(5f, 40f), Quaternion.identity, transform);
+            Instantiate(bad_yeast_prefab, GetRandVec3InCircle(5f, 40f), Quaternion.identity, transform);
+        }
+        else if (difficulty > 3)
+        {
+            Instantiate(bad_yeast_prefab, GetRandVec3InCircle(5f, 40f), Quaternion.identity, transform);
+        }
     }
 
     void Update()

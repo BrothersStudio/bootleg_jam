@@ -10,12 +10,12 @@ public class YeastController : MonoBehaviour
     float next_chomp = 0f;
     float chomp_cooldown = 0.75f;
 
-    private void Start()
+    void Start()
     {
         GetComponent<Animation>().Play("Idle");
     }
 
-    private void Update()
+    void Update()
     {
 
         Vector3 mouse_pos = yeast_cam.ScreenToWorldPoint(Input.mousePosition);
