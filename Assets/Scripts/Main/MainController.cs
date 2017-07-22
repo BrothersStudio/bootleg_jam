@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MainController : MonoBehaviour
 {
+    public int current_difficulty = 1;
+
     [HideInInspector]
     public float main_time = 0f;
 
@@ -17,7 +19,6 @@ public class MainController : MonoBehaviour
     public GameObject canvas;
     public GameObject event_system;
     public UIController uicontroller;
-
 
     void ResetFields()
     {
@@ -83,16 +84,16 @@ public class MainController : MonoBehaviour
             event_system.SetActive(false);
             canvas.SetActive(false);
             SceneManager.LoadScene("Town", LoadSceneMode.Additive);
+
             ResetFields();
+            current_difficulty++;
         }
     }
 
-    private void Update()
+    void Update()
     {
         main_time += Time.deltaTime;
     }
-
-
 }
 
 public enum Upgrade

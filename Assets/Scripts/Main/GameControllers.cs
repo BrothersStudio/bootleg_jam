@@ -11,13 +11,16 @@ public class GameControllers : MonoBehaviour
 
     protected void Start()
     {
-        GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
-        for (int i = 0; i < main_objects.Length; i++)
+        if (SceneManager.sceneCount > 1)
         {
-            if (main_objects[i].name == "MainController")
+            GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
+            for (int i = 0; i < main_objects.Length; i++)
             {
-                main_controller = main_objects[i].GetComponent<MainController>();
-                break;
+                if (main_objects[i].name == "MainController")
+                {
+                    main_controller = main_objects[i].GetComponent<MainController>();
+                    break;
+                }
             }
         }
 

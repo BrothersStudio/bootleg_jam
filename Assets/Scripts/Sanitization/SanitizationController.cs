@@ -17,17 +17,20 @@ public class SanitizationController : GameControllers
     public LayerMask green_mask;
     public LayerMask blue_mask;
 
-    public int current_selection = -1;
+    int current_selection = -1;
 
     public float spray_speed;
     public float spray_cooldown;
     float next_spray = 0f;
 
+    int low_infections_per_kettle;
+    int high_infections_per_kettle;
     public float kettle_spawn_period;
     float next_kettle = 0f;
 
     int total_kettles = 0;
     public int game_score = 0;
+    public int difficulty = 1;
 
     new void Start()
     {
@@ -39,6 +42,66 @@ public class SanitizationController : GameControllers
         }
 
         base.Start();
+
+        if (main_controller != null)
+        {
+            difficulty = main_controller.current_difficulty;
+        }
+
+        SetDifficulty();
+    }
+
+    void SetDifficulty()
+    {
+        if (difficulty == 10)
+        {
+            low_infections_per_kettle = 3;
+            high_infections_per_kettle = 4;
+
+            kettle_spawn_period = 2f;
+        }
+        if (difficulty > 8)
+        {
+            low_infections_per_kettle = 2;
+            high_infections_per_kettle = 4;
+
+            kettle_spawn_period = 2.5f;
+        }
+        else if (difficulty > 6)
+        {
+            low_infections_per_kettle = 2;
+            high_infections_per_kettle = 3;
+
+            kettle_spawn_period = 2.5f;
+        }
+        else if (difficulty > 4)
+        {
+            low_infections_per_kettle = 2;
+            high_infections_per_kettle = 2;
+
+            kettle_spawn_period = 2.5f;
+        }
+        else if (difficulty > 2)
+        {
+            low_infections_per_kettle = 1;
+            high_infections_per_kettle = 2;
+
+            kettle_spawn_period = 2.5f;
+        }
+        else if (difficulty > 1)
+        {
+            low_infections_per_kettle = 1;
+            high_infections_per_kettle = 2;
+
+            kettle_spawn_period = 3f;
+        }
+        else if (difficulty == 1)
+        {
+            low_infections_per_kettle = 1;
+            high_infections_per_kettle = 1;
+
+            kettle_spawn_period = 3f;
+        }
     }
 
     void Update()
@@ -119,25 +182,28 @@ public class SanitizationController : GameControllers
 
             GameObject kettle = Instantiate(kettle_prefab, new Vector3(-29f, 0f, -2.2f), Quaternion.identity, transform);
             kettle.transform.Rotate(new Vector3(-90f, 0f, 0f));
-            kettle.GetComponent<KettleController>().kettle_speed = 15f;
 
-            GameObject infection = Instantiate(infection_prefab, kettle.transform);
-            infection.name = "Infection";
-            infection.transform.localPosition = new Vector3(Random.Range(-1f, 1f), 1.62f, Random.Range(-0.5f, 1.5f));
-
-            int infection_roll = Random.Range(0, color_mats.Length);
-            infection.GetComponent<MeshRenderer>().material = color_mats[infection_roll];
-            switch (infection_roll)
+            int infection_num = Random.Range(low_infections_per_kettle, high_infections_per_kettle + 1);
+            for (int i = 0; i < infection_num; i++)
             {
-                case 0:
-                    infection.tag = "Red";
-                    break;
-                case 1:
-                    infection.tag = "Green";
-                    break;
-                case 2:
-                    infection.tag = "Blue";
-                    break;
+                GameObject infection = Instantiate(infection_prefab, kettle.transform);
+                infection.name = "Infection";
+                infection.transform.localPosition = new Vector3(Random.Range(-1f, 1f), 1.62f, Random.Range(-0.5f, 1.5f));
+
+                int infection_roll = Random.Range(0, color_mats.Length);
+                infection.GetComponent<MeshRenderer>().material = color_mats[infection_roll];
+                switch (infection_roll)
+                {
+                    case 0:
+                        infection.tag = "Red";
+                        break;
+                    case 1:
+                        infection.tag = "Green";
+                        break;
+                    case 2:
+                        infection.tag = "Blue";
+                        break;
+                }
             }
         }
     }
