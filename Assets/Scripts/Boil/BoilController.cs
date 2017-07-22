@@ -22,29 +22,23 @@ public class BoilController : GameControllers
 
     void Update()
     {
-        potential_score++;
+        if (main_controller != null)
+        {
+            HandleTime(-(main_controller.main_time - 10f));
+        }
 
-        HandleTime(-(Time.timeSinceLevelLoad - 60f));
+        potential_score++;
     }
 
     new void EndScene()
     {
         Cursor.visible = true;
+        game_score = Mathf.Clamp((int)((float)game_score / (float)potential_score * 100f * 7f) + 1, 0, 100);
         Debug.Log("Boil Game Score:");
-        game_score = Mathf.Clamp((int)((float)game_score / (float)potential_score * 100f * 7f), 0, 100);
-        
         Debug.Log(game_score);
 
-        GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
-        for (int i = 0; i < main_objects.Length; i++)
-        {
-            if (main_objects[i].name == "MainController")
-            {
-                main_objects[i].GetComponent<MainController>().boil_score = game_score;
-                main_objects[i].GetComponent<MainController>().boil_done = true;
-                main_objects[i].GetComponent<MainController>().RunNext();
-            }
-        }
+        main_controller.boil_score = game_score;
+        main_controller.boil_done = true;
 
         base.EndScene();
     }

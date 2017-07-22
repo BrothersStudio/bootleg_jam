@@ -33,7 +33,10 @@ public class YeastGameController : GameControllers
 
     void Update()
     {
-        HandleTime(-(Time.timeSinceLevelLoad - 50f));
+        if (main_controller != null)
+        {
+            HandleTime(-(main_controller.main_time - 20f));
+        }
     }
 
     Vector3 GetRandVec3InCircle(float min_buffer, float radius)
@@ -51,20 +54,12 @@ public class YeastGameController : GameControllers
 
     new void EndScene()
     {
-        game_score = Mathf.Clamp((int)(game_score * 4f * (100f / (float)num_sugar)), 0, 100);
+        game_score = Mathf.Clamp((int)(game_score * 4f * (100f / (float)num_sugar)) + 1, 0, 100);
         Debug.Log("Yeast Game Score:");
         Debug.Log(game_score);
 
-        GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
-        for (int i = 0; i < main_objects.Length; i++)
-        {
-            if (main_objects[i].name == "MainController")
-            {
-                main_objects[i].GetComponent<MainController>().yeast_score = game_score;
-                main_objects[i].GetComponent<MainController>().yeast_done = true;
-                main_objects[i].GetComponent<MainController>().RunNext();
-            }
-        }
+        main_controller.yeast_score = game_score;
+        main_controller.yeast_done = true;
 
         base.EndScene();
     }

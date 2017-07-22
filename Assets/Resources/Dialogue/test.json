@@ -1,5 +1,13 @@
 {
-    "all_dialogue" : [{
+    "all_dialogue" : [
+        {
+            "id": 0,
+            "line": "Return to the farm?",
+            "isChoice": 1,
+            "yes_line": "",
+            "no_line": ""
+        },
+        {
             "id": 1,
             "line": "Would you like to buy an apple?",
             "isChoice": 1,

@@ -43,7 +43,10 @@ public class SanitizationController : GameControllers
 
     void Update()
     {
-        HandleTime(-(Time.timeSinceLevelLoad - 20f));
+        if (main_controller != null)
+        {
+            HandleTime(-(main_controller.main_time - 20f));
+        }
 
         HandleDisinfectant();
 
@@ -142,20 +145,12 @@ public class SanitizationController : GameControllers
     new void EndScene()
     {
         Cursor.visible = true;
-        game_score = Mathf.Clamp((int)(100 - (1 + game_score) * 10f), 0, 100);
+        game_score = Mathf.Clamp((int)(100 - (game_score) * 10f) + 1, 0, 100);
         Debug.Log("Sanitization Game Score:");
         Debug.Log(game_score);
 
-        GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
-        for (int i = 0; i < main_objects.Length; i++)
-        {
-            if (main_objects[i].name == "MainController")
-            {
-                main_objects[i].GetComponent<MainController>().sanitization_score = game_score;
-                main_objects[i].GetComponent<MainController>().sanitization_done = true;
-                main_objects[i].GetComponent<MainController>().RunNext();
-            }
-        }
+        main_controller.sanitization_score = game_score;
+        main_controller.sanitization_done = true;
 
         base.EndScene();
     }

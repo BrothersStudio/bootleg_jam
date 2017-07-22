@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerTownController : MonoBehaviour
@@ -60,7 +61,7 @@ public class PlayerTownController : MonoBehaviour
     public void Talk()
     {
         PlayerDialogueController dialogue_controller = GetComponentInChildren<PlayerDialogueController>();
-        if (dialogue_controller.in_talk_range)
+        if (dialogue_controller.in_talk_range || dialogue_controller.in_exit_zone)
         {
             Dialogue next_dialogue = dialogue_controller.GetNextDialogue();
             if (next_dialogue != null)
@@ -79,10 +80,17 @@ public class PlayerTownController : MonoBehaviour
                     buttons[0].onClick.RemoveAllListeners();
                     buttons[0].onClick.AddListener(() =>
                     {
-                        AnimateText(dialogue_box, next_dialogue.yes_line);
-                        choice_box.SetActive(false);
-                        dialogue_box.SetActive(true);
-                        next_talk = Time.timeSinceLevelLoad + talk_cooldown;
+                        if (dialogue_controller.in_exit_zone)
+                        {
+                            CloseScene();
+                        }
+                        else
+                        {
+                            AnimateText(dialogue_box, next_dialogue.yes_line);
+                            choice_box.SetActive(false);
+                            dialogue_box.SetActive(true);
+                            next_talk = Time.timeSinceLevelLoad + talk_cooldown;
+                        }
                     });
 
                     buttons[1].onClick.RemoveAllListeners();
@@ -108,6 +116,10 @@ public class PlayerTownController : MonoBehaviour
                 next_talk = Time.timeSinceLevelLoad + talk_cooldown;
             }
         }
+        else if (dialogue_controller.in_exit_zone)
+        {
+
+        }
     }
 
     void AnimateText(GameObject box, string str)
@@ -125,6 +137,18 @@ public class PlayerTownController : MonoBehaviour
             slow_string += strComplete[i++];
             box.GetComponentInChildren<Text>().text = slow_string;
             yield return new WaitForSeconds(0.05F);
+        }
+    }
+
+    void CloseScene()
+    {
+        GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
+        for (int i = 0; i < main_objects.Length; i++)
+        {
+            if (main_objects[i].name == "MainController")
+            {
+                main_objects[i].GetComponent<MainController>().RunNext();
+            }
         }
     }
 }

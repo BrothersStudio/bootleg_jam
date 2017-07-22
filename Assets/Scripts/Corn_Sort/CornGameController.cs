@@ -42,7 +42,10 @@ public class CornGameController : GameControllers
 
     void Update()
     {
-        HandleTime(-(Time.timeSinceLevelLoad - 30f));
+        if (main_controller != null)
+        {
+            HandleTime(-(main_controller.main_time - 10f));
+        }
 
         // Move circle cursor
         Vector3 mouse_pos = corn_camera.ScreenToWorldPoint(Input.mousePosition);
@@ -95,20 +98,12 @@ public class CornGameController : GameControllers
 
     new void EndScene()
     {
-        game_score = Mathf.Clamp((int)((total_bugs - game_score) / (float)total_bugs * 100f), 0, 100);
+        game_score = Mathf.Clamp((int)((total_bugs - game_score) / (float)total_bugs * 100f) + 1, 0, 100);
         Debug.Log("Corn Game Score:");
         Debug.Log(game_score);
 
-        GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
-        for (int i = 0; i < main_objects.Length; i++)
-        {
-            if (main_objects[i].name == "MainController")
-            {
-                main_objects[i].GetComponent<MainController>().corn_score = game_score;
-                main_objects[i].GetComponent<MainController>().corn_done = true;
-                main_objects[i].GetComponent<MainController>().RunNext();
-            }
-        }
+        main_controller.corn_score = game_score;
+        main_controller.corn_done = true; 
 
         base.EndScene();
     }

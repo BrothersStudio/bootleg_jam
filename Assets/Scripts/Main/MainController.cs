@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class MainController : MonoBehaviour
 {
     [HideInInspector]
+    public float main_time = 0f;
+
+    [HideInInspector]
     public bool sanitization_done, corn_done, yeast_done, boil_done, results_done;
 
     [HideInInspector]
@@ -36,8 +39,15 @@ public class MainController : MonoBehaviour
 
     public void RunNext()
     {
+        main_time = 0f;
+
         if (!sanitization_done)
         {
+            if (SceneManager.sceneCount > 1)
+            {
+                SceneManager.UnloadSceneAsync("Town");
+            }
+
             SceneManager.LoadScene("Sanitization", LoadSceneMode.Additive);
         }
         else if (!corn_done)
@@ -64,9 +74,14 @@ public class MainController : MonoBehaviour
         }
         else
         {
+            canvas.SetActive(false);
             SceneManager.LoadScene("Town", LoadSceneMode.Additive);
-
             ResetFields();
         }
+    }
+
+    private void Update()
+    {
+        main_time += Time.deltaTime;
     }
 }

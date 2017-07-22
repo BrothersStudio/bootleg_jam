@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class PlayerDialogueController : MonoBehaviour {
 
+    [HideInInspector]
     public bool in_talk_range = false;
+    [HideInInspector]
+    public bool in_exit_zone = false;
 
     public List<Dialogue> dialogue;
 
@@ -13,6 +16,10 @@ public class PlayerDialogueController : MonoBehaviour {
         if (other.tag == "Townsperson")
         {
             in_talk_range = true;
+        }
+        else if (other.tag == "Exit Zone")
+        {
+            in_exit_zone = true;
         }
     }
 
@@ -23,6 +30,11 @@ public class PlayerDialogueController : MonoBehaviour {
             in_talk_range = true;
             dialogue = other.GetComponent<TownsPersonController>().dialogue_lines;
         }
+        else if (other.tag == "Exit Zone")
+        {
+            in_exit_zone = true;
+            dialogue = other.GetComponent<TownsPersonController>().dialogue_lines;
+        }
     }
 
     void OnTriggerExit(Collider other)
@@ -30,6 +42,12 @@ public class PlayerDialogueController : MonoBehaviour {
         if (other.tag == "Townsperson")
         {
             in_talk_range = false;
+            dialogue.Clear();
+        }
+        else if (other.tag == "Exit Zone")
+        {
+            in_exit_zone = false;
+            dialogue.Clear();
         }
     }
 
