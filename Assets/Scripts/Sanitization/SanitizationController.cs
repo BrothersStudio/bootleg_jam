@@ -142,7 +142,7 @@ public class SanitizationController : GameControllers
     new void EndScene()
     {
         Cursor.visible = true;
-        game_score = Mathf.Clamp((int)(100 - (1 - game_score) * 10f), 0, 100);
+        game_score = Mathf.Clamp((int)(100 - (1 + game_score) * 10f), 0, 100);
         Debug.Log("Sanitization Game Score:");
         Debug.Log(game_score);
 
@@ -151,7 +151,7 @@ public class SanitizationController : GameControllers
         {
             if (main_objects[i].name == "MainController")
             {
-                main_objects[i].GetComponent<MainController>().score += game_score;
+                main_objects[i].GetComponent<MainController>().sanitization_score = game_score;
                 main_objects[i].GetComponent<MainController>().sanitization_done = true;
                 main_objects[i].GetComponent<MainController>().RunNext();
             }

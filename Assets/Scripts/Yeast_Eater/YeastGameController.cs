@@ -60,7 +60,7 @@ public class YeastGameController : GameControllers
         {
             if (main_objects[i].name == "MainController")
             {
-                main_objects[i].GetComponent<MainController>().score += game_score;
+                main_objects[i].GetComponent<MainController>().yeast_score = game_score;
                 main_objects[i].GetComponent<MainController>().yeast_done = true;
                 main_objects[i].GetComponent<MainController>().RunNext();
             }

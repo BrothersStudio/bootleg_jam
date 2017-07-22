@@ -5,15 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class MainController : MonoBehaviour
 {
-    public bool sanitization_done = false;
-    public bool corn_done = false;
-    public bool yeast_done = false;
-    public bool boil_done = false;
+    [HideInInspector]
+    public bool sanitization_done, corn_done, yeast_done, boil_done, results_done;
 
-    public int score = 0;
+    [HideInInspector]
+    public int sanitization_score, corn_score, yeast_score, boil_score;
 
-    private void Start()
+    public GameObject canvas;
+    public UIController uicontroller;
+
+    void ResetFields()
     {
+        sanitization_done = false;
+        corn_done = false;
+        yeast_done = false;
+        boil_done = false;
+        results_done = false;
+
+        sanitization_score = 0;
+        corn_score = 0;
+        yeast_score = 0;
+        boil_score = 0;
+    }
+
+    void Start()
+    {
+        ResetFields();
         RunNext();
     }
 
@@ -38,15 +55,18 @@ public class MainController : MonoBehaviour
             SceneManager.LoadScene("Boil", LoadSceneMode.Additive);
             SceneManager.UnloadSceneAsync("Yeast_Eater");
         }
+        else if (!results_done)
+        {
+            canvas.SetActive(true);
+            uicontroller.ExecuteResults();
+            SceneManager.UnloadSceneAsync("Boil");
+            results_done = true;
+        }
         else
         {
             SceneManager.LoadScene("Town", LoadSceneMode.Additive);
-            SceneManager.UnloadSceneAsync("Boil");
 
-            sanitization_done = false;
-            corn_done = false;
-            yeast_done = false;
-            boil_done = false;
+            ResetFields();
         }
     }
 }

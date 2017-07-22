@@ -30,8 +30,8 @@ public class BoilController : GameControllers
     new void EndScene()
     {
         Cursor.visible = true;
-        Debug.Log("Corn Game Score:");
-        game_score = Mathf.Clamp((int)((float)game_score / (float)potential_score * 100f * 3.5f), 0, 100);
+        Debug.Log("Boil Game Score:");
+        game_score = Mathf.Clamp((int)((float)game_score / (float)potential_score * 100f * 7f), 0, 100);
         
         Debug.Log(game_score);
 
@@ -40,7 +40,7 @@ public class BoilController : GameControllers
         {
             if (main_objects[i].name == "MainController")
             {
-                main_objects[i].GetComponent<MainController>().score += game_score;
+                main_objects[i].GetComponent<MainController>().boil_score = game_score;
                 main_objects[i].GetComponent<MainController>().boil_done = true;
                 main_objects[i].GetComponent<MainController>().RunNext();
             }

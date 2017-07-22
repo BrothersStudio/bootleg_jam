@@ -104,7 +104,7 @@ public class CornGameController : GameControllers
         {
             if (main_objects[i].name == "MainController")
             {
-                main_objects[i].GetComponent<MainController>().score += game_score;
+                main_objects[i].GetComponent<MainController>().corn_score = game_score;
                 main_objects[i].GetComponent<MainController>().corn_done = true;
                 main_objects[i].GetComponent<MainController>().RunNext();
             }
