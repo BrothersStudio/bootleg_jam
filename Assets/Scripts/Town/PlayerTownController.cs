@@ -68,7 +68,7 @@ public class PlayerTownController : MonoBehaviour
                 return;
             }
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, ground_mask))
             {
                 Debug.DrawLine(ray.origin, hit.point);
                 dest = hit.point;
