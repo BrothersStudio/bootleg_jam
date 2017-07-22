@@ -11,19 +11,19 @@ public class UIController : MonoBehaviour
 
 	public void ExecuteResults()
     {
-        AnimateText(sanitization_text, main_con.sanitization_score);
-        AnimateText(sort_text, main_con.corn_score);
-        AnimateText(yeast_text, main_con.yeast_score);
-        AnimateText(boil_text, main_con.boil_score);
-        AnimateText(total_text, main_con.sanitization_score + main_con.corn_score + main_con.yeast_score + main_con.boil_score, 0.01f);
+        AnimateNumber(sanitization_text, main_con.sanitization_score);
+        AnimateNumber(sort_text, main_con.corn_score);
+        AnimateNumber(yeast_text, main_con.yeast_score);
+        AnimateNumber(boil_text, main_con.boil_score);
+        AnimateNumber(total_text, main_con.sanitization_score + main_con.corn_score + main_con.yeast_score + main_con.boil_score, 0.01f);
     }
 
-    void AnimateText(Text box, int score, float speed = 0.02f)
+    void AnimateNumber(Text box, int score, float speed = 0.02f)
     {
-        StartCoroutine(AnimateTextRoutine(box, score, speed));
+        StartCoroutine(AnimateNumberRoutine(box, score, speed));
     }
 
-    IEnumerator AnimateTextRoutine(Text box, int score_complete, float speed = 0.02f)
+    IEnumerator AnimateNumberRoutine(Text box, int score_complete, float speed = 0.02f)
     {
         int i = 0;
         while (i < score_complete + 1)

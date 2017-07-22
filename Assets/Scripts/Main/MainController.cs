@@ -12,10 +12,12 @@ public class MainController : MonoBehaviour
     public bool sanitization_done, corn_done, yeast_done, boil_done, results_done;
 
     [HideInInspector]
-    public int sanitization_score, corn_score, yeast_score, boil_score;
+    public int sanitization_score, corn_score, yeast_score, boil_score, amount_produced;
 
     public GameObject canvas;
+    public GameObject event_system;
     public UIController uicontroller;
+
 
     void ResetFields()
     {
@@ -29,6 +31,8 @@ public class MainController : MonoBehaviour
         corn_score = 0;
         yeast_score = 0;
         boil_score = 0;
+
+        amount_produced = 0;
     }
 
     void Start()
@@ -52,8 +56,8 @@ public class MainController : MonoBehaviour
         }
         else if (!corn_done)
         {
-            SceneManager.UnloadSceneAsync("Sanitization");
             SceneManager.LoadScene("Corn_Sort", LoadSceneMode.Additive);
+            SceneManager.UnloadSceneAsync("Sanitization");
         }
         else if (!yeast_done)
         {
@@ -67,13 +71,16 @@ public class MainController : MonoBehaviour
         }
         else if (!results_done)
         {
+            SceneManager.UnloadSceneAsync("Boil");
+            event_system.SetActive(true);
             canvas.SetActive(true);
             uicontroller.ExecuteResults();
-            SceneManager.UnloadSceneAsync("Boil");
+            amount_produced = sanitization_score + corn_score + yeast_score + boil_score;
             results_done = true;
         }
         else
         {
+            event_system.SetActive(false);
             canvas.SetActive(false);
             SceneManager.LoadScene("Town", LoadSceneMode.Additive);
             ResetFields();
@@ -84,4 +91,14 @@ public class MainController : MonoBehaviour
     {
         main_time += Time.deltaTime;
     }
+
+
 }
+
+public enum Upgrade
+{
+    Sanitization,
+    Sort,
+    Yeast,
+    Boil,
+};

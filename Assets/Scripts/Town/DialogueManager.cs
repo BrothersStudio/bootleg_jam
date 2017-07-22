@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
     {
         current = this;
 
-        TextAsset dialogue_json = Resources.Load("Dialogue/test") as TextAsset;
+        TextAsset dialogue_json = Resources.Load("Dialogue/dialogue") as TextAsset;
         AllDialogue loaded_dialogue = JsonUtility.FromJson<AllDialogue>(dialogue_json.text);
 
         game_dialogue = new Dictionary<int, Dialogue>();
@@ -41,7 +41,8 @@ public class Dialogue
 
     public string line = "";
 
-    public bool isChoice = false;
+    public bool is_choice = false;
+    public int price = 0;
     public string yes_line = "";
     public string no_line = "";
 }

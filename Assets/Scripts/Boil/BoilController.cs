@@ -11,6 +11,7 @@ public class BoilController : GameControllers
 	new void Start ()
     {
         Cursor.visible = false;
+        Physics.gravity = new Vector3(0, -15.0F, 0);
 
         if (SceneManager.sceneCount > 1)
         {
@@ -33,6 +34,8 @@ public class BoilController : GameControllers
     new void EndScene()
     {
         Cursor.visible = true;
+        Physics.gravity = new Vector3(0, -9.8F, 0);
+
         game_score = Mathf.Clamp((int)((float)game_score / (float)potential_score * 100f * 7f) + 1, 0, 100);
         Debug.Log("Boil Game Score:");
         Debug.Log(game_score);

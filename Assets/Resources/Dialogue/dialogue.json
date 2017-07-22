@@ -3,16 +3,26 @@
         {
             "id": 0,
             "line": "Return to the farm?",
-            "isChoice": 1,
+            "is_choice": 1,
+            "price": 0,
             "yes_line": "",
             "no_line": ""
         },
         {
             "id": 1,
             "line": "Would you like to buy an apple?",
-            "isChoice": 1,
+            "is_choice": 1,
+            "price": 0,
             "yes_line": "Here you go!",
             "no_line": "Suit yourself."
+        },
+        {
+            "id": 2,
+            "line": "I'll give you a bigger corn scoop for 100 ounces of moonshine!",
+            "is_choice": 1,
+            "price": 100,
+            "yes_line": "",
+            "no_line": ""
         }
     ]
 }

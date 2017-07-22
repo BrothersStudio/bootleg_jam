@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class PlayerTownController : MonoBehaviour
 {
+    MainController main_controller;
+    int amount_produced = 999;
+    public Text amount_box;
+
     public float player_speed = 1f;
     public LayerMask person_mask;
     public LayerMask ground_mask;
@@ -26,7 +30,22 @@ public class PlayerTownController : MonoBehaviour
         next_talk = 0f;
 
         dest = transform.position;
-	}
+
+        if (SceneManager.sceneCount > 1)
+        {
+            GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
+            for (int i = 0; i < main_objects.Length; i++)
+            {
+                if (main_objects[i].name == "MainController")
+                {
+                    main_controller = main_objects[i].GetComponent<MainController>();
+                    amount_produced = main_controller.amount_produced;
+                }
+            }
+        }
+
+        amount_box.text = "Current Amount:\n" + amount_produced.ToString();
+    }
 
     void FixedUpdate()
     {
@@ -69,7 +88,7 @@ public class PlayerTownController : MonoBehaviour
                 dest = transform.position;
                 speaking = true;
 
-                if (next_dialogue.isChoice)
+                if (next_dialogue.is_choice)
                 {
                     AnimateText(choice_box, next_dialogue.line);
                     choice_box.SetActive(true);
@@ -86,20 +105,39 @@ public class PlayerTownController : MonoBehaviour
                         }
                         else
                         {
-                            AnimateText(dialogue_box, next_dialogue.yes_line);
+                            int previous_amount = amount_produced;
+                            amount_produced -= next_dialogue.price;
+                            AnimateNumber(previous_amount, amount_produced);
                             choice_box.SetActive(false);
                             dialogue_box.SetActive(true);
                             next_talk = Time.timeSinceLevelLoad + talk_cooldown;
+
+                            if (next_dialogue.yes_line != "")
+                            {
+                                AnimateText(dialogue_box, next_dialogue.yes_line);
+                            }
+                            else
+                            {
+                                Talk();
+                            }
                         }
                     });
 
                     buttons[1].onClick.RemoveAllListeners();
                     buttons[1].onClick.AddListener(() =>
                     {
-                        AnimateText(dialogue_box, next_dialogue.no_line);
                         choice_box.SetActive(false);
                         dialogue_box.SetActive(true);
                         next_talk = Time.timeSinceLevelLoad + talk_cooldown;
+
+                        if (next_dialogue.yes_line != "")
+                        {
+                            AnimateText(dialogue_box, next_dialogue.no_line);
+                        }
+                        else
+                        {
+                            Talk();
+                        }
                     });
                 }
                 else
@@ -136,19 +174,28 @@ public class PlayerTownController : MonoBehaviour
         {
             slow_string += strComplete[i++];
             box.GetComponentInChildren<Text>().text = slow_string;
-            yield return new WaitForSeconds(0.05F);
+            yield return new WaitForSeconds(0.03f);
+        }
+    }
+
+    void AnimateNumber(int previous_amount, int new_amount)
+    {
+        StartCoroutine(AnimateNumberRoutine(previous_amount, new_amount));
+    }
+
+    IEnumerator AnimateNumberRoutine(int previous_amount, int new_amount)
+    {
+        int i = previous_amount;
+        while (i > new_amount)
+        {
+            i--;
+            amount_box.text = "Current Amount:\n" + i.ToString();
+            yield return new WaitForSeconds(0.01f);
         }
     }
 
     void CloseScene()
     {
-        GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
-        for (int i = 0; i < main_objects.Length; i++)
-        {
-            if (main_objects[i].name == "MainController")
-            {
-                main_objects[i].GetComponent<MainController>().RunNext();
-            }
-        }
+        main_controller.RunNext();
     }
 }
