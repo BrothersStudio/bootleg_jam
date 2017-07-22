@@ -60,7 +60,7 @@ public class SanitizationController : GameControllers
 
             kettle_spawn_period = 2f;
         }
-        if (difficulty > 8)
+        else if (difficulty > 8)
         {
             low_infections_per_kettle = 2;
             high_infections_per_kettle = 4;

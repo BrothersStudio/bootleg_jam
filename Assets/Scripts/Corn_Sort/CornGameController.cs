@@ -20,6 +20,7 @@ public class CornGameController : GameControllers
 
     int total_bugs = 0;
     public int game_score = 0;
+    public int difficulty = 1;
 
     new void Start()
     {
@@ -30,14 +31,45 @@ public class CornGameController : GameControllers
         spawn_loc = new Vector3(0f, 0f, 0f);
         spawn_vel = new Vector3(0f, 0f, 0f);
 
-        Physics.gravity = new Vector3(0, -4.0F, 0);
-
         if (SceneManager.sceneCount > 1)
         {
             Invoke("EndScene", 10f);
         }
 
         base.Start();
+
+        if (main_controller != null)
+        {
+            difficulty = main_controller.current_difficulty;
+        }
+
+        SetDifficulty();
+    }
+
+    void SetDifficulty()
+    {
+        float fall_speed = -4f;
+
+        if (difficulty >= 7)
+        {
+            fall_speed = -6f;
+
+            bug_spawn_percent = difficulty * 3 + 5;
+        }
+        else if (difficulty >= 4)
+        {
+            fall_speed = -5f;
+
+            bug_spawn_percent = difficulty * 2 + 5;
+        }
+        else // (difficulty < 4)
+        {
+            fall_speed = -4f;
+
+            bug_spawn_percent = difficulty + 5;
+        }
+
+        Physics.gravity = new Vector3(0, fall_speed, 0);
     }
 
     void Update()

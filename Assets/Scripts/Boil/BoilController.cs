@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class BoilController : GameControllers
 {
+    public ZoneMovement good_zone;
+
     public int potential_score = 0;
     public int game_score = 0;
+    public int difficulty = 1;
 
 	new void Start ()
     {
@@ -19,6 +22,32 @@ public class BoilController : GameControllers
         }
 
         base.Start();
+
+        if (main_controller != null)
+        {
+            difficulty = main_controller.current_difficulty;
+        }
+
+        SetDifficulty();
+    }
+
+    void SetDifficulty()
+    {
+        if (difficulty > 6)
+        {
+            good_zone.zone_speed = 2.2f;
+            good_zone.flip_cooldown = 3f;
+        }
+        else if (difficulty > 3)
+        {
+            good_zone.zone_speed = 2f;
+            good_zone.flip_cooldown = 3.5f;
+        }
+        else 
+        {
+            good_zone.zone_speed = 1.7f;
+            good_zone.flip_cooldown = 4f;
+        }
     }
 
     void Update()
