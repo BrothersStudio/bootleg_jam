@@ -56,9 +56,12 @@ public class YeastGameController : GameControllers
 
     void Update()
     {
-        if (main_controller != null)
+        if (started)
         {
-            HandleTime(-(main_controller.main_time - 20f));
+            if (main_controller != null)
+            {
+                HandleTime(-(main_controller.main_time - 20f));
+            }
         }
     }
 

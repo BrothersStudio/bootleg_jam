@@ -10,7 +10,7 @@
         },
         {
             "id": 1,
-            "line": "The corn crop was bad this year.",
+            "line": "February 12, 1933",
             "is_choice": 0,
             "price": 0,
             "yes_line": "",
@@ -18,7 +18,7 @@
         },
         {
             "id": 2,
-            "line": "Really bad.",
+            "line": "We had a terrible corn crop last fall.",
             "is_choice": 0,
             "price": 0,
             "yes_line": "",
@@ -26,6 +26,54 @@
         },
         {
             "id": 3,
+            "line": "Really terrible.",
+            "is_choice": 0,
+            "price": 0,
+            "yes_line": "",
+            "no_line": ""
+        },
+        {
+            "id": 4,
+            "line": "My family is going to starve unless I turn to the one thing I told myself I would never do.",
+            "is_choice": 0,
+            "price": 0,
+            "yes_line": "",
+            "no_line": ""
+        },
+        {
+            "id": 5,
+            "line": "Bootlegging illegal moonshine with the leftover crop I do have.",
+            "is_choice": 0,
+            "price": 0,
+            "yes_line": "",
+            "no_line": ""
+        },
+        {
+            "id": 6,
+            "line": "I know enough about the process.",
+            "is_choice": 0,
+            "price": 0,
+            "yes_line": "",
+            "no_line": ""
+        },
+        {
+            "id": 7,
+            "line": "Sanitize the equipment, pick out bugs from the corn, let the yeast make alcohol from the sugars, and finally heat and distill the moonshine.",
+            "is_choice": 0,
+            "price": 0,
+            "yes_line": "",
+            "no_line": ""
+        },
+        {
+            "id": 8,
+            "line": "Well, let's get started.",
+            "is_choice": 0,
+            "price": 0,
+            "yes_line": "",
+            "no_line": ""
+        },
+        {
+            "id": 9,
             "line": "Would you like to buy an apple?",
             "is_choice": 1,
             "price": 0,
@@ -33,7 +81,7 @@
             "no_line": "Suit yourself."
         },
         {
-            "id": 4,
+            "id": 10,
             "line": "I'll give you a bigger corn scoop for 100 ounces of moonshine!",
             "is_choice": 1,
             "price": 100,

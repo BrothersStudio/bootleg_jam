@@ -49,8 +49,6 @@ public class MainController : MonoBehaviour
 
     public void RunNext()
     {
-        exposition_screen.SetActive(false);
-
         if (!sanitization_done)
         {
             if (SceneManager.sceneCount > 1)
@@ -59,6 +57,7 @@ public class MainController : MonoBehaviour
             }
 
             SceneManager.LoadScene("Sanitization", LoadSceneMode.Additive);
+            exposition_screen.SetActive(false);
         }
         else if (!corn_done)
         {
