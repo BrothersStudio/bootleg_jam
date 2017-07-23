@@ -7,6 +7,7 @@ public class CornGameController : GameControllers
 {
     public GameObject corn_cursor;
     public Camera corn_camera;
+    public ParticleSystem crumbs;
 
     Vector3 spawn_loc;
     Vector3 spawn_vel;
@@ -91,6 +92,12 @@ public class CornGameController : GameControllers
             if (Time.timeSinceLevelLoad > next_spawn)
             {
                 next_spawn = Time.timeSinceLevelLoad + faller_cooldown;
+
+                // Turn on particle crumbs
+                if (!crumbs.gameObject.activeSelf)
+                {
+                    crumbs.gameObject.SetActive(true);
+                }
 
                 if (Random.Range(0f, 100f) <= bug_spawn_percent)
                 {

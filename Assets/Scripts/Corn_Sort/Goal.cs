@@ -6,7 +6,7 @@ public class Goal : MonoBehaviour
 {
     CornGameController controller;
 
-    private void Start()
+    void Start()
     {
         controller = GameObject.Find("CornGameController").GetComponent<CornGameController>();
     }
