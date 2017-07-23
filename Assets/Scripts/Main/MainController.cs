@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainController : MonoBehaviour
 {
+    public bool debug = false;
     public int current_difficulty = 1;
 
     [HideInInspector]
@@ -16,9 +17,10 @@ public class MainController : MonoBehaviour
     [HideInInspector]
     public int sanitization_score, corn_score, yeast_score, boil_score, amount_produced;
 
-    public GameObject canvas;
+    public GameObject exposition_screen;
+    public GameObject results_screen;
     public GameObject event_system;
-    public UIController uicontroller;
+    public ResultsController results_controller;
 
     void ResetFields()
     {
@@ -39,11 +41,16 @@ public class MainController : MonoBehaviour
     void Start()
     {
         ResetFields();
-        RunNext();
+        if (!debug)
+        {
+            exposition_screen.SetActive(true);
+        }
     }
 
     public void RunNext()
     {
+        exposition_screen.SetActive(false);
+
         if (!sanitization_done)
         {
             if (SceneManager.sceneCount > 1)
@@ -72,15 +79,15 @@ public class MainController : MonoBehaviour
         {
             SceneManager.UnloadSceneAsync("Boil");
             event_system.SetActive(true);
-            canvas.SetActive(true);
-            uicontroller.ExecuteResults();
+            results_screen.SetActive(true);
+            results_controller.ExecuteResults();
             amount_produced = sanitization_score + corn_score + yeast_score + boil_score;
             results_done = true;
         }
         else
         {
             event_system.SetActive(false);
-            canvas.SetActive(false);
+            results_screen.SetActive(false);
             SceneManager.LoadScene("Town", LoadSceneMode.Additive);
 
             ResetFields();

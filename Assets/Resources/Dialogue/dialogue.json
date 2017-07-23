@@ -10,6 +10,22 @@
         },
         {
             "id": 1,
+            "line": "The corn crop was bad this year.",
+            "is_choice": 0,
+            "price": 0,
+            "yes_line": "",
+            "no_line": ""
+        },
+        {
+            "id": 2,
+            "line": "Really bad.",
+            "is_choice": 0,
+            "price": 0,
+            "yes_line": "",
+            "no_line": ""
+        },
+        {
+            "id": 3,
             "line": "Would you like to buy an apple?",
             "is_choice": 1,
             "price": 0,
@@ -17,7 +33,7 @@
             "no_line": "Suit yourself."
         },
         {
-            "id": 2,
+            "id": 4,
             "line": "I'll give you a bigger corn scoop for 100 ounces of moonshine!",
             "is_choice": 1,
             "price": 100,
