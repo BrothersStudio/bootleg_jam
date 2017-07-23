@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ZoneMovement : MonoBehaviour
 {
+    BoilController controller;
+
     public float zone_speed;
     float orig_zone_speed;
     bool zoom_mode;
@@ -22,39 +24,44 @@ public class ZoneMovement : MonoBehaviour
 
         dest = bot_pos;
         last_pos = transform.position;
+
+        controller = GameObject.Find("BoilController").GetComponent<BoilController>();
     }
 
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, dest, Time.deltaTime * zone_speed);
-
-        if (zoom_mode && transform.position == dest)
+        if (controller.started)
         {
-            zoom_mode = false;
-            zone_speed = orig_zone_speed;
+            transform.position = Vector3.MoveTowards(transform.position, dest, Time.deltaTime * zone_speed);
 
-            dest = bot_pos;
-        }
+            if (zoom_mode && transform.position == dest)
+            {
+                zoom_mode = false;
+                zone_speed = orig_zone_speed;
 
-        if (transform.position == last_pos)
-        {
-            zoom_mode = true;
-            zone_speed = zone_speed * 2;
-
-            dest = new Vector3(4.5f, Random.Range(bot_pos.y, top_pos.y), -1.03f);
-        }
-
-		if (Time.timeSinceLevelLoad > last_flip)
-        {
-            last_flip = Time.timeSinceLevelLoad + flip_cooldown + Random.Range(-1f, 1f);
-
-            zone_speed = zone_speed * Random.Range(0.7f, 1.2f);
-
-            if (dest == top_pos)
                 dest = bot_pos;
-            else if (dest == bot_pos)
-                dest = top_pos;
+            }
+
+            if (transform.position == last_pos)
+            {
+                zoom_mode = true;
+                zone_speed = zone_speed * 2;
+
+                dest = new Vector3(4.5f, Random.Range(bot_pos.y, top_pos.y), -1.03f);
+            }
+
+            if (Time.timeSinceLevelLoad > last_flip)
+            {
+                last_flip = Time.timeSinceLevelLoad + flip_cooldown + Random.Range(-1f, 1f);
+
+                zone_speed = zone_speed * Random.Range(0.7f, 1.2f);
+
+                if (dest == top_pos)
+                    dest = bot_pos;
+                else if (dest == bot_pos)
+                    dest = top_pos;
+            }
+            last_pos = transform.position;
         }
-        last_pos = transform.position;
     }
 }

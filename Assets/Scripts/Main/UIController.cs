@@ -15,7 +15,7 @@ public class UIController : MonoBehaviour
         AnimateNumber(sort_text, main_con.corn_score);
         AnimateNumber(yeast_text, main_con.yeast_score);
         AnimateNumber(boil_text, main_con.boil_score);
-        AnimateNumber(total_text, main_con.sanitization_score + main_con.corn_score + main_con.yeast_score + main_con.boil_score, 0.01f);
+        AnimateNumber(total_text, main_con.sanitization_score + main_con.corn_score + main_con.yeast_score + main_con.boil_score, 0.005f);
     }
 
     void AnimateNumber(Text box, int score, float speed = 0.02f)

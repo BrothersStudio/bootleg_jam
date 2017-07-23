@@ -25,11 +25,6 @@ public class YeastGameController : GameControllers
             sugar.GetComponent<Rigidbody>().velocity = sugar_velocity;
         }
 
-        if (SceneManager.sceneCount > 1)
-        {
-            Invoke("EndScene", 20f);
-        }
-
         base.Start();
 
         if (main_controller != null)
@@ -38,6 +33,12 @@ public class YeastGameController : GameControllers
         }
 
         SetDifficulty();
+        StartCoroutine(StartCountdown("Eat!"));
+
+        if (SceneManager.sceneCount > 1)
+        {
+            Invoke("EndScene", 23.7f);
+        }
     }
 
     void SetDifficulty()

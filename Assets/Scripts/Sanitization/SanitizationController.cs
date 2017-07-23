@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SanitizationController : GameControllers
@@ -36,11 +37,6 @@ public class SanitizationController : GameControllers
     {
         Cursor.visible = false;
 
-        if (SceneManager.sceneCount > 1)
-        {
-            Invoke("EndScene", 20f);
-        }
-
         base.Start();
 
         if (main_controller != null)
@@ -49,6 +45,12 @@ public class SanitizationController : GameControllers
         }
 
         SetDifficulty();
+        StartCoroutine(StartCountdown("Sanitize!"));
+
+        if (SceneManager.sceneCount > 1)
+        {
+            Invoke("EndScene", 23.7f);
+        }
     }
 
     void SetDifficulty()
@@ -106,14 +108,17 @@ public class SanitizationController : GameControllers
 
     void Update()
     {
-        if (main_controller != null)
+        if (started)
         {
-            HandleTime(-(main_controller.main_time - 20f));
+            if (main_controller != null)
+            {
+                HandleTime(-(main_controller.main_time - 20f));
+            }
+
+            HandleDisinfectant();
+
+            SpawnKettles();
         }
-
-        HandleDisinfectant();
-
-        SpawnKettles();
     }
 
     void HandleDisinfectant()

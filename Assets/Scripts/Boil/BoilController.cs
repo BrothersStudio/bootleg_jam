@@ -16,11 +16,6 @@ public class BoilController : GameControllers
         Cursor.visible = false;
         Physics.gravity = new Vector3(0, -15.0F, 0);
 
-        if (SceneManager.sceneCount > 1)
-        {
-            Invoke("EndScene", 10f);
-        }
-
         base.Start();
 
         if (main_controller != null)
@@ -29,6 +24,12 @@ public class BoilController : GameControllers
         }
 
         SetDifficulty();
+        StartCoroutine(StartCountdown("Boil!"));
+
+        if (SceneManager.sceneCount > 1)
+        {
+            Invoke("EndScene", 13.7f);
+        }
     }
 
     void SetDifficulty()
@@ -52,12 +53,15 @@ public class BoilController : GameControllers
 
     void Update()
     {
-        if (main_controller != null)
+        if (started)
         {
-            HandleTime(-(main_controller.main_time - 10f));
-        }
+            if (main_controller != null)
+            {
+                HandleTime(-(main_controller.main_time - 10f));
+            }
 
-        potential_score++;
+            potential_score++;
+        }
     }
 
     new void EndScene()

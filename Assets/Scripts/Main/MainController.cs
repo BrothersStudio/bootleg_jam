@@ -44,8 +44,6 @@ public class MainController : MonoBehaviour
 
     public void RunNext()
     {
-        main_time = 0f;
-
         if (!sanitization_done)
         {
             if (SceneManager.sceneCount > 1)

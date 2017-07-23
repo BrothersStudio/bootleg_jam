@@ -31,11 +31,6 @@ public class CornGameController : GameControllers
         spawn_loc = new Vector3(0f, 0f, 0f);
         spawn_vel = new Vector3(0f, 0f, 0f);
 
-        if (SceneManager.sceneCount > 1)
-        {
-            Invoke("EndScene", 10f);
-        }
-
         base.Start();
 
         if (main_controller != null)
@@ -44,6 +39,12 @@ public class CornGameController : GameControllers
         }
 
         SetDifficulty();
+        StartCoroutine(StartCountdown("Remove!"));
+
+        if (SceneManager.sceneCount > 1)
+        {
+            Invoke("EndScene", 13.7f);
+        }
     }
 
     void SetDifficulty()
@@ -74,57 +75,60 @@ public class CornGameController : GameControllers
 
     void Update()
     {
-        if (main_controller != null)
-        {
-            HandleTime(-(main_controller.main_time - 10f));
-        }
-
         // Move circle cursor
         Vector3 mouse_pos = corn_camera.ScreenToWorldPoint(Input.mousePosition);
         mouse_pos.z = corn_cursor.transform.position.z;
         corn_cursor.transform.position = mouse_pos;
 
-        // Spawn things
-        if (Time.timeSinceLevelLoad > next_spawn)
+        if (started)
         {
-            next_spawn = Time.timeSinceLevelLoad + faller_cooldown;
-
-            if (Random.Range(0f, 100f) <= bug_spawn_percent)
+            if (main_controller != null)
             {
-                total_bugs++;
-                GameObject bug = CornGamePool.current.GetPooledBug();
+                HandleTime(-(main_controller.main_time - 10f));
+            }
 
-                // I don't want the bugs to spawn too close to the edge
-                spawn_loc.x = Random.Range(-screen_width_pos + 2f, screen_width_pos - 2f);
-                spawn_loc.y = screen_top_pos + 8f;
-                spawn_loc.z = -2f;
-                bug.transform.position = spawn_loc;
-                bug.GetComponent<Rigidbody>().velocity = spawn_vel;
-                bug.transform.Rotate(Random.Range(0f, 360f), 0f, 0f);
-                bug.SetActive(true);
+            // Spawn things
+            if (Time.timeSinceLevelLoad > next_spawn)
+            {
+                next_spawn = Time.timeSinceLevelLoad + faller_cooldown;
+
+                if (Random.Range(0f, 100f) <= bug_spawn_percent)
+                {
+                    total_bugs++;
+                    GameObject bug = CornGamePool.current.GetPooledBug();
+
+                    // I don't want the bugs to spawn too close to the edge
+                    spawn_loc.x = Random.Range(-screen_width_pos + 2f, screen_width_pos - 2f);
+                    spawn_loc.y = screen_top_pos + 8f;
+                    spawn_loc.z = -2f;
+                    bug.transform.position = spawn_loc;
+                    bug.GetComponent<Rigidbody>().velocity = spawn_vel;
+                    bug.transform.Rotate(Random.Range(0f, 360f), 0f, 0f);
+                    bug.SetActive(true);
+                }
+                else
+                {
+                    GameObject corn = CornGamePool.current.GetPooledCorn();
+
+                    spawn_loc.x = Random.Range(-screen_width_pos, screen_width_pos);
+                    spawn_loc.y = screen_top_pos + 4f;
+                    spawn_loc.z = 2f;
+                    corn.transform.position = spawn_loc;
+                    corn.GetComponent<Rigidbody>().velocity = spawn_vel;
+                    corn.transform.Rotate(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
+                    corn.SetActive(true);
+                }
+            }
+
+            // Scoop things
+            if (Input.GetMouseButton(0))
+            {
+                corn_cursor.GetComponent<CornCursor>().Scoop = true;
             }
             else
             {
-                GameObject corn = CornGamePool.current.GetPooledCorn();
-
-                spawn_loc.x = Random.Range(-screen_width_pos, screen_width_pos);
-                spawn_loc.y = screen_top_pos + 4f;
-                spawn_loc.z = 2f;
-                corn.transform.position = spawn_loc;
-                corn.GetComponent<Rigidbody>().velocity = spawn_vel;
-                corn.transform.Rotate(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
-                corn.SetActive(true);
+                corn_cursor.GetComponent<CornCursor>().Scoop = false;
             }
-        }
-
-        // Scoop things
-        if (Input.GetMouseButton(0))
-        {
-            corn_cursor.GetComponent<CornCursor>().Scoop = true;
-        }
-        else
-        {
-            corn_cursor.GetComponent<CornCursor>().Scoop = false;
         }
     }
 

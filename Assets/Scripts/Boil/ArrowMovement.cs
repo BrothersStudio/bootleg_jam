@@ -18,11 +18,14 @@ public class ArrowMovement : MonoBehaviour
 
     void Update ()
     {
-        if (Input.GetMouseButton(0) && Time.timeSinceLevelLoad > last_click)
+        if (controller.started)
         {
-            last_click = Time.timeSinceLevelLoad + click_cooldown;
+            if (Input.GetMouseButton(0) && Time.timeSinceLevelLoad > last_click)
+            {
+                last_click = Time.timeSinceLevelLoad + click_cooldown;
 
-            GetComponent<Rigidbody>().AddForce(-transform.forward * arrow_speed);
+                GetComponent<Rigidbody>().AddForce(-transform.forward * arrow_speed);
+            }
         }
     }
 
