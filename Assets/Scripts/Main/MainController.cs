@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainController : MonoBehaviour
 {
     public bool debug = false;
-    public int current_difficulty = 1;
+    public int current_difficulty = 0;
 
     [HideInInspector]
     public float main_time = 0f;
@@ -40,10 +40,13 @@ public class MainController : MonoBehaviour
 
     void Start()
     {
-        ResetFields();
         if (!debug)
         {
             exposition_screen.SetActive(true);
+        }
+        else
+        {
+            RunNext();
         }
     }
 
@@ -51,6 +54,9 @@ public class MainController : MonoBehaviour
     {
         if (!sanitization_done)
         {
+            ResetFields();
+            current_difficulty++;
+
             if (SceneManager.sceneCount > 1)
             {
                 SceneManager.UnloadSceneAsync("Town");
@@ -77,10 +83,11 @@ public class MainController : MonoBehaviour
         else if (!results_done)
         {
             SceneManager.UnloadSceneAsync("Boil");
+
             event_system.SetActive(true);
             results_screen.SetActive(true);
+            amount_produced = 5 + (int)((sanitization_score + corn_score + yeast_score + boil_score) / 16f);
             results_controller.ExecuteResults();
-            amount_produced = sanitization_score + corn_score + yeast_score + boil_score;
             results_done = true;
         }
         else
@@ -88,9 +95,6 @@ public class MainController : MonoBehaviour
             event_system.SetActive(false);
             results_screen.SetActive(false);
             SceneManager.LoadScene("Town", LoadSceneMode.Additive);
-
-            ResetFields();
-            current_difficulty++;
         }
     }
 
