@@ -46,6 +46,16 @@ public class BadYeastController : MonoBehaviour
             {
                 GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity / 2f;
             }
+
+            var shape = GetComponentInChildren<ParticleSystem>().shape;
+            if (GetComponent<Rigidbody>().velocity.magnitude > 5)
+            {
+                shape.angle = 10f;
+            }
+            else
+            {
+                shape.angle = 50f;
+            }
         }
     }
 }

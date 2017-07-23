@@ -72,7 +72,7 @@ public class YeastGameController : GameControllers
 
         Vector3 output = new Vector3();
         output.x = Mathf.Cos(angle) * dist;
-        output.y = 0f;
+        output.y = 1f;
         output.z = Mathf.Sin(angle) * dist;
         
         return output;

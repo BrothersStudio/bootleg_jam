@@ -35,6 +35,16 @@ public class YeastController : MonoBehaviour
             {
                 GetComponent<Animation>().Play("Idle");
             }
+
+            var shape = GetComponentInChildren<ParticleSystem>().shape;
+            if (GetComponent<Rigidbody>().velocity.magnitude > 5)
+            {
+                shape.angle = 10f;
+            }
+            else
+            {
+                shape.angle = 50f;
+            }
         }
     }
 
