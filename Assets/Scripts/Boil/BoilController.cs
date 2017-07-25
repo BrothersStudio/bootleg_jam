@@ -14,8 +14,7 @@ public class BoilController : GameControllers
 	new void Start ()
     {
         Cursor.visible = false;
-        Physics.gravity = new Vector3(0, -15.0F, 0);
-
+        
         base.Start();
 
         if (main_controller != null)
@@ -32,22 +31,34 @@ public class BoilController : GameControllers
         }
     }
 
+    void SetUpgrades()
+    {
+        if (main_controller.boil_upgrades[0])
+        {
+            Physics.gravity = new Vector3(0, -15F, 0);
+        }
+        else
+        {
+            Physics.gravity = new Vector3(0, -9.8F, 0);
+        }
+    }
+
     void SetDifficulty()
     {
         if (difficulty > 6)
         {
             good_zone.zone_speed = 2.2f;
-            good_zone.flip_cooldown = 3f;
+            good_zone.flip_cooldown = 2.5f;
         }
         else if (difficulty > 3)
         {
             good_zone.zone_speed = 2f;
-            good_zone.flip_cooldown = 3.5f;
+            good_zone.flip_cooldown = 3f;
         }
         else 
         {
             good_zone.zone_speed = 1.7f;
-            good_zone.flip_cooldown = 4f;
+            good_zone.flip_cooldown = 3.5f;
         }
     }
 

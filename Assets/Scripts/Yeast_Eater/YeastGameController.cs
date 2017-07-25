@@ -41,6 +41,15 @@ public class YeastGameController : GameControllers
         }
     }
 
+    void SetUpgrades()
+    {
+        if (main_controller.yeast_upgrades[0])
+        {
+            GameObject.Find("Yeast").GetComponent<YeastController>().yeast_speed = 120f;
+            GameObject.Find("Yeast").GetComponent<Rigidbody>().drag = 0.5f;
+        }
+    }
+
     void SetDifficulty()
     {
         if (difficulty > 6)

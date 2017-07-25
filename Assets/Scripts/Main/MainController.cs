@@ -17,6 +17,9 @@ public class MainController : MonoBehaviour
     [HideInInspector]
     public int sanitization_score, corn_score, yeast_score, boil_score, amount_produced;
 
+    [HideInInspector]
+    public List<bool> sanitization_upgrades, corn_upgrades, yeast_upgrades, boil_upgrades;
+
     public GameObject exposition_screen;
     public GameObject results_screen;
     public GameObject event_system;
@@ -40,6 +43,11 @@ public class MainController : MonoBehaviour
 
     void Start()
     {
+        sanitization_upgrades = new List<bool>(new bool[] { false, false });
+        corn_upgrades = new List<bool>(new bool[] { false });
+        yeast_upgrades = new List<bool>(new bool[] { false, false });
+        boil_upgrades = new List<bool>(new bool[] { false });
+
         if (!debug)
         {
             exposition_screen.SetActive(true);

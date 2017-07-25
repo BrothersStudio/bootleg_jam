@@ -39,12 +39,21 @@ public class CornGameController : GameControllers
             difficulty = main_controller.current_difficulty;
         }
 
+        SetUpgrades();
         SetDifficulty();
         StartCoroutine(StartCountdown("Remove!"));
 
         if (SceneManager.sceneCount > 1)
         {
             Invoke("EndScene", 13.7f);
+        }
+    }
+
+    void SetUpgrades()
+    {
+        if (main_controller.corn_upgrades[0])
+        {
+            GameObject.Find("Cursor").transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
     }
 
