@@ -6,10 +6,15 @@ public class CornCursor : MonoBehaviour
 {
     public Camera corn_camera;
 
-    bool scoop;
-
     string corn_tag = "Corn";
     string bug_tag = "Bug";
+
+    CornGameController controller;
+
+    void Start()
+    {
+        controller = GameObject.Find("CornGameController").GetComponent<CornGameController>();
+    }
 
     void Update()
     {
@@ -17,26 +22,18 @@ public class CornCursor : MonoBehaviour
         Vector3 mouse_pos = corn_camera.ScreenToWorldPoint(Input.mousePosition);
         mouse_pos.z = transform.position.z;
         transform.position = mouse_pos;
-
-        // Scoop things
-        if (Input.GetMouseButton(0))
-        {
-            scoop = true;
-        }
-        else
-        {
-            scoop = false;
-        }
     }
 
     private void OnTriggerStay(Collider collision)
     {
-        if (scoop)
+        if (collision.gameObject.CompareTag(corn_tag))
         {
-            if (collision.gameObject.CompareTag(bug_tag) || collision.gameObject.CompareTag(corn_tag))
-            {
-                collision.gameObject.SetActive(false);
-            }
+            controller.game_score--;
+            collision.gameObject.SetActive(false);
+        }
+        else if (collision.gameObject.CompareTag(bug_tag))
+        {
+            collision.gameObject.SetActive(false);
         }
     }
 }

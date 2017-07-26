@@ -7,7 +7,6 @@ public class CornGameController : GameControllers
 {
     public GameObject corn_cursor;
     public Camera corn_camera;
-    public ParticleSystem crumbs;
 
     Vector3 spawn_loc;
     Vector3 spawn_vel;
@@ -32,7 +31,7 @@ public class CornGameController : GameControllers
         screen_top_pos = -far_corner.y;
 
         spawn_loc = new Vector3(0f, 0f, 0f);
-        spawn_vel = new Vector3(0f, 0f, 0f);
+        spawn_vel = new Vector3(0f, -5f, 0f);
 
         base.Start();
 
@@ -66,25 +65,27 @@ public class CornGameController : GameControllers
 
     void SetDifficulty()
     {
-        float fall_speed = -4f;
-
+        float fall_speed;
         if (difficulty >= 7)
         {
             fall_speed = -6f;
 
-            bug_spawn_percent = difficulty * 3 + 5;
+            faller_cooldown = 0.1f;
+            bug_spawn_percent = 20f;
         }
         else if (difficulty >= 4)
         {
             fall_speed = -5f;
 
-            bug_spawn_percent = difficulty * 2 + 5;
+            faller_cooldown = 0.3f;
+            bug_spawn_percent = 20f;
         }
         else // (difficulty < 4)
         {
-            fall_speed = -4f;
+            fall_speed = -2f;
 
-            bug_spawn_percent = difficulty + 5;
+            faller_cooldown = 0.3f;
+            bug_spawn_percent = 20f;
         }
 
         Physics.gravity = new Vector3(0, fall_speed, 0);
@@ -104,12 +105,6 @@ public class CornGameController : GameControllers
             {
                 next_spawn = Time.timeSinceLevelLoad + faller_cooldown;
 
-                // Turn on particle crumbs
-                if (!crumbs.gameObject.activeSelf)
-                {
-                    crumbs.gameObject.SetActive(true);
-                }
-
                 if (Random.Range(0f, 100f) <= bug_spawn_percent)
                 {
                     total_bugs++;
@@ -117,8 +112,8 @@ public class CornGameController : GameControllers
 
                     // I don't want the bugs to spawn too close to the edge
                     spawn_loc.x = Random.Range(-screen_width_pos + 2f, screen_width_pos - 2f);
-                    spawn_loc.y = screen_top_pos + 18f;
-                    spawn_loc.z = -2f;
+                    spawn_loc.y = screen_top_pos + 14f;
+                    spawn_loc.z = 0f;
                     bug.transform.position = spawn_loc;
                     bug.GetComponent<Rigidbody>().velocity = spawn_vel;
                     bug.transform.Rotate(Random.Range(0f, 360f), 0f, 0f);
@@ -128,9 +123,9 @@ public class CornGameController : GameControllers
                 {
                     GameObject corn = CornGamePool.current.GetPooledCorn();
 
-                    spawn_loc.x = Random.Range(-screen_width_pos, screen_width_pos);
+                    spawn_loc.x = Random.Range(-screen_width_pos + 1f, screen_width_pos - 1f);
                     spawn_loc.y = screen_top_pos + 14f;
-                    spawn_loc.z = 2f;
+                    spawn_loc.z = 0f;
                     corn.transform.position = spawn_loc;
                     corn.GetComponent<Rigidbody>().velocity = spawn_vel;
                     corn.transform.Rotate(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
@@ -142,7 +137,7 @@ public class CornGameController : GameControllers
 
     new void EndScene()
     {
-        game_score = Mathf.Clamp((int)((total_bugs - game_score) / (float)total_bugs * 100f) + 1, 0, 100);
+        game_score = Mathf.Clamp(100 - game_score, 0, 100);
         Debug.Log("Corn Game Score:");
         Debug.Log(game_score);
 
