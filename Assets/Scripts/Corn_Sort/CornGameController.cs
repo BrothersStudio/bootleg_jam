@@ -13,7 +13,7 @@ public class CornGameController : GameControllers
     Vector3 spawn_vel;
     public float bug_spawn_percent;
 
-    public float faller_cooldown = 0.1f;
+    public float faller_cooldown = 1f;
     float next_spawn = 0f;
 
     float screen_width_pos;
@@ -92,11 +92,6 @@ public class CornGameController : GameControllers
 
     void Update()
     {
-        // Move circle cursor
-        Vector3 mouse_pos = corn_camera.ScreenToWorldPoint(Input.mousePosition);
-        mouse_pos.z = corn_cursor.transform.position.z;
-        corn_cursor.transform.position = mouse_pos;
-
         if (started)
         {
             if (main_controller != null)
@@ -141,16 +136,6 @@ public class CornGameController : GameControllers
                     corn.transform.Rotate(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
                     corn.SetActive(true);
                 }
-            }
-
-            // Scoop things
-            if (Input.GetMouseButton(0))
-            {
-                corn_cursor.GetComponent<CornCursor>().Scoop = true;
-            }
-            else
-            {
-                corn_cursor.GetComponent<CornCursor>().Scoop = false;
             }
         }
     }

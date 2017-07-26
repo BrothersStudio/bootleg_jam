@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class CornCursor : MonoBehaviour
 {
+    public Camera corn_camera;
+
     bool scoop;
 
+    string corn_tag = "Corn";
     string bug_tag = "Bug";
 
-    public bool Scoop
+    void Update()
     {
-        get
-        {
-            return this.scoop;
-        }
+        // Move circle cursor
+        Vector3 mouse_pos = corn_camera.ScreenToWorldPoint(Input.mousePosition);
+        mouse_pos.z = transform.position.z;
+        transform.position = mouse_pos;
 
-        set
+        // Scoop things
+        if (Input.GetMouseButton(0))
         {
-            this.scoop = value;
+            scoop = true;
+        }
+        else
+        {
+            scoop = false;
         }
     }
 
@@ -25,7 +33,7 @@ public class CornCursor : MonoBehaviour
     {
         if (scoop)
         {
-            if (collision.gameObject.CompareTag(bug_tag))
+            if (collision.gameObject.CompareTag(bug_tag) || collision.gameObject.CompareTag(corn_tag))
             {
                 collision.gameObject.SetActive(false);
             }
