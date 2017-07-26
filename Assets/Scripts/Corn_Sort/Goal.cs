@@ -14,8 +14,12 @@ public class Goal : MonoBehaviour
     void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.name != "Cursor")
+        {
             if (collision.tag == "Bug")
+            {
                 controller.game_score--;
+            }
             collision.gameObject.SetActive(false);
+        }
     }
 }

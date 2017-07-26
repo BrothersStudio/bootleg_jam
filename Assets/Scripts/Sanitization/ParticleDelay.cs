@@ -6,9 +6,9 @@ public class ParticleDelay : MonoBehaviour
 {
     public void Display()
     {
-        Invoke("StopParticles", 0.2f);
+        Invoke("StopParticles", 0.1f);
 
-        Destroy(this.gameObject, 5f);
+        Destroy(this.gameObject, 1f);
     }
 
     void StopParticles()

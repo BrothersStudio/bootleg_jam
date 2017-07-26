@@ -21,7 +21,9 @@ public class CornGameController : GameControllers
 
     int total_bugs = 0;
     public int game_score = 0;
+
     public int difficulty = 1;
+    List<bool> corn_upgrades;
 
     new void Start()
     {
@@ -37,6 +39,11 @@ public class CornGameController : GameControllers
         if (main_controller != null)
         {
             difficulty = main_controller.current_difficulty;
+            corn_upgrades = main_controller.corn_upgrades;
+        }
+        else
+        {
+            corn_upgrades = new List<bool>(new bool[] { false });
         }
 
         SetUpgrades();
@@ -51,7 +58,7 @@ public class CornGameController : GameControllers
 
     void SetUpgrades()
     {
-        if (main_controller.corn_upgrades[0])
+        if (corn_upgrades[0])
         {
             GameObject.Find("Cursor").transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
@@ -115,7 +122,7 @@ public class CornGameController : GameControllers
 
                     // I don't want the bugs to spawn too close to the edge
                     spawn_loc.x = Random.Range(-screen_width_pos + 2f, screen_width_pos - 2f);
-                    spawn_loc.y = screen_top_pos + 8f;
+                    spawn_loc.y = screen_top_pos + 18f;
                     spawn_loc.z = -2f;
                     bug.transform.position = spawn_loc;
                     bug.GetComponent<Rigidbody>().velocity = spawn_vel;
@@ -127,7 +134,7 @@ public class CornGameController : GameControllers
                     GameObject corn = CornGamePool.current.GetPooledCorn();
 
                     spawn_loc.x = Random.Range(-screen_width_pos, screen_width_pos);
-                    spawn_loc.y = screen_top_pos + 4f;
+                    spawn_loc.y = screen_top_pos + 14f;
                     spawn_loc.z = 2f;
                     corn.transform.position = spawn_loc;
                     corn.GetComponent<Rigidbody>().velocity = spawn_vel;
