@@ -19,6 +19,7 @@ public class SanitizationController : GameControllers
     public LayerMask blue_mask;
 
     int current_selection = -1;
+    public AudioClip color_select;
 
     public float spray_speed;
     public float spray_cooldown;
@@ -131,16 +132,22 @@ public class SanitizationController : GameControllers
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, red_mask))
             {
+                GetComponent<AudioSource>().clip = color_select;
+                GetComponent<AudioSource>().Play();
                 current_selection = 0;
                 return;
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, green_mask))
             {
+                GetComponent<AudioSource>().clip = color_select;
+                GetComponent<AudioSource>().Play();
                 current_selection = 1;
                 return;
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, blue_mask))
             {
+                GetComponent<AudioSource>().clip = color_select;
+                GetComponent<AudioSource>().Play();
                 current_selection = 2;
                 return;
             }

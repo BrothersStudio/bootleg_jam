@@ -40,7 +40,6 @@ public class ArrowMovement : MonoBehaviour
 
         if (!arrow_audio.isPlaying)
         {
-            Debug.Log("Here");
             arrow_audio.clip = good_bell;
             arrow_audio.Play();
         }

@@ -6,6 +6,8 @@ public class InfectionController : MonoBehaviour
 {
     ParticleSystem particles;
 
+    public AudioClip destroy_ding;
+
     void Start()
     {
         particles = GetComponentInChildren<ParticleSystem>(true);
@@ -32,6 +34,11 @@ public class InfectionController : MonoBehaviour
             particles.gameObject.SetActive(true);
             particles.gameObject.transform.parent = transform.parent;
             particles.gameObject.GetComponent<ParticleDelay>().Display();
+
+            transform.parent.gameObject.AddComponent<AudioSource>();
+            transform.parent.gameObject.GetComponent<AudioSource>().clip = destroy_ding;
+            transform.parent.gameObject.GetComponent<AudioSource>().loop = false;
+            transform.parent.gameObject.GetComponent<AudioSource>().Play();
 
             Destroy(this.gameObject);
         }
