@@ -11,9 +11,14 @@ public class ArrowMovement : MonoBehaviour
 
     BoilController controller;
 
+    AudioSource arrow_audio;
+    public AudioClip good_bell;
+    public AudioClip wall_bounce;
+
     void Start()
     {
         controller = GameObject.Find("BoilController").GetComponent<BoilController>();
+        arrow_audio = GetComponent<AudioSource>();
     }
 
     void Update ()
@@ -32,5 +37,12 @@ public class ArrowMovement : MonoBehaviour
     private void OnTriggerStay(Collider collision)
     {
         controller.game_score++;
+
+        if (!arrow_audio.isPlaying)
+        {
+            Debug.Log("Here");
+            arrow_audio.clip = good_bell;
+            arrow_audio.Play();
+        }
     }
 }
