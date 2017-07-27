@@ -12,11 +12,23 @@ public class YeastController : MonoBehaviour
     float next_chomp = 0f;
     float chomp_cooldown = 0.75f;
 
+    AudioSource chomp_source;
+    AudioSource swim_source;
+    AudioSource fart_source;
+    public AudioClip chomp_clip;
+    public AudioClip swim_clip;
+    public AudioClip fart_clip;
+
     void Start()
     {
         GetComponent<Animation>().Play("Idle");
 
         controller = GameObject.Find("YeastGameController").GetComponent<YeastGameController>();
+
+        AudioSource[] audio_sources = GetComponents<AudioSource>();
+        chomp_source = audio_sources[0];
+        swim_source = audio_sources[1];
+        fart_source = audio_sources[2];
     }
 
     void Update()
@@ -26,8 +38,13 @@ public class YeastController : MonoBehaviour
             Vector3 mouse_pos = yeast_cam.ScreenToWorldPoint(Input.mousePosition);
             mouse_pos.y = 0;
 
+            // Swim
             if (Input.GetMouseButtonDown(1))
             {
+                swim_source.clip = swim_clip;
+                chomp_source.pitch = Random.Range(0.8f, 1.2f);
+                swim_source.Play();
+
                 GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(mouse_pos.x - transform.position.x, 0f, mouse_pos.z - transform.position.z)) * yeast_speed);
             }
 
@@ -64,7 +81,12 @@ public class YeastController : MonoBehaviour
 
                 SetSphereColliders(true);
 
+                chomp_source.clip = chomp_clip;
+                chomp_source.pitch = Random.Range(1f, 1.2f);
+                chomp_source.Play();
+
                 GetComponent<Animation>().Play("Eating");
+
                 GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(mouse_pos.x - transform.position.x, 0f, mouse_pos.z - transform.position.z)) * yeast_speed * 2f);
             }
             else if (Time.timeSinceLevelLoad > next_chomp)
@@ -89,6 +111,12 @@ public class YeastController : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         if (other.tag != "Wall")
+        {
             other.gameObject.GetComponent<SugarController>().Shrink();
+
+            fart_source.clip = fart_clip;
+            fart_source.pitch = Random.Range(0.6f, 1.6f);
+            fart_source.Play();
+        }
     }
 }

@@ -14,11 +14,17 @@ public class BadYeastController : MonoBehaviour
     float power_attack_rate = 6f;
     float next_power_attack = 0f;
 
+    AudioSource source;
+    public AudioClip charge_clip;
+    public AudioClip[] idle_clip;
+
 	void Start ()
     {
         player = GameObject.Find("Yeast");
 
         controller = GameObject.Find("YeastGameController").GetComponent<YeastGameController>();
+
+        source = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -29,6 +35,14 @@ public class BadYeastController : MonoBehaviour
 
         if (controller.started)
         {
+            // Play idle clips
+            if (!source.isPlaying)
+            {
+                source.clip = idle_clip[Random.Range(0, idle_clip.Length)];
+                source.Play();
+            }
+
+            // Normal swim
             if (Time.timeSinceLevelLoad > next_swim)
             {
                 next_swim = Time.timeSinceLevelLoad + swim_rate;
@@ -36,9 +50,13 @@ public class BadYeastController : MonoBehaviour
                 GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(player.transform.position.x - transform.position.x, 0f, player.transform.position.z - transform.position.z)) * enemy_speed);
             }
 
+            // Power attack
             if (Vector3.Distance(transform.position, player.transform.position) < 5f && Time.timeSinceLevelLoad > next_power_attack)
             {
                 next_power_attack = Time.timeSinceLevelLoad + power_attack_rate;
+
+                source.clip = charge_clip;
+                source.Play();
 
                 GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(player.transform.position.x - transform.position.x, 0f, player.transform.position.z - transform.position.z)) * enemy_speed * 3f);
             }
