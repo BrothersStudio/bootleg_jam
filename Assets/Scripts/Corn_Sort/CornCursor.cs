@@ -10,10 +10,14 @@ public class CornCursor : MonoBehaviour
     string bug_tag = "Bug";
 
     CornGameController controller;
+    AudioSource cursor_audio;
+    public AudioClip good_sound;
+    public AudioClip bad_sound;
 
     void Start()
     {
         controller = GameObject.Find("CornGameController").GetComponent<CornGameController>();
+        cursor_audio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -30,10 +34,14 @@ public class CornCursor : MonoBehaviour
         {
             controller.game_score--;
             collision.gameObject.SetActive(false);
+            cursor_audio.clip = bad_sound;
+            cursor_audio.Play();
         }
         else if (collision.gameObject.CompareTag(bug_tag))
         {
             collision.gameObject.SetActive(false);
+            cursor_audio.clip = good_sound;
+            cursor_audio.Play();
         }
     }
 }

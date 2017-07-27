@@ -14,6 +14,9 @@ public class PlayerTownController : MonoBehaviour
     public LayerMask person_mask;
     public LayerMask ground_mask;
 
+    AudioSource player_source;
+    public AudioClip[] footsteps;
+
     string slow_string;
     public GameObject dialogue_box;
     public GameObject choice_box;
@@ -30,6 +33,8 @@ public class PlayerTownController : MonoBehaviour
         next_talk = 0f;
 
         dest = transform.position;
+
+        player_source = GetComponent<AudioSource>();
 
         if (SceneManager.sceneCount > 1)
         {
@@ -74,6 +79,13 @@ public class PlayerTownController : MonoBehaviour
                 dest = hit.point;
                 dest.y = 0;
             }
+        }
+
+        // Footsteps
+        if (Vector3.Distance(transform.position, dest) > 0 && !player_source.isPlaying)
+        {
+            player_source.clip = footsteps[Random.Range(0, footsteps.Length)];
+            player_source.Play();
         }
     }
 
