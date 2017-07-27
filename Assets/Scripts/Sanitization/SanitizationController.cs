@@ -24,6 +24,7 @@ public class SanitizationController : GameControllers
     public float spray_speed;
     public float spray_cooldown;
     float next_spray = 0f;
+    public AudioSource spray_source;
 
     int low_infections_per_kettle;
     int high_infections_per_kettle;
@@ -155,31 +156,39 @@ public class SanitizationController : GameControllers
             if (Time.timeSinceLevelLoad > next_spray && current_selection >= 0)
             {
                 next_spray = Time.timeSinceLevelLoad + spray_cooldown;
+                spray_source.Play();
 
-                GameObject disinfectannt = DisinfectantPool.current.GetPooledDisinfectant();
-                disinfectannt.transform.position = sanitization_spawn_loc.transform.position;
-
-                Vector3 velocity_direction = sanitization_spawn_loc.transform.forward;
-                velocity_direction.x += Random.Range(-0.04f, 0.04f);
-                velocity_direction.y += Random.Range(-0.04f, 0.04f);
-                velocity_direction.z += Random.Range(-0.04f, 0.04f);
-
-                disinfectannt.GetComponent<Rigidbody>().velocity = velocity_direction * spray_speed;
-
-                disinfectannt.GetComponent<MeshRenderer>().material = color_mats[current_selection];
-                disinfectannt.SetActive(true);
-
-                switch (current_selection)
+                for (int i = 0; i < 20; i++)
                 {
-                    case 0:
-                        disinfectannt.tag = "Red";
-                        break;
-                    case 1:
-                        disinfectannt.tag = "Green";
-                        break;
-                    case 2:
-                        disinfectannt.tag = "Blue";
-                        break;
+                    GameObject disinfectant = DisinfectantPool.current.GetPooledDisinfectant();
+                    Vector3 new_pos = sanitization_spawn_loc.transform.position;
+                    new_pos.x += Random.Range(-1.5f, 1.5f);
+                    new_pos.y += Random.Range(-1.5f, 1.5f);
+                    new_pos.z += Random.Range(-0.2f, 2f);
+                    disinfectant.transform.position = new_pos;
+
+                    Vector3 velocity_direction = sanitization_spawn_loc.transform.forward;
+                    velocity_direction.x += Random.Range(-0.04f, 0.04f);
+                    velocity_direction.y += Random.Range(-0.04f, 0.04f);
+                    velocity_direction.z += Random.Range(-0.04f, 0.04f);
+
+                    disinfectant.GetComponent<Rigidbody>().velocity = velocity_direction * spray_speed;
+
+                    disinfectant.GetComponent<MeshRenderer>().material = color_mats[current_selection];
+                    disinfectant.SetActive(true);
+
+                    switch (current_selection)
+                    {
+                        case 0:
+                            disinfectant.tag = "Red";
+                            break;
+                        case 1:
+                            disinfectant.tag = "Green";
+                            break;
+                        case 2:
+                            disinfectant.tag = "Blue";
+                            break;
+                    }
                 }
             }
         }
