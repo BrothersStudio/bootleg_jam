@@ -7,6 +7,7 @@ public class CornGameController : GameControllers
 {
     public GameObject corn_cursor;
     public Camera corn_camera;
+    public AudioClip corn_falling_clip;
 
     Vector3 spawn_loc;
     Vector3 spawn_vel;
@@ -95,6 +96,13 @@ public class CornGameController : GameControllers
     {
         if (started)
         {
+            if (!GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().clip = corn_falling_clip;
+                GetComponent<AudioSource>().loop = true;
+                GetComponent<AudioSource>().Play();
+            }
+
             if (main_controller != null)
             {
                 HandleTime(-(main_controller.main_time - 10f));

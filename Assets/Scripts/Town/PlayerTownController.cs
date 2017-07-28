@@ -15,7 +15,9 @@ public class PlayerTownController : MonoBehaviour
     public LayerMask ground_mask;
 
     AudioSource player_source;
-    public AudioClip[] footsteps;
+    public AudioClip[] footsteps_clips;
+    public AudioClip speaking_clip;
+    public AudioClip coin_clip;
 
     string slow_string;
     public GameObject dialogue_box;
@@ -45,6 +47,10 @@ public class PlayerTownController : MonoBehaviour
                 {
                     main_controller = main_objects[i].GetComponent<MainController>();
                     amount_produced = main_controller.amount_produced;
+
+                    main_controller.camera_listener.enabled = false;
+                    main_controller.event_system.SetActive(false);
+                    main_controller.results_screen.SetActive(false);
                 }
             }
         }
@@ -84,7 +90,7 @@ public class PlayerTownController : MonoBehaviour
         // Footsteps
         if (Vector3.Distance(transform.position, dest) > 0 && !player_source.isPlaying)
         {
-            player_source.clip = footsteps[Random.Range(0, footsteps.Length)];
+            player_source.clip = footsteps_clips[Random.Range(0, footsteps_clips.Length)];
             player_source.Play();
         }
     }
@@ -184,6 +190,9 @@ public class PlayerTownController : MonoBehaviour
         int i = 0;
         while (i < strComplete.Length)
         {
+            player_source.clip = speaking_clip;
+            player_source.Play();
+
             slow_string += strComplete[i++];
             box.GetComponentInChildren<Text>().text = slow_string;
             yield return new WaitForSeconds(0.03f);
@@ -200,6 +209,9 @@ public class PlayerTownController : MonoBehaviour
         int i = previous_amount;
         while (i > new_amount)
         {
+            player_source.clip = coin_clip;
+            player_source.Play();
+
             i--;
             amount_box.text = "Current Amount:\n" + i.ToString();
             yield return new WaitForSeconds(0.01f);

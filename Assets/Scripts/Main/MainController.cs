@@ -24,6 +24,7 @@ public class MainController : MonoBehaviour
     public GameObject results_screen;
     public GameObject event_system;
     public ResultsController results_controller;
+    public AudioListener camera_listener;
 
     void ResetFields()
     {
@@ -92,6 +93,7 @@ public class MainController : MonoBehaviour
         {
             SceneManager.UnloadSceneAsync("Boil");
 
+            camera_listener.enabled = true;
             event_system.SetActive(true);
             results_screen.SetActive(true);
             amount_produced = 5 + (int)((sanitization_score + corn_score + yeast_score + boil_score) / 16f);
@@ -100,9 +102,11 @@ public class MainController : MonoBehaviour
         }
         else
         {
+            SceneManager.LoadScene("Town", LoadSceneMode.Additive);
+
+            camera_listener.enabled = false;
             event_system.SetActive(false);
             results_screen.SetActive(false);
-            SceneManager.LoadScene("Town", LoadSceneMode.Additive);
         }
     }
 

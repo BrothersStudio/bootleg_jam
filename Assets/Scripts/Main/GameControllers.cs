@@ -14,6 +14,9 @@ public class GameControllers : MonoBehaviour
     public Text countdown_text;
     public GameObject countdown_screen;
 
+    public AudioClip countdown_clip;
+    public AudioClip start_clip;
+
     protected void Start()
     {
         if (SceneManager.sceneCount > 1)
@@ -40,10 +43,16 @@ public class GameControllers : MonoBehaviour
         int i = 3;
         while (i > 0)
         {
+            GetComponent<AudioSource>().clip = countdown_clip;
+            GetComponent<AudioSource>().Play();
+
             countdown_text.text = i.ToString();
             i--;
             yield return new WaitForSeconds(1f);
         }
+
+        GetComponent<AudioSource>().clip = start_clip;
+        GetComponent<AudioSource>().Play();
         countdown_text.text = display_text;
         yield return new WaitForSeconds(0.7f);
 

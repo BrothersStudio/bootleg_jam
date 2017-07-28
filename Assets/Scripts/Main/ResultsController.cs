@@ -6,30 +6,43 @@ using UnityEngine.UI;
 public class ResultsController : MonoBehaviour
 {
     public MainController main_con;
+    AudioSource result_source;
 
     public Text sanitization_text, sort_text, yeast_text, boil_text, total_text;
 
-	public void ExecuteResults()
+    void Start()
+    {
+        result_source = GetComponent<AudioSource>();
+    }
+
+    public void ExecuteResults()
     {
         AnimateNumber(sanitization_text, main_con.sanitization_score);
         AnimateNumber(sort_text, main_con.corn_score);
         AnimateNumber(yeast_text, main_con.yeast_score);
         AnimateNumber(boil_text, main_con.boil_score);
-        AnimateNumber(total_text, main_con.amount_produced);
+        AnimateNumber(total_text, main_con.amount_produced, 3.5f, true);
     }
 
-    void AnimateNumber(Text box, int score, float speed = 0.02f)
+    void AnimateNumber(Text box, int score, float delay = 0, bool sound = false)
     {
-        StartCoroutine(AnimateNumberRoutine(box, score, speed));
+        StartCoroutine(AnimateNumberRoutine(box, score, delay, sound));
     }
 
-    IEnumerator AnimateNumberRoutine(Text box, int score_complete, float speed = 0.02f)
+    IEnumerator AnimateNumberRoutine(Text box, int score_complete, float delay, bool sound)
     {
+        yield return new WaitForSeconds(delay);
+
         int i = 0;
         while (i < score_complete + 1)
         {
+            if (sound)
+            {
+                result_source.Play();
+            }
+
             box.GetComponentInChildren<Text>().text = i++.ToString();
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(0.02f);
         }
     }
 }
