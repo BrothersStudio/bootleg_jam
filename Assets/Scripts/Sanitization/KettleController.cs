@@ -15,11 +15,14 @@ public class KettleController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigid.AddForce(Vector3.right * kettle_speed);
-        Vector3 current_velocity = GetComponent<Rigidbody>().velocity;
-        float new_x = Mathf.Clamp(current_velocity.x, 0, kettle_speed);
-        current_velocity.x = new_x;
+        if (transform.position.y < 5f)
+        {
+            rigid.AddForce(Vector3.right * kettle_speed);
+            Vector3 current_velocity = GetComponent<Rigidbody>().velocity;
+            float new_x = Mathf.Clamp(current_velocity.x, 0, kettle_speed);
+            current_velocity.x = new_x;
 
-        GetComponent<Rigidbody>().velocity = current_velocity;
+            GetComponent<Rigidbody>().velocity = current_velocity;
+        }
     } 
 }
