@@ -1,82 +1,15 @@
 fileFormatVersion: 2
-guid: 9a596193b878b964a9bacc110bb0e177
-timeCreated: 1500910722
+guid: 77042152a6358224bb6a8ee536fe72e5
+timeCreated: 1501253443
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Cube
-    100002: Cube_001
-    100004: Cube_002
-    100006: Cube_003
-    100008: Cube_004
-    100010: Cube_005
-    100012: Cube_006
-    100014: Cube_007
-    100016: Door
-    100018: Door_001
-    100020: Door_002
-    100022: //RootNode
-    100024: Cylinder_002
-    100026: Text
-    100028: Text_001
-    400000: Cube
-    400002: Cube_001
-    400004: Cube_002
-    400006: Cube_003
-    400008: Cube_004
-    400010: Cube_005
-    400012: Cube_006
-    400014: Cube_007
-    400016: Door
-    400018: Door_001
-    400020: Door_002
-    400022: //RootNode
-    400024: Cylinder_002
-    400026: Text
-    400028: Text_001
-    2300000: Cube
-    2300002: Cube_001
-    2300004: Cube_002
-    2300006: Cube_003
-    2300008: Cube_004
-    2300010: Cube_005
-    2300012: Cube_006
-    2300014: Cube_007
-    2300016: Door
-    2300018: Door_001
-    2300020: Door_002
-    2300022: Cylinder_002
-    2300024: Text
-    2300026: Text_001
-    3300000: Cube
-    3300002: Cube_001
-    3300004: Cube_002
-    3300006: Cube_003
-    3300008: Cube_004
-    3300010: Cube_005
-    3300012: Cube_006
-    3300014: Cube_007
-    3300016: Door
-    3300018: Door_001
-    3300020: Door_002
-    3300022: Cylinder_002
-    3300024: Text
-    3300026: Text_001
-    4300000: Door_002
-    4300002: Door_001
-    4300004: Door
-    4300006: Cube_007
-    4300008: Cube_006
-    4300010: Cube_005
-    4300012: Cube_004
-    4300014: Cube_003
-    4300016: Cube_002
-    4300018: Cube_001
-    4300020: Cube
-    4300022: Cylinder_002
-    4300024: Text_001
-    4300026: Text
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: BEAM
     7400000: Default Take
     9500000: //RootNode
   materials:
