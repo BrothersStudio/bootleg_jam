@@ -123,6 +123,11 @@ public class MainController : MonoBehaviour
     void Update()
     {
         main_time += Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 }
 
