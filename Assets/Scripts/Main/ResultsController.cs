@@ -17,14 +17,15 @@ public class ResultsController : MonoBehaviour
 
     public void ExecuteResults()
     {
-        AnimateNumber(sanitization_text, main_con.sanitization_score);
+        AnimateNumber(sanitization_text, main_con.sanitization_score, true);
         AnimateNumber(sort_text, main_con.corn_score);
         AnimateNumber(yeast_text, main_con.yeast_score);
         AnimateNumber(boil_text, main_con.boil_score);
-        AnimateNumber(total_text, main_con.amount_produced, 3.5f, true);
+
+        AnimateNumber(total_text, main_con.amount_produced, true, 3f);
     }
 
-    void AnimateNumber(Text box, int score, float delay = 0, bool sound = false)
+    void AnimateNumber(Text box, int score, bool sound = false, float delay = 0)
     {
         StartCoroutine(AnimateNumberRoutine(box, score, delay, sound));
     }

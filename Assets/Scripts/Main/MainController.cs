@@ -21,6 +21,8 @@ public class MainController : MonoBehaviour
     public List<bool> sanitization_upgrades, corn_upgrades, yeast_upgrades, boil_upgrades;
 
     public GameObject barn;
+    public GameObject main_camera;
+    public GameObject title_screen;
     public GameObject exposition_screen;
     public GameObject results_screen;
     public GameObject event_system;
@@ -43,8 +45,13 @@ public class MainController : MonoBehaviour
         amount_produced = 0;
     }
 
-    void Start()
+    public void StartGame()
     {
+        event_system.SetActive(false);
+        title_screen.SetActive(false);
+        main_camera.transform.position = new Vector3(1.17f, 2.21f, 1.71f);
+        main_camera.transform.Rotate(new Vector3(15f, 0f, 0f));
+
         sanitization_upgrades = new List<bool>(new bool[] { false, false });
         corn_upgrades = new List<bool>(new bool[] { false });
         yeast_upgrades = new List<bool>(new bool[] { false, false });

@@ -22,6 +22,7 @@ public class BoilController : GameControllers
             difficulty = main_controller.current_difficulty;
         }
 
+        SetUpgrades();
         SetDifficulty();
         StartCoroutine(StartCountdown("Boil!"));
 
@@ -35,11 +36,11 @@ public class BoilController : GameControllers
     {
         if (main_controller.boil_upgrades[0])
         {
-            Physics.gravity = new Vector3(0, -15F, 0);
+            Physics.gravity = new Vector3(0, -20F, 0);
         }
         else
         {
-            Physics.gravity = new Vector3(0, -9.8F, 0);
+            Physics.gravity = new Vector3(0, -15F, 0);
         }
     }
 
