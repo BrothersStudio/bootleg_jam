@@ -126,8 +126,13 @@ public class MainController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Application.Quit();
+            QuitGame();
         }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
 

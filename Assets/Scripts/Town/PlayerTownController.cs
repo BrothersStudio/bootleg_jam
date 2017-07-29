@@ -24,6 +24,9 @@ public class PlayerTownController : MonoBehaviour
     public GameObject choice_box;
     public Camera town_cam;
 
+    public bool fed;
+    public GameObject results_background;
+
     bool speaking;
     float next_talk;
     float talk_cooldown = 0.5f;
@@ -31,6 +34,8 @@ public class PlayerTownController : MonoBehaviour
 
 	void Start ()
     {
+        fed = false;
+
         speaking = false;
         next_talk = 0f;
 
@@ -125,6 +130,12 @@ public class PlayerTownController : MonoBehaviour
                         {
                             int previous_amount = amount_produced;
                             amount_produced -= next_dialogue.price;
+
+                            if (next_dialogue.is_food)
+                            {
+                                fed = true;
+                            }
+
                             AnimateNumber(previous_amount, amount_produced);
                             choice_box.SetActive(false);
                             dialogue_box.SetActive(true);
@@ -220,6 +231,43 @@ public class PlayerTownController : MonoBehaviour
 
     void CloseScene()
     {
-        main_controller.RunNext();
+        results_background.SetActive(true);
+
+        if (fed && ((10 - main_controller.current_difficulty) == 0))
+        {
+            // Win state
+            results_background.transform.Find("Fed Text").gameObject.GetComponent<Text>().text = "You survived prohibition. You are now a wealthy moonshine baron.";
+            results_background.transform.Find("Remaining Text").gameObject.SetActive(false);
+
+            results_background.transform.Find("Success").gameObject.SetActive(false);
+            results_background.transform.Find("Failure").gameObject.GetComponentInChildren<Button>().onClick.AddListener(() =>
+            {
+                main_controller.QuitGame();
+            });
+        }
+        if (fed)
+        {
+            // Next month state
+            results_background.transform.Find("Fed Text").gameObject.GetComponent<Text>().text = "You fed your family this month!";
+            results_background.transform.Find("Remaining Text").gameObject.GetComponent<Text>().text = (10 - main_controller.current_difficulty).ToString() + " months to go";
+
+            results_background.transform.Find("Failure").gameObject.SetActive(false);
+            results_background.transform.Find("Success").gameObject.GetComponentInChildren<Button>().onClick.AddListener(() =>
+            {
+                main_controller.RunNext();
+            });
+        }
+        else
+        {
+            // Lose state
+            results_background.transform.Find("Fed text").gameObject.GetComponent<Text>().text = "Game Over!\nYour family has starved and died. What was this even for...";
+            results_background.transform.Find("Remaining Text").gameObject.SetActive(false);
+
+            results_background.transform.Find("Success").gameObject.SetActive(false);
+            results_background.transform.Find("Failure").gameObject.GetComponentInChildren<Button>().onClick.AddListener(() =>
+            {
+                main_controller.QuitGame();
+            });
+        }
     }
 }

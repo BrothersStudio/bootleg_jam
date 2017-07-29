@@ -74,10 +74,11 @@
         },
         {
             "id": 9,
-            "line": "Would you like to buy an apple?",
+            "line": "I can sell you a month's worth of food for your family for 15 gallons of moonshine.",
             "is_choice": 1,
-            "price": 0,
-            "yes_line": "Here you go!",
+            "price": 15,
+            "is_food": 1, 
+            "yes_line": "Here you go.",
             "no_line": "Suit yourself."
         },
         {
