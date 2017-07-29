@@ -14,6 +14,6 @@ public class InfectionGoal : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "Infection")
-            controller.game_score--;
+            controller.game_score++;
     }
 }

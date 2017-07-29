@@ -14,6 +14,10 @@ public class GameControllers : MonoBehaviour
     public Text countdown_text;
     public GameObject countdown_screen;
 
+    bool is_fading_out;
+    float screen_alpha;
+    public Texture2D fade_image;
+
     public AudioClip countdown_clip;
     public AudioClip start_clip;
 
@@ -79,4 +83,5 @@ public class GameControllers : MonoBehaviour
 
         main_controller.RunNext();
     }
+
 }

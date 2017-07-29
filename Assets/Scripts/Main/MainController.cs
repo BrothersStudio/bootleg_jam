@@ -27,6 +27,7 @@ public class MainController : MonoBehaviour
     public GameObject results_screen;
     public GameObject event_system;
     public ResultsController results_controller;
+
     public AudioListener camera_listener;
 
     void ResetFields()
@@ -45,8 +46,15 @@ public class MainController : MonoBehaviour
         amount_produced = 0;
     }
 
-    public void StartGame()
+    void StartGame()
     {
+        StartCoroutine(StartGameRoutine());
+    }
+
+    IEnumerator StartGameRoutine()
+    {
+        yield return new WaitForSeconds(GetComponent<Fading>().BeginFade(1));
+
         total_amount = 0;
 
         event_system.SetActive(false);
@@ -71,8 +79,6 @@ public class MainController : MonoBehaviour
 
     public void RunNext()
     {
-        
-
         if (!sanitization_done)
         {
             ResetFields();
@@ -84,7 +90,7 @@ public class MainController : MonoBehaviour
             {
                 SceneManager.UnloadSceneAsync("Town");
             }
-
+            GetComponent<Fading>().enabled = false;
             SceneManager.LoadScene("Sanitization", LoadSceneMode.Additive);
             exposition_screen.SetActive(false);
         }

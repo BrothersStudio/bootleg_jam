@@ -32,7 +32,7 @@ public class CornCursor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(corn_tag))
         {
-            controller.game_score--;
+            controller.hit_corn++;
             collision.gameObject.SetActive(false);
             cursor_audio.clip = bad_sound;
             cursor_audio.Play();

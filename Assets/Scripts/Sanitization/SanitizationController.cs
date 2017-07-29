@@ -31,7 +31,7 @@ public class SanitizationController : GameControllers
     public float kettle_spawn_period;
     float next_kettle = 0f;
 
-    int total_kettles = 0;
+    int total_infections = 0;
     public int game_score = 0;
     public int difficulty = 1;
 
@@ -219,7 +219,6 @@ public class SanitizationController : GameControllers
     {
         if (Time.timeSinceLevelLoad > next_kettle)
         {
-            total_kettles++;
             next_kettle = Time.timeSinceLevelLoad + kettle_spawn_period;
 
             GameObject kettle = Instantiate(kettle_prefab, new Vector3(-22f, 25f, 79.1f), Quaternion.identity, transform);
@@ -228,6 +227,8 @@ public class SanitizationController : GameControllers
             int infection_num = Random.Range(low_infections_per_kettle, high_infections_per_kettle + 1);
             for (int i = 0; i < infection_num; i++)
             {
+                total_infections++;
+
                 GameObject infection = Instantiate(infection_prefab, kettle.transform);
                 infection.name = "Infection";
                 infection.transform.localPosition = new Vector3(Random.Range(-1f, 1f), 1.62f, Random.Range(-0.5f, 1.5f));
@@ -253,7 +254,7 @@ public class SanitizationController : GameControllers
     new void EndScene()
     {
         Cursor.visible = true;
-        game_score = Mathf.Clamp((int)(100 - (game_score) * 10f) + 1, 0, 100);
+        game_score = Mathf.Clamp((100 - game_score * 10), 0, 100);
         Debug.Log("Sanitization Game Score:");
         Debug.Log(game_score);
 

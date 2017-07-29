@@ -17,7 +17,7 @@ public class Goal : MonoBehaviour
         {
             if (collision.tag == "Bug")
             {
-                controller.game_score--;
+                controller.game_score++;
             }
             collision.gameObject.SetActive(false);
         }

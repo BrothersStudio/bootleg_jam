@@ -20,6 +20,7 @@ public class CornGameController : GameControllers
     float screen_top_pos;
 
     int total_bugs = 0;
+    public int hit_corn = 0;
     public int game_score = 0;
 
     public int difficulty = 1;
@@ -195,7 +196,7 @@ public class CornGameController : GameControllers
 
     new void EndScene()
     {
-        game_score = Mathf.Clamp(100 - game_score, 0, 100);
+        game_score = Mathf.Clamp(100 - (int)(game_score / (float)total_bugs * 100) - hit_corn * 2, 0, 100);
         Debug.Log("Corn Game Score:");
         Debug.Log(game_score);
 

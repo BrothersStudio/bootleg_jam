@@ -69,6 +69,13 @@ public class PlayerTownController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Rotate to face destination
+        if (Vector3.Distance(dest, transform.position) > 1)
+        {
+            transform.rotation = Quaternion.LookRotation(dest - transform.position, new Vector3(0, 1, 0));
+            //transform.Rotate(0, -90, 0);
+        }
+
         // Player dialogue
         if (Input.GetMouseButton(0) && Time.timeSinceLevelLoad > next_talk)
         {
