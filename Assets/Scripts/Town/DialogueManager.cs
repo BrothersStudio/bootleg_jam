@@ -43,6 +43,7 @@ public class Dialogue
 
     public bool is_choice = false;
     public int price = 0;
+    public bool is_food = false;
     public string yes_line = "";
     public string no_line = "";
 }

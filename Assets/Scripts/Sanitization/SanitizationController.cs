@@ -59,40 +59,61 @@ public class SanitizationController : GameControllers
     {
         if (difficulty == 10)
         {
+            low_infections_per_kettle = 4;
+            high_infections_per_kettle = 4;
+
+            kettle_spawn_period = 1.7f;
+        }
+        else if (difficulty == 9)
+        {
             low_infections_per_kettle = 3;
             high_infections_per_kettle = 4;
 
             kettle_spawn_period = 2f;
         }
-        else if (difficulty > 8)
+        else if (difficulty == 8)
+        {
+            low_infections_per_kettle = 3;
+            high_infections_per_kettle = 4;
+
+            kettle_spawn_period = 2f;
+        }
+        else if (difficulty == 7)
+        {
+            low_infections_per_kettle = 2;
+            high_infections_per_kettle = 4;
+
+            kettle_spawn_period = 2f;
+        }
+        else if (difficulty == 6)
         {
             low_infections_per_kettle = 2;
             high_infections_per_kettle = 4;
 
             kettle_spawn_period = 2.5f;
         }
-        else if (difficulty > 6)
+        else if (difficulty == 5)
         {
             low_infections_per_kettle = 2;
             high_infections_per_kettle = 3;
 
             kettle_spawn_period = 2.5f;
         }
-        else if (difficulty > 4)
+        else if (difficulty == 4)
         {
             low_infections_per_kettle = 2;
-            high_infections_per_kettle = 2;
+            high_infections_per_kettle = 3;
 
             kettle_spawn_period = 2.5f;
         }
-        else if (difficulty > 2)
+        else if (difficulty == 3)
         {
             low_infections_per_kettle = 1;
-            high_infections_per_kettle = 2;
+            high_infections_per_kettle = 3;
 
-            kettle_spawn_period = 2.5f;
+            kettle_spawn_period = 3f;
         }
-        else if (difficulty > 1)
+        else if (difficulty == 2)
         {
             low_infections_per_kettle = 1;
             high_infections_per_kettle = 2;
@@ -201,7 +222,7 @@ public class SanitizationController : GameControllers
             total_kettles++;
             next_kettle = Time.timeSinceLevelLoad + kettle_spawn_period;
 
-            GameObject kettle = Instantiate(kettle_prefab, new Vector3(-33.6f, 25f, 79.1f), Quaternion.identity, transform);
+            GameObject kettle = Instantiate(kettle_prefab, new Vector3(-22f, 25f, 79.1f), Quaternion.identity, transform);
             kettle.transform.Rotate(new Vector3(-90f, 0f, 0f));
 
             int infection_num = Random.Range(low_infections_per_kettle, high_infections_per_kettle + 1);

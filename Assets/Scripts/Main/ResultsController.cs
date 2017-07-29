@@ -17,19 +17,26 @@ public class ResultsController : MonoBehaviour
 
     public void ExecuteResults()
     {
-        AnimateNumber(sanitization_text, main_con.sanitization_score);
-        AnimateNumber(sort_text, main_con.corn_score);
-        AnimateNumber(yeast_text, main_con.yeast_score);
-        AnimateNumber(boil_text, main_con.boil_score);
-        AnimateNumber(total_text, main_con.amount_produced, 3.5f, true);
+        sanitization_text.text = "0";
+        sort_text.text = "0";
+        yeast_text.text = "0";
+        boil_text.text = "0";
+        total_text.text = "0";
+
+        AnimateNumber(sanitization_text, 0, main_con.sanitization_score, true);
+        AnimateNumber(sort_text, 0, main_con.corn_score);
+        AnimateNumber(yeast_text, 0, main_con.yeast_score);
+        AnimateNumber(boil_text, 0, main_con.boil_score);
+
+        AnimateNumber(total_text, main_con.total_amount, main_con.amount_produced + main_con.total_amount, true, 3f);
     }
 
-    void AnimateNumber(Text box, int score, float delay = 0, bool sound = false)
+    void AnimateNumber(Text box, int orig, int score, bool sound = false, float delay = 0)
     {
-        StartCoroutine(AnimateNumberRoutine(box, score, delay, sound));
+        StartCoroutine(AnimateNumberRoutine(box, orig, score, delay, sound));
     }
 
-    IEnumerator AnimateNumberRoutine(Text box, int score_complete, float delay, bool sound)
+    IEnumerator AnimateNumberRoutine(Text box, int orig, int score_complete, float delay, bool sound)
     {
         yield return new WaitForSeconds(delay);
 
