@@ -67,9 +67,8 @@
         },
         {
             "id": 10,
-            "line": "I'll give you a bigger corn scoop for 100 ounces of moonshine!",
+            "line": "Are you sure you wish to continue without purchasing food?",
             "is_choice": 1,
-            "price": 100,
             "yes_line": "",
             "no_line": ""
         }

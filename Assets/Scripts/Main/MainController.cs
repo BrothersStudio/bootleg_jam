@@ -69,11 +69,14 @@ public class MainController : MonoBehaviour
 
     public void RunNext()
     {
+        
+
         if (!sanitization_done)
         {
             ResetFields();
             barn.SetActive(false);
             current_difficulty++;
+            Debug.Log("Day " + current_difficulty.ToString());
 
             if (SceneManager.sceneCount > 1)
             {

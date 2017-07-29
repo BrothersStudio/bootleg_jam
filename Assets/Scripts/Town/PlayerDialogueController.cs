@@ -11,14 +11,18 @@ public class PlayerDialogueController : MonoBehaviour {
 
     public List<Dialogue> dialogue;
 
+    public int dialogue_ind;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Townsperson")
         {
+            dialogue_ind = 0;
             in_talk_range = true;
         }
         else if (other.tag == "Exit Zone")
         {
+            dialogue_ind = 0;
             in_exit_zone = true;
         }
     }
@@ -41,22 +45,24 @@ public class PlayerDialogueController : MonoBehaviour {
     {
         if (other.tag == "Townsperson")
         {
+            dialogue_ind = 0;
             in_talk_range = false;
-            dialogue.Clear();
+            dialogue = new List<Dialogue>();
         }
         else if (other.tag == "Exit Zone")
         {
+            dialogue_ind = 0;
             in_exit_zone = false;
-            dialogue.Clear();
+            dialogue = new List<Dialogue>();
         }
     }
 
     public Dialogue GetNextDialogue()
     {
-        if (dialogue.Count > 0)
+        if (dialogue_ind <= dialogue.Count - 1)
         {
-            Dialogue next_dialogue = dialogue[0];
-            dialogue.RemoveAt(0);
+            Dialogue next_dialogue = dialogue[dialogue_ind];
+            dialogue_ind++;
             return next_dialogue;
         }
         else

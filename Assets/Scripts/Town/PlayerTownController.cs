@@ -25,9 +25,11 @@ public class PlayerTownController : MonoBehaviour
     public Camera town_cam;
 
     public bool fed;
+    bool fed_chance;
     public GameObject results_background;
 
     bool speaking;
+    bool choosing;
     float next_talk;
     float talk_cooldown = 0.5f;
     Vector3 dest;
@@ -35,8 +37,10 @@ public class PlayerTownController : MonoBehaviour
 	void Start ()
     {
         fed = false;
+        fed_chance = false;
 
         speaking = false;
+        choosing = false;
         next_talk = 0f;
 
         dest = transform.position;
@@ -106,13 +110,16 @@ public class PlayerTownController : MonoBehaviour
         if (dialogue_controller.in_talk_range || dialogue_controller.in_exit_zone)
         {
             Dialogue next_dialogue = dialogue_controller.GetNextDialogue();
-            if (next_dialogue != null)
+            if (next_dialogue != null && !choosing)
             {
+                Debug.Log("New dialogue to display");
                 dest = transform.position;
                 speaking = true;
 
                 if (next_dialogue.is_choice)
                 {
+                    choosing = true;
+
                     AnimateText(choice_box, next_dialogue.line);
                     choice_box.SetActive(true);
                     next_talk = Time.timeSinceLevelLoad + talk_cooldown;
@@ -122,9 +129,21 @@ public class PlayerTownController : MonoBehaviour
                     buttons[0].onClick.RemoveAllListeners();
                     buttons[0].onClick.AddListener(() =>
                     {
+                        Debug.Log("Accept Button");
+                        choosing = false;
+
                         if (dialogue_controller.in_exit_zone)
                         {
-                            CloseScene();
+                            if (!fed && !fed_chance)
+                            {
+                                fed_chance = true;
+                                dialogue_controller.dialogue_ind--;
+                                Talk();
+                            }
+                            else
+                            {
+                                CloseScene();
+                            }
                         }
                         else
                         {
@@ -134,6 +153,7 @@ public class PlayerTownController : MonoBehaviour
                             if (next_dialogue.is_food)
                             {
                                 fed = true;
+                                fed_chance = true;
                             }
 
                             AnimateNumber(previous_amount, amount_produced);
@@ -155,38 +175,57 @@ public class PlayerTownController : MonoBehaviour
                     buttons[1].onClick.RemoveAllListeners();
                     buttons[1].onClick.AddListener(() =>
                     {
-                        choice_box.SetActive(false);
-                        dialogue_box.SetActive(true);
-                        next_talk = Time.timeSinceLevelLoad + talk_cooldown;
+                        Debug.Log("Deny Button");
+                        choosing = false;
 
-                        if (next_dialogue.yes_line != "")
+                        if (dialogue_controller.in_exit_zone)
                         {
-                            AnimateText(dialogue_box, next_dialogue.no_line);
+                            Debug.Log("Exit set");
+                            EndDialogue();
                         }
                         else
                         {
-                            Talk();
+                            choice_box.SetActive(false);
+                            dialogue_box.SetActive(true);
+                            next_talk = Time.timeSinceLevelLoad + talk_cooldown;
+
+                            if (next_dialogue.no_line != "")
+                            {
+                                AnimateText(dialogue_box, next_dialogue.no_line);
+                            }
+                            else
+                            {
+                                Talk();
+                            }
                         }
                     });
                 }
                 else
                 {
+                    next_talk = Time.timeSinceLevelLoad + talk_cooldown;
+
                     AnimateText(dialogue_box, next_dialogue.line);
                     dialogue_box.SetActive(true);
-                    next_talk = Time.timeSinceLevelLoad + talk_cooldown;
                 }
             }
-            else
+            else if (!choosing)
             {
-                speaking = false;
-                dialogue_box.SetActive(false);
-                next_talk = Time.timeSinceLevelLoad + talk_cooldown;
+                Debug.Log("No new dialogue to display");
+                EndDialogue();
             }
         }
-        else if (dialogue_controller.in_exit_zone)
-        {
+    }
 
-        }
+    void EndDialogue()
+    {
+        Debug.Log("Dialogue End");
+        next_talk = Time.timeSinceLevelLoad + talk_cooldown;
+        GetComponentInChildren<PlayerDialogueController>().dialogue_ind = 0;
+        speaking = false;
+        choosing = false;
+
+        choice_box.SetActive(false);
+        dialogue_box.SetActive(false);
     }
 
     void AnimateText(GameObject box, string str)
@@ -236,7 +275,7 @@ public class PlayerTownController : MonoBehaviour
         if (fed && ((10 - main_controller.current_difficulty) == 0))
         {
             // Win state
-            results_background.transform.Find("Fed Text").gameObject.GetComponent<Text>().text = "You survived prohibition. You are now a wealthy moonshine baron.";
+            results_background.transform.Find("Fed Text").gameObject.GetComponent<Text>().text = "You survived prohibition.\nYou are now a wealthy moonshine baron.";
             results_background.transform.Find("Success/Remaining Text").gameObject.SetActive(false);
 
             results_background.transform.Find("Success").gameObject.SetActive(false);
@@ -261,7 +300,7 @@ public class PlayerTownController : MonoBehaviour
         else
         {
             // Lose state
-            results_background.transform.Find("Fed text").gameObject.GetComponent<Text>().text = "Game Over!\nYour family has starved and died. What was this even for...";
+            results_background.transform.Find("Fed Text").gameObject.GetComponent<Text>().text = "Game Over!\nYour family has starved and died.\nWhat was this even for...";
             results_background.transform.Find("Success/Remaining Text").gameObject.SetActive(false);
 
             results_background.transform.Find("Success").gameObject.SetActive(false);
