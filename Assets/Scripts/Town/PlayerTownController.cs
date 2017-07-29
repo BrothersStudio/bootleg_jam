@@ -112,7 +112,6 @@ public class PlayerTownController : MonoBehaviour
             Dialogue next_dialogue = dialogue_controller.GetNextDialogue();
             if (next_dialogue != null && !choosing)
             {
-                Debug.Log("New dialogue to display");
                 dest = transform.position;
                 speaking = true;
 
@@ -129,7 +128,6 @@ public class PlayerTownController : MonoBehaviour
                     buttons[0].onClick.RemoveAllListeners();
                     buttons[0].onClick.AddListener(() =>
                     {
-                        Debug.Log("Accept Button");
                         choosing = false;
 
                         if (dialogue_controller.in_exit_zone)
@@ -175,12 +173,10 @@ public class PlayerTownController : MonoBehaviour
                     buttons[1].onClick.RemoveAllListeners();
                     buttons[1].onClick.AddListener(() =>
                     {
-                        Debug.Log("Deny Button");
                         choosing = false;
 
                         if (dialogue_controller.in_exit_zone)
                         {
-                            Debug.Log("Exit set");
                             EndDialogue();
                         }
                         else
@@ -210,7 +206,6 @@ public class PlayerTownController : MonoBehaviour
             }
             else if (!choosing)
             {
-                Debug.Log("No new dialogue to display");
                 EndDialogue();
             }
         }
@@ -218,7 +213,6 @@ public class PlayerTownController : MonoBehaviour
 
     void EndDialogue()
     {
-        Debug.Log("Dialogue End");
         next_talk = Time.timeSinceLevelLoad + talk_cooldown;
         GetComponentInChildren<PlayerDialogueController>().dialogue_ind = 0;
         speaking = false;
