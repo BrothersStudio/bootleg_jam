@@ -53,17 +53,52 @@ public class BoilController : GameControllers
 
     void SetDifficulty()
     {
-        if (difficulty > 6)
+        if (difficulty == 10)
+        {
+            good_zone.zone_speed = 2.5f;
+            good_zone.flip_cooldown = 2.2f;
+        }
+        else if (difficulty == 9)
+        {
+            good_zone.zone_speed = 2.3f;
+            good_zone.flip_cooldown = 2.5f;
+        }
+        else if (difficulty == 8)
         {
             good_zone.zone_speed = 2.2f;
             good_zone.flip_cooldown = 2.5f;
         }
-        else if (difficulty > 3)
+        else if (difficulty == 7)
+        {
+            good_zone.zone_speed = 2.2f;
+            good_zone.flip_cooldown = 2.6f;
+        }
+        else if (difficulty == 6)
+        {
+            good_zone.zone_speed = 2.15f;
+            good_zone.flip_cooldown = 2.7f;
+        }
+        else if (difficulty == 5)
+        {
+            good_zone.zone_speed = 2.1f;
+            good_zone.flip_cooldown = 2.8f;
+        }
+        else if (difficulty == 4)
         {
             good_zone.zone_speed = 2f;
             good_zone.flip_cooldown = 3f;
         }
-        else 
+        else if (difficulty == 3)
+        {
+            good_zone.zone_speed = 1.9f;
+            good_zone.flip_cooldown = 3.1f;
+        }
+        else if (difficulty == 2)
+        {
+            good_zone.zone_speed = 1.8f;
+            good_zone.flip_cooldown = 3.3f;
+        }
+        else
         {
             good_zone.zone_speed = 1.7f;
             good_zone.flip_cooldown = 3.5f;

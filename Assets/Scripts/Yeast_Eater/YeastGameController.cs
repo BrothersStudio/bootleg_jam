@@ -18,7 +18,7 @@ public class YeastGameController : GameControllers
     {
         for (int ii = 0; ii < num_sugar; ii++)
         {
-            GameObject sugar = Instantiate(sugar_prefab, GetRandVec3InCircle(5f, 40f), Quaternion.identity, transform);
+            GameObject sugar = Instantiate(sugar_prefab, GetRandVec3InCircle(5f, 40f, 1f), Quaternion.identity, transform);
             sugar.transform.Rotate(Random.Range(0f, 90f), Random.Range(0f, 90f), Random.Range(0f, 90f));
             Vector3 sugar_velocity = Random.onUnitSphere * 1f;
             sugar_velocity.y = 0f;
@@ -52,14 +52,14 @@ public class YeastGameController : GameControllers
 
     void SetDifficulty()
     {
-        if (difficulty > 6)
+        if (difficulty >= 6)
         {
-            Instantiate(bad_yeast_prefab, GetRandVec3InCircle(5f, 40f), Quaternion.identity, transform);
-            Instantiate(bad_yeast_prefab, GetRandVec3InCircle(5f, 40f), Quaternion.identity, transform);
+            Instantiate(bad_yeast_prefab, GetRandVec3InCircle(5f, 40f, 0f), Quaternion.identity, transform);
+            Instantiate(bad_yeast_prefab, GetRandVec3InCircle(5f, 40f, 0f), Quaternion.identity, transform);
         }
-        else if (difficulty > 3)
+        else if (difficulty >= 3)
         {
-            Instantiate(bad_yeast_prefab, GetRandVec3InCircle(5f, 40f), Quaternion.identity, transform);
+            Instantiate(bad_yeast_prefab, GetRandVec3InCircle(5f, 40f, 0f), Quaternion.identity, transform);
         }
     }
 
@@ -74,14 +74,14 @@ public class YeastGameController : GameControllers
         }
     }
 
-    Vector3 GetRandVec3InCircle(float min_buffer, float radius)
+    Vector3 GetRandVec3InCircle(float min_buffer, float radius, float height)
     {
         float angle = Random.Range(0f, Mathf.PI * 2f);
         float dist = Random.Range(min_buffer, radius);
 
         Vector3 output = new Vector3();
         output.x = Mathf.Cos(angle) * dist;
-        output.y = 1f;
+        output.y = height;
         output.z = Mathf.Sin(angle) * dist;
         
         return output;

@@ -15,7 +15,7 @@ public class MainController : MonoBehaviour
     public bool sanitization_done, corn_done, yeast_done, boil_done, results_done, town_done;
 
     [HideInInspector]
-    public int sanitization_score, corn_score, yeast_score, boil_score, amount_produced;
+    public int sanitization_score, corn_score, yeast_score, boil_score, amount_produced, total_amount;
 
     [HideInInspector]
     public List<bool> sanitization_upgrades, corn_upgrades, yeast_upgrades, boil_upgrades;
@@ -36,17 +36,19 @@ public class MainController : MonoBehaviour
         yeast_done = false;
         boil_done = false;
         results_done = false;
+        town_done = false;
 
         sanitization_score = 0;
         corn_score = 0;
         yeast_score = 0;
         boil_score = 0;
-
         amount_produced = 0;
     }
 
     public void StartGame()
     {
+        total_amount = 0;
+
         event_system.SetActive(false);
         title_screen.SetActive(false);
         main_camera.transform.position = new Vector3(1.17f, 2.21f, 1.71f);
@@ -111,6 +113,7 @@ public class MainController : MonoBehaviour
             results_screen.SetActive(true);
             amount_produced = 5 + (int)((sanitization_score + corn_score + yeast_score + boil_score) / 16f);
             results_controller.ExecuteResults();
+            total_amount += amount_produced;
             results_done = true;
         }
         else if (!town_done)

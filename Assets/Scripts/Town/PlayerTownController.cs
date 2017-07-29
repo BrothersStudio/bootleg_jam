@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PlayerTownController : MonoBehaviour
 {
     MainController main_controller;
-    int amount_produced = 999;
+    int total_amount = 999;
     public Text amount_box;
 
     public float player_speed = 1f;
@@ -55,7 +55,7 @@ public class PlayerTownController : MonoBehaviour
                 if (main_objects[i].name == "MainController")
                 {
                     main_controller = main_objects[i].GetComponent<MainController>();
-                    amount_produced = main_controller.amount_produced;
+                    total_amount = main_controller.total_amount;
 
                     main_controller.camera_listener.enabled = false;
                     main_controller.event_system.SetActive(false);
@@ -64,7 +64,7 @@ public class PlayerTownController : MonoBehaviour
             }
         }
 
-        amount_box.text = "Current Amount:\n" + amount_produced.ToString();
+        amount_box.text = "Gallons of Booze:\n" + total_amount.ToString();
     }
 
     void FixedUpdate()
@@ -145,8 +145,8 @@ public class PlayerTownController : MonoBehaviour
                         }
                         else
                         {
-                            int previous_amount = amount_produced;
-                            amount_produced -= next_dialogue.price;
+                            int previous_amount = total_amount;
+                            total_amount -= next_dialogue.price;
 
                             if (next_dialogue.is_food)
                             {
@@ -154,7 +154,7 @@ public class PlayerTownController : MonoBehaviour
                                 fed_chance = true;
                             }
 
-                            AnimateNumber(previous_amount, amount_produced);
+                            AnimateNumber(previous_amount, total_amount);
                             choice_box.SetActive(false);
                             dialogue_box.SetActive(true);
                             next_talk = Time.timeSinceLevelLoad + talk_cooldown;
@@ -257,7 +257,7 @@ public class PlayerTownController : MonoBehaviour
             player_source.Play();
 
             i--;
-            amount_box.text = "Current Amount:\n" + i.ToString();
+            amount_box.text = "Gallons of Booze:\n" + i.ToString();
             yield return new WaitForSeconds(0.01f);
         }
     }

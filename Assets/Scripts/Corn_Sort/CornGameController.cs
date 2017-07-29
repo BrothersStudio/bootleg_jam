@@ -67,21 +67,71 @@ public class CornGameController : GameControllers
     void SetDifficulty()
     {
         float fall_speed;
-        if (difficulty >= 7)
+
+        if (difficulty == 10)
+        {
+            fall_speed = -7f;
+
+            faller_cooldown = 0.08f;
+            bug_spawn_percent = 15f;
+        }
+        else if (difficulty == 9)
         {
             fall_speed = -6f;
 
-            faller_cooldown = 0.1f;
+            faller_cooldown = 0.10f;
+            bug_spawn_percent = 15f;
+        }
+        else if (difficulty == 8)
+        {
+            fall_speed = -5.5f;
+
+            faller_cooldown = 0.12f;
             bug_spawn_percent = 20f;
         }
-        else if (difficulty >= 4)
+        else if (difficulty == 7)
         {
             fall_speed = -5f;
 
-            faller_cooldown = 0.3f;
+            faller_cooldown = 0.13f;
             bug_spawn_percent = 20f;
         }
-        else // (difficulty < 4)
+        else if (difficulty == 6)
+        {
+            fall_speed = -4.5f;
+
+            faller_cooldown = 0.15f;
+            bug_spawn_percent = 20f;
+        }
+        else if (difficulty == 5)
+        {
+            fall_speed = -4f;
+
+            faller_cooldown = 0.15f;
+            bug_spawn_percent = 20f;
+        }
+        else if (difficulty == 4)
+        {
+            fall_speed = -3.5f;
+
+            faller_cooldown = 0.18f;
+            bug_spawn_percent = 20f;
+        }
+        else if (difficulty == 3)
+        {
+            fall_speed = -3f;
+
+            faller_cooldown = 0.22f;
+            bug_spawn_percent = 20f;
+        }
+        else if (difficulty == 2)
+        {
+            fall_speed = -2.5f;
+
+            faller_cooldown = 0.26f;
+            bug_spawn_percent = 20f;
+        }
+        else // (difficulty == 1)
         {
             fall_speed = -2f;
 
