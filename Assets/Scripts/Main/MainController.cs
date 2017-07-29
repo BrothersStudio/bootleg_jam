@@ -12,7 +12,7 @@ public class MainController : MonoBehaviour
     public float main_time = 0f;
 
     [HideInInspector]
-    public bool sanitization_done, corn_done, yeast_done, boil_done, results_done;
+    public bool sanitization_done, corn_done, yeast_done, boil_done, results_done, town_done;
 
     [HideInInspector]
     public int sanitization_score, corn_score, yeast_score, boil_score, amount_produced;
@@ -110,7 +110,7 @@ public class MainController : MonoBehaviour
             results_controller.ExecuteResults();
             results_done = true;
         }
-        else
+        else if (!town_done)
         {
             barn.SetActive(false);
             camera_listener.enabled = false;
@@ -118,6 +118,11 @@ public class MainController : MonoBehaviour
             results_screen.SetActive(false);
 
             SceneManager.LoadScene("Town", LoadSceneMode.Additive);
+        }
+        else
+        {
+            ResetFields();
+            RunNext();
         }
     }
 

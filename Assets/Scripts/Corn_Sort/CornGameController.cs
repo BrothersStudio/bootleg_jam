@@ -52,7 +52,7 @@ public class CornGameController : GameControllers
 
         if (SceneManager.sceneCount > 1)
         {
-            Invoke("EndScene", 13.7f);
+            Invoke("EndScene", 23.7f);
         }
     }
 
@@ -105,7 +105,7 @@ public class CornGameController : GameControllers
 
             if (main_controller != null)
             {
-                HandleTime(-(main_controller.main_time - 10f));
+                HandleTime(-(main_controller.main_time - 20f));
             }
 
             // Spawn things

@@ -254,6 +254,7 @@ public class PlayerTownController : MonoBehaviour
             results_background.transform.Find("Failure").gameObject.SetActive(false);
             results_background.transform.Find("Success").gameObject.GetComponentInChildren<Button>().onClick.AddListener(() =>
             {
+                main_controller.town_done = true;
                 main_controller.RunNext();
             });
         }
