@@ -13,14 +13,18 @@ public class ZoneMovement : MonoBehaviour
     public float flip_cooldown = 2f;
     float last_flip = 0f;
 
-    Vector3 dest;
-    Vector3 top_pos = new Vector3(2.183f, 2.87f, -14.9f);
-    Vector3 bot_pos = new Vector3(2.183f, -6.03f, -14.9f);
+    public Vector3 dest;
+
+    Vector3 top_pos;
+    Vector3 bot_pos;
     Vector3 last_pos;
 
     void Start()
     {
         orig_zone_speed = zone_speed;
+
+        top_pos = new Vector3(-15.77f, 3.55f, -14.9f);
+        bot_pos = new Vector3(top_pos.x, -5.71f, top_pos.z);
 
         dest = bot_pos;
         last_pos = transform.position;

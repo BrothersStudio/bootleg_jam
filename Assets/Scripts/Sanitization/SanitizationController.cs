@@ -201,7 +201,7 @@ public class SanitizationController : GameControllers
             total_kettles++;
             next_kettle = Time.timeSinceLevelLoad + kettle_spawn_period;
 
-            GameObject kettle = Instantiate(kettle_prefab, new Vector3(-34f, 25f, -2.2f), Quaternion.identity, transform);
+            GameObject kettle = Instantiate(kettle_prefab, new Vector3(-33.6f, 25f, 79.1f), Quaternion.identity, transform);
             kettle.transform.Rotate(new Vector3(-90f, 0f, 0f));
 
             int infection_num = Random.Range(low_infections_per_kettle, high_infections_per_kettle + 1);

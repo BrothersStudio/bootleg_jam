@@ -20,6 +20,7 @@ public class MainController : MonoBehaviour
     [HideInInspector]
     public List<bool> sanitization_upgrades, corn_upgrades, yeast_upgrades, boil_upgrades;
 
+    public GameObject barn;
     public GameObject exposition_screen;
     public GameObject results_screen;
     public GameObject event_system;
@@ -64,6 +65,7 @@ public class MainController : MonoBehaviour
         if (!sanitization_done)
         {
             ResetFields();
+            barn.SetActive(false);
             current_difficulty++;
 
             if (SceneManager.sceneCount > 1)
@@ -93,6 +95,7 @@ public class MainController : MonoBehaviour
         {
             SceneManager.UnloadSceneAsync("Boil");
 
+            barn.SetActive(true);
             camera_listener.enabled = true;
             event_system.SetActive(true);
             results_screen.SetActive(true);
