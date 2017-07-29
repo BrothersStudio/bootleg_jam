@@ -63,6 +63,7 @@ ModelImporter:
     4300006: Cube_003
     7400000: Default Take
     7400002: walk_cycle
+    7400004: idle
     9500000: //RootNode
     13700000: Cube
   materials:
