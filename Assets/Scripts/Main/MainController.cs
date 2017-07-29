@@ -112,11 +112,12 @@ public class MainController : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("Town", LoadSceneMode.Additive);
-
+            barn.SetActive(false);
             camera_listener.enabled = false;
             event_system.SetActive(false);
             results_screen.SetActive(false);
+
+            SceneManager.LoadScene("Town", LoadSceneMode.Additive);
         }
     }
 

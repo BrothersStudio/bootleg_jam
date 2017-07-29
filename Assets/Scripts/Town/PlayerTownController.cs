@@ -237,7 +237,7 @@ public class PlayerTownController : MonoBehaviour
         {
             // Win state
             results_background.transform.Find("Fed Text").gameObject.GetComponent<Text>().text = "You survived prohibition. You are now a wealthy moonshine baron.";
-            results_background.transform.Find("Remaining Text").gameObject.SetActive(false);
+            results_background.transform.Find("Success/Remaining Text").gameObject.SetActive(false);
 
             results_background.transform.Find("Success").gameObject.SetActive(false);
             results_background.transform.Find("Failure").gameObject.GetComponentInChildren<Button>().onClick.AddListener(() =>
@@ -249,7 +249,7 @@ public class PlayerTownController : MonoBehaviour
         {
             // Next month state
             results_background.transform.Find("Fed Text").gameObject.GetComponent<Text>().text = "You fed your family this month!";
-            results_background.transform.Find("Remaining Text").gameObject.GetComponent<Text>().text = (10 - main_controller.current_difficulty).ToString() + " months to go";
+            results_background.transform.Find("Success/Remaining Text").gameObject.GetComponent<Text>().text = (10 - main_controller.current_difficulty).ToString() + " months to go";
 
             results_background.transform.Find("Failure").gameObject.SetActive(false);
             results_background.transform.Find("Success").gameObject.GetComponentInChildren<Button>().onClick.AddListener(() =>
@@ -261,7 +261,7 @@ public class PlayerTownController : MonoBehaviour
         {
             // Lose state
             results_background.transform.Find("Fed text").gameObject.GetComponent<Text>().text = "Game Over!\nYour family has starved and died. What was this even for...";
-            results_background.transform.Find("Remaining Text").gameObject.SetActive(false);
+            results_background.transform.Find("Success/Remaining Text").gameObject.SetActive(false);
 
             results_background.transform.Find("Success").gameObject.SetActive(false);
             results_background.transform.Find("Failure").gameObject.GetComponentInChildren<Button>().onClick.AddListener(() =>
