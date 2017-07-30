@@ -24,6 +24,12 @@ public class InfectionController : MonoBehaviour
             case "Blue":
                 settings.startColor = new ParticleSystem.MinMaxGradient(Color.blue);
                 break;
+            case "Teal":
+                settings.startColor = new ParticleSystem.MinMaxGradient(Color.cyan);
+                break;
+            case "Yellow":
+                settings.startColor = new ParticleSystem.MinMaxGradient(Color.yellow);
+                break;
         }
     }
 
