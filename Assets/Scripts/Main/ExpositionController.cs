@@ -15,6 +15,7 @@ public class ExpositionController : MonoBehaviour
     void Start()
     {
         dialogue_holder = GameObject.Find("DialogueManager").gameObject.GetComponent<TownsPersonController>();
+        main.gameObject.GetComponent<Fading>().BeginFade(-1);
         Talk();
     }
 
@@ -32,7 +33,6 @@ public class ExpositionController : MonoBehaviour
             {
                 main.RunNext();
             }
-
         }
     }
 

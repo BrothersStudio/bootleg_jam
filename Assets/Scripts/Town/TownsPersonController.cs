@@ -23,6 +23,8 @@ public class TownsPersonController : MonoBehaviour
 
     void Start()
     {
+        source = GetComponent<AudioSource>();
+
         if (SceneManager.sceneCount > 1)
         {
             GameObject[] main_objects = SceneManager.GetSceneByName("Main").GetRootGameObjects();
@@ -33,42 +35,40 @@ public class TownsPersonController : MonoBehaviour
                     main_controller = main_objects[i].GetComponent<MainController>();
                 }
             }
-        }
 
-        source = GetComponent<AudioSource>();
-
-        switch (main_controller.current_difficulty)
-        {
-            case 1:
-                dialogue_id.Add(10);
-                break;
-            case 2:
-                dialogue_id.Add(11);
-                break;
-            case 3:
-                dialogue_id.Add(12);
-                break;
-            case 4:
-                dialogue_id.Add(13);
-                break;
-            case 5:
-                dialogue_id.Add(14);
-                break;
-            case 6:
-                dialogue_id.Add(15);
-                break;
-            case 7:
-                dialogue_id.Add(16);
-                break;
-            case 8:
-                dialogue_id.Add(17);
-                break;
-            case 9:
-                dialogue_id.Add(18);
-                break;
-            case 10:
-                dialogue_id.Add(19);
-                break;
+            switch (main_controller.current_difficulty)
+            {
+                case 1:
+                    dialogue_id.Add(10);
+                    break;
+                case 2:
+                    dialogue_id.Add(11);
+                    break;
+                case 3:
+                    dialogue_id.Add(12);
+                    break;
+                case 4:
+                    dialogue_id.Add(13);
+                    break;
+                case 5:
+                    dialogue_id.Add(14);
+                    break;
+                case 6:
+                    dialogue_id.Add(15);
+                    break;
+                case 7:
+                    dialogue_id.Add(16);
+                    break;
+                case 8:
+                    dialogue_id.Add(17);
+                    break;
+                case 9:
+                    dialogue_id.Add(18);
+                    break;
+                case 10:
+                    dialogue_id.Add(19);
+                    break;
+            }
         }
 
         for (int i = 0; i < dialogue_id.Count; i++)
@@ -77,7 +77,10 @@ public class TownsPersonController : MonoBehaviour
         }
 
         next_talk = Time.timeSinceLevelLoad + talk_cooldown;
-        AnimateText(dialogue_lines[dialogue_ind].line);
+        if (SceneManager.sceneCount > 1)
+        {
+            AnimateText(dialogue_lines[dialogue_ind].line);
+        }
     }
 
     public void AnimateText(string str)

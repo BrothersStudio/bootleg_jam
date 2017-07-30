@@ -17,10 +17,11 @@ public class PlayerTownController : MonoBehaviour
     public AudioClip coin_clip;
 
     public Button continue_button;
+    public Text month_text;
     public Text gallons_text;
 
     bool fed = false;
-    int food_cost = 20;
+    int food_cost = 10;
     int sanitization_cost = 50;
     int corn_cost = 50;
     int yeast_cost = 50;
@@ -39,7 +40,7 @@ public class PlayerTownController : MonoBehaviour
                 {
                     main_controller = main_objects[i].GetComponent<MainController>();
 
-                    main_controller.camera_listener.enabled = false;
+                    main_controller.gameObject.GetComponent<AudioListener>().enabled = false;
                     main_controller.event_system.SetActive(false);
                     main_controller.results_screen.SetActive(false);
                 }
@@ -49,6 +50,7 @@ public class PlayerTownController : MonoBehaviour
         player_source = GetComponent<AudioSource>();
 
         gallons_text.text = "Gallons of Booze:\n" + main_controller.total_amount;
+        month_text.text = "Month " + main_controller.current_difficulty;
     }
 
     public void SanitizationUpgrade()

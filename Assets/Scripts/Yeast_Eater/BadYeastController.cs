@@ -11,6 +11,7 @@ public class BadYeastController : MonoBehaviour
     float swim_rate = 0.01f;
     float next_swim = 0f;
 
+    bool slow_down = false;
     float power_attack_rate = 6f;
     float next_power_attack = 0f;
 
@@ -51,18 +52,23 @@ public class BadYeastController : MonoBehaviour
             }
 
             // Power attack
-            if (Vector3.Distance(transform.position, player.transform.position) < 5f && Time.timeSinceLevelLoad > next_power_attack)
+            if (controller.difficulty > 4)
             {
-                next_power_attack = Time.timeSinceLevelLoad + power_attack_rate;
+                if (Vector3.Distance(transform.position, player.transform.position) < 5f && Time.timeSinceLevelLoad > next_power_attack)
+                {
+                    next_power_attack = Time.timeSinceLevelLoad + power_attack_rate;
+                    slow_down = true;
 
-                source.clip = charge_clip;
-                source.Play();
+                    source.clip = charge_clip;
+                    source.Play();
 
-                GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(player.transform.position.x - transform.position.x, 0f, player.transform.position.z - transform.position.z)) * enemy_speed * 1.5f);
-            }
-            else if (Time.timeSinceLevelLoad > next_power_attack - 5f)
-            {
-                GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity / 2f;
+                    GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(player.transform.position.x - transform.position.x, 0f, player.transform.position.z - transform.position.z)) * enemy_speed * 1.5f);
+                }
+                else if (Time.timeSinceLevelLoad > next_power_attack - 5.5f && slow_down)
+                {
+                    GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity / 2f;
+                    slow_down = false;
+                }
             }
 
             var shape = GetComponentInChildren<ParticleSystem>().shape;

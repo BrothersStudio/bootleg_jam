@@ -47,7 +47,7 @@ public class YeastGameController : GameControllers
     {
         if (main_controller.yeast_upgrade)
         {
-            GameObject.Find("Yeast").GetComponent<YeastController>().yeast_speed = 150f;
+            GameObject.Find("Yeast").GetComponent<YeastController>().yeast_speed = 200f;
         }
     }
 

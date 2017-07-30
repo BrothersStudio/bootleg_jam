@@ -101,7 +101,7 @@
         },
         {
             "id": 16,
-            "line": "Things are getting a little tricky now. The supplies are definitely worsening as the months go on. My brewing equipment is so grimy and dirty, now. It usually needs a few sprays to get totally clean. Whew, this is hard work.",
+            "line": "Things are getting a little tricky now. The supplies are definitely worsening as the months go on. My equipment is so grimy and dirty, now. It usually needs a few sprays to get totally clean. Whew, this is hard work.",
             "yes_line": "",
             "no_line": ""
         },
@@ -119,7 +119,7 @@
         },
         {
             "id": 19,
-            "line": "I never thought this day would come. Prohibition has ended. People are celebrating in the streets with MY booze. Everyone is asking me if I plan on stopping. I don't know. I just know I need one final month of food for my family with this batch!",
+            "line": "I never thought this day would come. Prohibition has ended. People are celebrating in the streets with MY booze. Everyone is asking me if I plan on continuing. I just know I need to buy one final month of food for my family with this batch!",
             "yes_line": "",
             "no_line": ""
         }

@@ -28,8 +28,6 @@ public class MainController : MonoBehaviour
     public GameObject event_system;
     public ResultsController results_controller;
 
-    public AudioListener camera_listener;
-
     void ResetFields()
     {
         sanitization_done = false;
@@ -79,6 +77,8 @@ public class MainController : MonoBehaviour
 
     public void RunNext()
     {
+        GetComponent<AudioListener>().enabled = false;
+
         if (!sanitization_done)
         {
             ResetFields();
@@ -114,7 +114,7 @@ public class MainController : MonoBehaviour
             SceneManager.UnloadSceneAsync("Boil");
 
             barn.SetActive(true);
-            camera_listener.enabled = true;
+            GetComponent<AudioListener>().enabled = true;
             event_system.SetActive(true);
             results_screen.SetActive(true);
             amount_produced = 5 + (int)((sanitization_score + corn_score + yeast_score + boil_score) / 16f);
@@ -125,7 +125,7 @@ public class MainController : MonoBehaviour
         else if (!town_done)
         {
             barn.SetActive(false);
-            camera_listener.enabled = false;
+            GetComponent<AudioListener>().enabled = false;
             event_system.SetActive(false);
             results_screen.SetActive(false);
 
