@@ -144,6 +144,16 @@ public class PlayerTownController : MonoBehaviour
 
     void Update()
     {
+        // Continue button greyed out if haven't bought food and can.
+        if (main_controller.total_amount > food_cost && !fed)
+        {
+            continue_button.interactable = false;
+        }
+        else
+        {
+            continue_button.interactable = true;
+        }
+
         // Rotate to face destination
         if (Vector3.Distance(dest, transform.position) > 1)
         {

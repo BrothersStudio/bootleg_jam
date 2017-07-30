@@ -58,7 +58,7 @@ public class BadYeastController : MonoBehaviour
                 source.clip = charge_clip;
                 source.Play();
 
-                GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(player.transform.position.x - transform.position.x, 0f, player.transform.position.z - transform.position.z)) * enemy_speed * 3f);
+                GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(player.transform.position.x - transform.position.x, 0f, player.transform.position.z - transform.position.z)) * enemy_speed * 1.5f);
             }
             else if (Time.timeSinceLevelLoad > next_power_attack - 5f)
             {
