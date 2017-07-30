@@ -58,17 +58,14 @@
         },
         {
             "id": 9,
-            "line": "I can sell you a month's worth of food for 15 gallons of moonshine.",
+            "line": "Are you sure you wish to continue without purchasing food?",
             "is_choice": 1,
-            "price": 15,
-            "is_food": 1, 
-            "yes_line": "Here you go.",
-            "no_line": "Suit yourself."
+            "yes_line": "",
+            "no_line": ""
         },
         {
             "id": 10,
-            "line": "Are you sure you wish to continue without purchasing food?",
-            "is_choice": 1,
+            "line": "Well, we survived the first month. Now I just need to buy food for my family. And maybe while I'm in town I can look into some upgrades for my brewing equipment.",
             "yes_line": "",
             "no_line": ""
         }
