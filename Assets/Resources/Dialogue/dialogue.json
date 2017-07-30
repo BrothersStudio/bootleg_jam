@@ -65,7 +65,61 @@
         },
         {
             "id": 10,
-            "line": "Well, we survived the first month. Now I just need to buy food for my family. And maybe while I'm in town I can look into some upgrades for my brewing equipment.",
+            "line": "Well, we survived the first month of being an illegal bootlegger. Now I just need to buy food for my family. And maybe while I'm in town I can look into some upgrades for my brewing equipment.",
+            "yes_line": "",
+            "no_line": ""
+        }
+        {
+            "id": 11,
+            "line": "I have a vague feeling I can't put my finger on that brewing was harder than last month. Am I going crazy? The packet of yeast I'm using next month has a weird smell to it, though.",
+            "yes_line": "",
+            "no_line": ""
+        }
+        {
+            "id": 12,
+            "line": "This is going a little better than I expected. I'm making enough to survive. I should try and save up for some upgrades if I'm struggling in any part of the process.",
+            "yes_line": "",
+            "no_line": ""
+        }
+        {
+            "id": 13,
+            "line": "My son walked in on me last brew cycle. That was hard to explain. I can't imagine what would happen if I were caught. My wife isn't asking questions, bless her heart.",
+            "yes_line": "",
+            "no_line": ""
+        }
+        {
+            "id": 14,
+            "line": "There's rumblings that prohibition might be coming to an end in the winter. Some states are pushing back pretty hard. I'm about halfway done, now, if that's the case. Then this nightmare will be over.",
+            "yes_line": "",
+            "no_line": ""
+        }
+        {
+            "id": 15,
+            "line": "There were some suits around town this month asking questions about local bootlegging operations. Fortunately, we are pretty tight-knit here. Plus, I don't think the townsfolk want their supply cut off.",
+            "yes_line": "",
+            "no_line": ""
+        }
+        {
+            "id": 16,
+            "line": "Things are getting a little tricky now. The supplies are definitely worsening as the months go on. My brewing equipment is so grimy and dirty, now. It usually needs a few sprays to get totally clean. Whew, this is hard work.",
+            "yes_line": "",
+            "no_line": ""
+        }
+        {
+            "id": 17,
+            "line": "It's getting cold out. And my corn supplies are running dangerously low. We have nothing left to fall back on if this doesn't work out.",
+            "yes_line": "",
+            "no_line": ""
+        }
+        {
+            "id": 18,
+            "line": "One more month to go. I just have to brew one more batch. But should it really be my last? I feel like I have a knack for this stuff. God knows I was an awful farmer.",
+            "yes_line": "",
+            "no_line": ""
+        }
+        {
+            "id": 19,
+            "line": "I never thought this day would come. Prohibition has ended. People are celebrating in the streets with MY booze. Everyone is asking me if I plan on stopping. I don't know. I just know I need one final month of food for my family with this batch!",
             "yes_line": "",
             "no_line": ""
         }
