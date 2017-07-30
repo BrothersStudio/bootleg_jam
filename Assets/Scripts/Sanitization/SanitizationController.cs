@@ -17,6 +17,11 @@ public class SanitizationController : GameControllers
     public LayerMask red_mask;
     public LayerMask green_mask;
     public LayerMask blue_mask;
+    public LayerMask teal_mask;
+    public LayerMask yellow_mask;
+
+    public GameObject teal_vial;
+    public GameObject yellow_vial;
 
     int current_selection = -1;
     public AudioClip color_select;
@@ -34,6 +39,7 @@ public class SanitizationController : GameControllers
     int total_infections = 0;
     public int game_score = 0;
     public int difficulty = 1;
+    int infection_options = 3;
 
     public GameObject upgrade_tutorial_text;
     public bool sanitization_upgrade = false;
@@ -75,34 +81,39 @@ public class SanitizationController : GameControllers
     {
         if (difficulty == 10)
         {
-            low_infections_per_kettle = 4;
+            infection_options = 5;
+            low_infections_per_kettle = 3;
             high_infections_per_kettle = 4;
 
-            kettle_spawn_period = 1.7f;
+            kettle_spawn_period = 2.2f;
         }
         else if (difficulty == 9)
         {
+            infection_options = 5;
             low_infections_per_kettle = 3;
             high_infections_per_kettle = 4;
 
-            kettle_spawn_period = 2f;
+            kettle_spawn_period = 2.4f;
         }
         else if (difficulty == 8)
         {
+            infection_options = 5;
             low_infections_per_kettle = 3;
-            high_infections_per_kettle = 4;
+            high_infections_per_kettle = 3;
 
-            kettle_spawn_period = 2f;
+            kettle_spawn_period = 2.4f;
         }
         else if (difficulty == 7)
         {
+            infection_options = 5;
             low_infections_per_kettle = 2;
-            high_infections_per_kettle = 4;
+            high_infections_per_kettle = 3;
 
-            kettle_spawn_period = 2f;
+            kettle_spawn_period = 2.5f;
         }
         else if (difficulty == 6)
         {
+            infection_options = 4;
             low_infections_per_kettle = 2;
             high_infections_per_kettle = 4;
 
@@ -110,6 +121,7 @@ public class SanitizationController : GameControllers
         }
         else if (difficulty == 5)
         {
+            infection_options = 4;
             low_infections_per_kettle = 2;
             high_infections_per_kettle = 3;
 
@@ -117,6 +129,7 @@ public class SanitizationController : GameControllers
         }
         else if (difficulty == 4)
         {
+            infection_options = 4;
             low_infections_per_kettle = 2;
             high_infections_per_kettle = 3;
 
@@ -124,6 +137,7 @@ public class SanitizationController : GameControllers
         }
         else if (difficulty == 3)
         {
+            infection_options = 3;
             low_infections_per_kettle = 1;
             high_infections_per_kettle = 3;
 
@@ -131,6 +145,7 @@ public class SanitizationController : GameControllers
         }
         else if (difficulty == 2)
         {
+            infection_options = 3;
             low_infections_per_kettle = 1;
             high_infections_per_kettle = 2;
 
@@ -138,10 +153,21 @@ public class SanitizationController : GameControllers
         }
         else if (difficulty == 1)
         {
+            infection_options = 3;
             low_infections_per_kettle = 1;
             high_infections_per_kettle = 1;
 
             kettle_spawn_period = 3f;
+        }
+
+        if (infection_options == 4)
+        {
+            teal_vial.SetActive(true);
+        }
+        else if (infection_options == 5)
+        {
+            teal_vial.SetActive(true);
+            yellow_vial.SetActive(true);
         }
     }
 
@@ -211,6 +237,20 @@ public class SanitizationController : GameControllers
                 current_selection = 2;
                 return;
             }
+            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, teal_mask))
+            {
+                GetComponent<AudioSource>().clip = color_select;
+                GetComponent<AudioSource>().Play();
+                current_selection = 3;
+                return;
+            }
+            else if (Physics.Raycast(ray, out hit, Mathf.Infinity, yellow_mask))
+            {
+                GetComponent<AudioSource>().clip = color_select;
+                GetComponent<AudioSource>().Play();
+                current_selection = 4;
+                return;
+            }
 
             if (Time.timeSinceLevelLoad > next_spray && current_selection >= 0)
             {
@@ -247,6 +287,12 @@ public class SanitizationController : GameControllers
                         case 2:
                             disinfectant.tag = "Blue";
                             break;
+                        case 3:
+                            disinfectant.tag = "Teal";
+                            break;
+                        case 4:
+                            disinfectant.tag = "Yellow";
+                            break;
                     }
                 }
             }
@@ -271,7 +317,7 @@ public class SanitizationController : GameControllers
                 infection.name = "Infection";
                 infection.transform.localPosition = new Vector3(Random.Range(-1f, 1f), 1.62f, Random.Range(-0.5f, 1.5f));
 
-                int infection_roll = Random.Range(0, color_mats.Length);
+                int infection_roll = Random.Range(0, infection_options);
                 infection.GetComponent<MeshRenderer>().material = color_mats[infection_roll];
                 switch (infection_roll)
                 {
@@ -283,6 +329,12 @@ public class SanitizationController : GameControllers
                         break;
                     case 2:
                         infection.tag = "Blue";
+                        break;
+                    case 3:
+                        infection.tag = "Teal";
+                        break;
+                    case 4:
+                        infection.tag = "Yellow";
                         break;
                 }
             }
