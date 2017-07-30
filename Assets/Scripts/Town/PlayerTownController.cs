@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class PlayerTownController : MonoBehaviour
 {
     MainController main_controller;
+    public TownsPersonController text_controller;
+    public GameObject win_game_screen;
+    public GameObject lose_game_screen;
 
     Vector3 dest;
 
@@ -39,23 +42,41 @@ public class PlayerTownController : MonoBehaviour
             }
         }
 
-        continue_button.onClick.AddListener(() =>
-        {
-            main_controller.town_done = true;
-            main_controller.RunNext();
-        });
-
         player_source = GetComponent<AudioSource>();
 
         gallons_text.text = "Gallons of Booze:\n" + main_controller.total_amount;
     }
 
+    public void Continue()
+    {
+        // Check win and lose conditions
+        if (!fed)
+        {
+            lose_game_screen.SetActive(true);
+            return;
+        }
+        else if (fed && main_controller.current_difficulty == 10)
+        {
+            win_game_screen.SetActive(true);
+            return;
+        }
+
+        main_controller.town_done = true;
+        main_controller.RunNext();
+    }
+
     public void BuyFood()
     {
-
-        AnimateNumber(main_controller.total_amount, main_controller.total_amount - food_cost);
-        main_controller.total_amount -= food_cost;
-        fed = true;
+        if (main_controller.total_amount > food_cost && !fed)
+        {
+            AnimateNumber(main_controller.total_amount, main_controller.total_amount - food_cost);
+            main_controller.total_amount -= food_cost;
+            fed = true;
+        }
+        else if (!fed)
+        {
+            text_controller.AnimateText("I can't afford food this month. Not looking forward to watching my family slowly starve to death.");
+        }
     }
 
     void AnimateNumber(int previous_amount, int new_amount)
@@ -87,5 +108,10 @@ public class PlayerTownController : MonoBehaviour
 
         // Player travel
         transform.position = Vector3.MoveTowards(transform.position, dest, 1f * Time.deltaTime);
+    }
+
+    void QuitGame()
+    {
+        main_controller.QuitGame();
     }
 }

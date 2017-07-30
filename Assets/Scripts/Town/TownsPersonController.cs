@@ -59,7 +59,7 @@ public class TownsPersonController : MonoBehaviour
         AnimateText(dialogue_lines[dialogue_ind].line);
     }
 
-    void AnimateText(string str)
+    public void AnimateText(string str)
     {
         StopAllCoroutines();
         StartCoroutine(AnimateTextRoutine(str));
