@@ -13,6 +13,7 @@ public class YeastGameController : GameControllers
 
     public int game_score;
     public int difficulty;
+    public bool yeast_upgrade = false;
 
     new void Start()
     {
@@ -30,6 +31,7 @@ public class YeastGameController : GameControllers
         if (main_controller != null)
         {
             difficulty = main_controller.current_difficulty;
+            yeast_upgrade = main_controller.yeast_upgrade;
         }
 
         SetDifficulty();
@@ -43,10 +45,9 @@ public class YeastGameController : GameControllers
 
     void SetUpgrades()
     {
-        if (main_controller.yeast_upgrades[0])
+        if (main_controller.yeast_upgrade)
         {
-            GameObject.Find("Yeast").GetComponent<YeastController>().yeast_speed = 120f;
-            GameObject.Find("Yeast").GetComponent<Rigidbody>().drag = 0.5f;
+            GameObject.Find("Yeast").GetComponent<YeastController>().yeast_speed = 150f;
         }
     }
 

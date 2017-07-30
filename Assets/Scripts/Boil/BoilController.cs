@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class BoilController : GameControllers
 {
-    List<bool> boil_upgrades;
+    public bool boil_upgrade;
 
     public ZoneMovement good_zone;
 
@@ -22,11 +22,7 @@ public class BoilController : GameControllers
         if (main_controller != null)
         {
             difficulty = main_controller.current_difficulty;
-            boil_upgrades = main_controller.boil_upgrades;
-        }
-        else
-        {
-            boil_upgrades = new List<bool>(new bool[] { false });
+            boil_upgrade = main_controller.boil_upgrade;
         }
 
         SetUpgrades();
@@ -41,7 +37,7 @@ public class BoilController : GameControllers
 
     void SetUpgrades()
     {
-        if (boil_upgrades[0])
+        if (boil_upgrade)
         {
             Physics.gravity = new Vector3(0, -20F, 0);
         }

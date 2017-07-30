@@ -21,6 +21,10 @@ public class PlayerTownController : MonoBehaviour
 
     bool fed = false;
     int food_cost = 20;
+    int sanitization_cost = 50;
+    int corn_cost = 50;
+    int yeast_cost = 50;
+    int boil_cost = 50;
 
 	void Start ()
     {
@@ -45,6 +49,46 @@ public class PlayerTownController : MonoBehaviour
         player_source = GetComponent<AudioSource>();
 
         gallons_text.text = "Gallons of Booze:\n" + main_controller.total_amount;
+    }
+
+    public void SanitizationUpgrade()
+    {
+        if (main_controller.total_amount > sanitization_cost && !main_controller.sanitization_upgrade)
+        {
+            AnimateNumber(main_controller.total_amount, main_controller.total_amount - sanitization_cost);
+            main_controller.total_amount -= sanitization_cost;
+            main_controller.sanitization_upgrade = true;
+        }
+    }
+
+    public void CornUpgrade()
+    {
+        if (main_controller.total_amount > corn_cost && !main_controller.corn_upgrade)
+        {
+            AnimateNumber(main_controller.total_amount, main_controller.total_amount - corn_cost);
+            main_controller.total_amount -= corn_cost;
+            main_controller.corn_upgrade = true;
+        }
+    }
+
+    public void YeastUpgrade()
+    {
+        if (main_controller.total_amount > yeast_cost && !main_controller.yeast_upgrade)
+        {
+            AnimateNumber(main_controller.total_amount, main_controller.total_amount - yeast_cost);
+            main_controller.total_amount -= yeast_cost;
+            main_controller.yeast_upgrade = true;
+        }
+    }
+
+    public void BoilUpgrade()
+    {
+        if (main_controller.total_amount > boil_cost && !main_controller.boil_upgrade)
+        {
+            AnimateNumber(main_controller.total_amount, main_controller.total_amount - boil_cost);
+            main_controller.total_amount -= boil_cost;
+            main_controller.boil_upgrade = true;
+        }
     }
 
     public void Continue()

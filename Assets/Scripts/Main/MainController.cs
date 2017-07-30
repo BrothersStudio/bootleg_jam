@@ -18,7 +18,7 @@ public class MainController : MonoBehaviour
     public int sanitization_score, corn_score, yeast_score, boil_score, amount_produced, total_amount;
 
     [HideInInspector]
-    public List<bool> sanitization_upgrades, corn_upgrades, yeast_upgrades, boil_upgrades;
+    public bool sanitization_upgrade, corn_upgrade, yeast_upgrade, boil_upgrade;
 
     public GameObject barn;
     public GameObject main_camera;
@@ -62,10 +62,10 @@ public class MainController : MonoBehaviour
         main_camera.transform.position = new Vector3(1.17f, 2.21f, 1.71f);
         main_camera.transform.Rotate(new Vector3(15f, 0f, 0f));
 
-        sanitization_upgrades = new List<bool>(new bool[] { false, false });
-        corn_upgrades = new List<bool>(new bool[] { false });
-        yeast_upgrades = new List<bool>(new bool[] { false, false });
-        boil_upgrades = new List<bool>(new bool[] { false });
+        sanitization_upgrade = false;
+        corn_upgrade = false;
+        yeast_upgrade = false;
+        boil_upgrade = false;
 
         if (!debug)
         {

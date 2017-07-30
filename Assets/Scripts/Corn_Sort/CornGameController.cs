@@ -24,7 +24,7 @@ public class CornGameController : GameControllers
     public int game_score = 0;
 
     public int difficulty = 1;
-    List<bool> corn_upgrades;
+    public bool corn_upgrade =  false;
 
     new void Start()
     {
@@ -40,11 +40,7 @@ public class CornGameController : GameControllers
         if (main_controller != null)
         {
             difficulty = main_controller.current_difficulty;
-            corn_upgrades = main_controller.corn_upgrades;
-        }
-        else
-        {
-            corn_upgrades = new List<bool>(new bool[] { false });
+            corn_upgrade = main_controller.corn_upgrade;
         }
 
         SetUpgrades();
@@ -59,9 +55,9 @@ public class CornGameController : GameControllers
 
     void SetUpgrades()
     {
-        if (corn_upgrades[0])
+        if (corn_upgrade)
         {
-            GameObject.Find("Cursor").transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            GameObject.Find("Cursor").transform.localScale = new Vector3(1f, 1f, 1f);
         }
     }
 

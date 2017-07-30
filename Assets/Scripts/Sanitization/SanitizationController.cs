@@ -35,6 +35,13 @@ public class SanitizationController : GameControllers
     public int game_score = 0;
     public int difficulty = 1;
 
+    public GameObject upgrade_tutorial_text;
+    public bool sanitization_upgrade = false;
+    [HideInInspector]
+    public bool freeze = false;
+    bool freeze_used = false;
+    public AudioClip freeze_tick_clip;
+
     new void Start()
     {
         Cursor.visible = false;
@@ -46,12 +53,21 @@ public class SanitizationController : GameControllers
             difficulty = main_controller.current_difficulty;
         }
 
+        SetUpgrades();
         SetDifficulty();
         StartCoroutine(StartCountdown("Sanitize!"));
 
         if (SceneManager.sceneCount > 1)
         {
             Invoke("EndScene", 23.7f);
+        }
+    }
+
+    void SetUpgrades()
+    {
+        if (sanitization_upgrade)
+        {
+            upgrade_tutorial_text.SetActive(true);
         }
     }
 
@@ -138,10 +154,32 @@ public class SanitizationController : GameControllers
                 HandleTime(-(main_controller.main_time - 20f));
             }
 
+            if (sanitization_upgrade && !freeze_used && Input.GetKeyDown("space"))
+            {
+                freeze = true;
+                freeze_used = true;
+                next_kettle += 2f;
+                StartCoroutine(TimeStop());
+            }
+
             HandleDisinfectant();
 
             SpawnKettles();
         }
+    }
+
+    IEnumerator TimeStop()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            GetComponent<AudioSource>().clip = freeze_tick_clip;
+            GetComponent<AudioSource>().Play();
+
+            yield return new WaitForSeconds(1f);
+        }
+        GetComponent<AudioSource>().clip = start_clip;
+        GetComponent<AudioSource>().Play();
+        freeze = false;
     }
 
     void HandleDisinfectant()
@@ -217,7 +255,7 @@ public class SanitizationController : GameControllers
 
     void SpawnKettles()
     {
-        if (Time.timeSinceLevelLoad > next_kettle)
+        if (Time.timeSinceLevelLoad > next_kettle && !freeze)
         {
             next_kettle = Time.timeSinceLevelLoad + kettle_spawn_period;
 
