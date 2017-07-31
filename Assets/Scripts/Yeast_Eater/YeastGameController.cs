@@ -17,6 +17,9 @@ public class YeastGameController : GameControllers
 
     new void Start()
     {
+        SetUpgrades();
+        SetDifficulty();
+
         for (int ii = 0; ii < num_sugar; ii++)
         {
             GameObject sugar = Instantiate(sugar_prefab, GetRandVec3InCircle(5f, 40f, 1f), Quaternion.identity, transform);
@@ -34,8 +37,6 @@ public class YeastGameController : GameControllers
             yeast_upgrade = main_controller.yeast_upgrade;
         }
 
-        SetUpgrades();
-        SetDifficulty();
         StartCoroutine(StartCountdown("Eat!"));
 
         if (SceneManager.sceneCount > 1)
@@ -57,6 +58,8 @@ public class YeastGameController : GameControllers
     {
         if (difficulty == 10)
         {
+            num_sugar = 50;
+
             GameObject bad_yeast1 = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(15f, 40f, 0f), Quaternion.identity, transform);
             bad_yeast1.GetComponent<BadYeastController>().enemy_speed = 70f;
             GameObject bad_yeast2 = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(15f, 40f, 0f), Quaternion.identity, transform);
@@ -64,6 +67,8 @@ public class YeastGameController : GameControllers
         }
         else if (difficulty == 9)
         {
+            num_sugar = 50;
+
             GameObject bad_yeast1 = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(15f, 40f, 0f), Quaternion.identity, transform);
             bad_yeast1.GetComponent<BadYeastController>().enemy_speed = 55f;
             GameObject bad_yeast2 = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(15f, 40f, 0f), Quaternion.identity, transform);
@@ -71,6 +76,8 @@ public class YeastGameController : GameControllers
         }
         else if (difficulty == 8)
         {
+            num_sugar = 50;
+
             GameObject bad_yeast1 = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(15f, 40f, 0f), Quaternion.identity, transform);
             bad_yeast1.GetComponent<BadYeastController>().enemy_speed = 50f;
             GameObject bad_yeast2 = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(15f, 40f, 0f), Quaternion.identity, transform);
@@ -78,6 +85,8 @@ public class YeastGameController : GameControllers
         }
         else if (difficulty == 7)
         {
+            num_sugar = 60;
+
             GameObject bad_yeast1 = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(15f, 40f, 0f), Quaternion.identity, transform);
             bad_yeast1.GetComponent<BadYeastController>().enemy_speed = 45f;
             GameObject bad_yeast2 = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(15f, 40f, 0f), Quaternion.identity, transform);
@@ -85,6 +94,8 @@ public class YeastGameController : GameControllers
         }
         else if (difficulty == 6)
         {
+            num_sugar = 60;
+
             GameObject bad_yeast1 = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(15f, 40f, 0f), Quaternion.identity, transform);
             bad_yeast1.GetComponent<BadYeastController>().enemy_speed = 40f;
             GameObject bad_yeast2 = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(15f, 40f, 0f), Quaternion.identity, transform);
@@ -92,18 +103,32 @@ public class YeastGameController : GameControllers
         }
         else if (difficulty == 5)
         {
+            num_sugar = 50;
+
             GameObject bad_yeast = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(15f, 40f, 0f), Quaternion.identity, transform);
             bad_yeast.GetComponent<BadYeastController>().enemy_speed = 60f;
         }
         else if (difficulty == 4)
         {
+            num_sugar = 60;
+
             GameObject bad_yeast = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(20f, 40f, 0f), Quaternion.identity, transform);
             bad_yeast.GetComponent<BadYeastController>().enemy_speed = 50f;
         }
         else if (difficulty == 3)
         {
+            num_sugar = 60;
+
             GameObject bad_yeast = Instantiate(bad_yeast_prefab, GetRandVec3InCircle(25f, 40f, 0f), Quaternion.identity, transform);
             bad_yeast.GetComponent<BadYeastController>().enemy_speed = 40f;
+        }
+        else if (difficulty == 2)
+        {
+            num_sugar = 60;
+        }
+        else if (difficulty == 1)
+        {
+            num_sugar = 70;
         }
     }
 
