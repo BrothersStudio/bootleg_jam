@@ -85,7 +85,7 @@ public class SanitizationController : GameControllers
             low_infections_per_kettle = 3;
             high_infections_per_kettle = 4;
 
-            kettle_spawn_period = 2.2f;
+            kettle_spawn_period = 2.3f;
         }
         else if (difficulty == 9)
         {
@@ -257,12 +257,12 @@ public class SanitizationController : GameControllers
                 next_spray = Time.timeSinceLevelLoad + spray_cooldown;
                 spray_source.Play();
 
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < 30; i++)
                 {
                     GameObject disinfectant = DisinfectantPool.current.GetPooledDisinfectant();
                     Vector3 new_pos = sanitization_spawn_loc.transform.position;
-                    new_pos.x += Random.Range(-1.5f, 1.5f);
-                    new_pos.y += Random.Range(-1.5f, 1.5f);
+                    new_pos.x += Random.Range(-2f, 2f);
+                    new_pos.y += Random.Range(-2f, 2f);
                     new_pos.z += Random.Range(-0.2f, 2f);
                     disinfectant.transform.position = new_pos;
 

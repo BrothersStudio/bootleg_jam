@@ -16,6 +16,11 @@ public class PlayerTownController : MonoBehaviour
     AudioSource player_source;
     public AudioClip coin_clip;
 
+    public Button food_button;
+    public Button upgrade1;
+    public Button upgrade2;
+    public Button upgrade3;
+    public Button upgrade4;
     public Button continue_button;
     public Text month_text;
     public Text gallons_text;
@@ -146,6 +151,30 @@ public class PlayerTownController : MonoBehaviour
 
     void Update()
     {
+        SetButtonsInteractible();
+
+        // Rotate to face destination
+        if (Vector3.Distance(dest, transform.position) > 1)
+        {
+            transform.rotation = Quaternion.LookRotation(dest - transform.position, new Vector3(0, 1, 0));
+        }
+
+        // Player travel
+        transform.position = Vector3.MoveTowards(transform.position, dest, 1f * Time.deltaTime);
+    }
+
+    void SetButtonsInteractible()
+    {
+        // Food button greyed out if food bought
+        if (fed)
+        {
+            food_button.interactable = false;
+        }
+        else
+        {
+            food_button.interactable = true;
+        }
+
         // Continue button greyed out if haven't bought food and can.
         if (main_controller.total_amount > food_cost && !fed)
         {
@@ -156,14 +185,21 @@ public class PlayerTownController : MonoBehaviour
             continue_button.interactable = true;
         }
 
-        // Rotate to face destination
-        if (Vector3.Distance(dest, transform.position) > 1)
+        // Other upgrade buttons greyed out if you can't afford them AND food
+        if ((main_controller.total_amount < (food_cost + sanitization_cost) && !fed) || (main_controller.total_amount < sanitization_cost))
         {
-            transform.rotation = Quaternion.LookRotation(dest - transform.position, new Vector3(0, 1, 0));
+            upgrade1.interactable = false;
+            upgrade2.interactable = false;
+            upgrade3.interactable = false;
+            upgrade4.interactable = false;
         }
-
-        // Player travel
-        transform.position = Vector3.MoveTowards(transform.position, dest, 1f * Time.deltaTime);
+        else
+        {
+            upgrade1.interactable = true;
+            upgrade2.interactable = true;
+            upgrade3.interactable = true;
+            upgrade4.interactable = true;
+        }
     }
 
     void QuitGame()

@@ -7,6 +7,7 @@ public class BoilController : GameControllers
 {
     public bool boil_upgrade;
 
+    public ArrowMovement arrow;
     public ZoneMovement good_zone;
 
     public int game_score = 0;
@@ -39,10 +40,12 @@ public class BoilController : GameControllers
     {
         if (boil_upgrade)
         {
+            arrow.arrow_speed = 400;
             Physics.gravity = new Vector3(0, -20F, 0);
         }
         else
         {
+            arrow.arrow_speed = 300;
             Physics.gravity = new Vector3(0, -15F, 0);
         }
     }

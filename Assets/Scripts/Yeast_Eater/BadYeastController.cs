@@ -6,14 +6,14 @@ public class BadYeastController : MonoBehaviour
 {
     YeastGameController controller;
     GameObject player;
-    public float enemy_speed = 40f;
+    public float enemy_speed;
 
-    float swim_rate = 0.01f;
+    float swim_rate = 0.15f;
     float next_swim = 0f;
 
-    bool slow_down = false;
-    float power_attack_rate = 6f;
-    float next_power_attack = 0f;
+    int slow_down = 0;
+    float power_attack_rate = 8f;
+    float next_power_attack = 4f;
 
     AudioSource source;
     public AudioClip charge_clip;
@@ -57,17 +57,19 @@ public class BadYeastController : MonoBehaviour
                 if (Vector3.Distance(transform.position, player.transform.position) < 5f && Time.timeSinceLevelLoad > next_power_attack)
                 {
                     next_power_attack = Time.timeSinceLevelLoad + power_attack_rate;
-                    slow_down = true;
+                    slow_down = 0;
 
                     source.clip = charge_clip;
                     source.Play();
 
-                    GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(player.transform.position.x - transform.position.x, 0f, player.transform.position.z - transform.position.z)) * enemy_speed * 1.5f);
+                    GetComponent<Rigidbody>().drag = 0.6f;
+                    GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(player.transform.position.x - transform.position.x, 0f, player.transform.position.z - transform.position.z)) * enemy_speed * 70f);
                 }
-                else if (Time.timeSinceLevelLoad > next_power_attack - 5.5f && slow_down)
+                else if (Time.timeSinceLevelLoad > next_power_attack - 4.5f && slow_down < 5)
                 {
+                    GetComponent<Rigidbody>().drag = 0.1f;
                     GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity / 2f;
-                    slow_down = false;
+                    slow_down++;
                 }
             }
 
