@@ -48,9 +48,11 @@ public class YeastController : MonoBehaviour
                 GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(mouse_pos.x - transform.position.x, 0f, mouse_pos.z - transform.position.z)) * yeast_speed);
             }
 
-            if (!GetComponent<Animation>().isPlaying)
+            if (Time.timeSinceLevelLoad > next_chomp)
             {
-                GetComponent<Animation>().Play("Idle");
+                next_chomp = Time.timeSinceLevelLoad + chomp_cooldown;
+
+                GetComponent<Animation>().Play("Eating");
             }
 
             var shape = GetComponentInChildren<ParticleSystem>().shape;
@@ -63,6 +65,10 @@ public class YeastController : MonoBehaviour
                 shape.angle = 50f;
             }
         }
+        else if (!GetComponent<Animation>().isPlaying)
+        {
+            GetComponent<Animation>().Play("Idle");
+        }
     }
 
     void FixedUpdate ()
@@ -73,39 +79,7 @@ public class YeastController : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(mouse_pos - transform.position, new Vector3(0, 1, 0));
         transform.Rotate(0, -90, 0);
 
-        if (controller.started)
-        {
-            if (Input.GetMouseButton(0) && Time.timeSinceLevelLoad > next_chomp)
-            {
-                next_chomp = Time.timeSinceLevelLoad + chomp_cooldown;
-
-                SetSphereColliders(true);
-
-                chomp_source.clip = chomp_clip;
-                chomp_source.pitch = Random.Range(1f, 1.2f);
-                chomp_source.Play();
-
-                GetComponent<Animation>().Play("Eating");
-
-                GetComponent<Rigidbody>().AddForce(Vector3.Normalize(new Vector3(mouse_pos.x - transform.position.x, 0f, mouse_pos.z - transform.position.z)) * yeast_speed * 2f);
-            }
-            else if (Time.timeSinceLevelLoad > next_chomp)
-            {
-                SetSphereColliders(false);
-            }
-
-            GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody>().velocity, yeast_speed * 3);
-        }
-    }
-
-    void SetSphereColliders(bool setter)
-    {
-        GetComponent<CapsuleCollider>().enabled = !setter;
-
-        foreach (SphereCollider circle in GetComponents<SphereCollider>())
-        {
-            circle.enabled = setter;
-        }
+        GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody>().velocity, yeast_speed * 3);
     }
 
     void OnTriggerStay(Collider other)
