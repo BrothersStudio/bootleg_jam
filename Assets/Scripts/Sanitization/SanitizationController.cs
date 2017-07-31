@@ -57,6 +57,7 @@ public class SanitizationController : GameControllers
         if (main_controller != null)
         {
             difficulty = main_controller.current_difficulty;
+            sanitization_upgrade = main_controller.sanitization_upgrade;
         }
 
         SetUpgrades();
