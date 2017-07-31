@@ -24,7 +24,8 @@ public class SanitizationController : GameControllers
     public GameObject yellow_vial;
 
     int current_selection = -1;
-    public AudioClip color_select;
+    public AudioClip color_select_clip;
+    AudioSource source;
 
     public float spray_speed;
     public float spray_cooldown;
@@ -51,6 +52,7 @@ public class SanitizationController : GameControllers
     new void Start()
     {
         Cursor.visible = false;
+        source = GetComponent<AudioSource>();
 
         base.Start();
 
@@ -199,13 +201,13 @@ public class SanitizationController : GameControllers
     {
         for (int i = 0; i < 3; i++)
         {
-            GetComponent<AudioSource>().clip = freeze_tick_clip;
-            GetComponent<AudioSource>().Play();
+            source.clip = freeze_tick_clip;
+            source.Play();
 
             yield return new WaitForSeconds(1f);
         }
-        GetComponent<AudioSource>().clip = start_clip;
-        GetComponent<AudioSource>().Play();
+        source.clip = start_clip;
+        source.Play();
         freeze = false;
     }
 
@@ -219,36 +221,51 @@ public class SanitizationController : GameControllers
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, red_mask))
             {
-                GetComponent<AudioSource>().clip = color_select;
-                GetComponent<AudioSource>().Play();
+                if (!source.isPlaying)
+                {
+                    source.clip = color_select_clip;
+                    source.Play();
+                }
                 current_selection = 0;
                 return;
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, green_mask))
             {
-                GetComponent<AudioSource>().clip = color_select;
-                GetComponent<AudioSource>().Play();
+                if (!source.isPlaying)
+                {
+                    source.clip = color_select_clip;
+                    source.Play();
+                }
                 current_selection = 1;
                 return;
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, blue_mask))
             {
-                GetComponent<AudioSource>().clip = color_select;
-                GetComponent<AudioSource>().Play();
+                if (!source.isPlaying)
+                {
+                    source.clip = color_select_clip;
+                    source.Play();
+                }
                 current_selection = 2;
                 return;
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, teal_mask))
             {
-                GetComponent<AudioSource>().clip = color_select;
-                GetComponent<AudioSource>().Play();
+                if (!source.isPlaying)
+                {
+                    source.clip = color_select_clip;
+                    source.Play();
+                }
                 current_selection = 3;
                 return;
             }
             else if (Physics.Raycast(ray, out hit, Mathf.Infinity, yellow_mask))
             {
-                GetComponent<AudioSource>().clip = color_select;
-                GetComponent<AudioSource>().Play();
+                if (!source.isPlaying)
+                {
+                    source.clip = color_select_clip;
+                    source.Play();
+                }
                 current_selection = 4;
                 return;
             }
