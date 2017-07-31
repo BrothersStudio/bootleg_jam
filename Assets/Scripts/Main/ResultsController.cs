@@ -21,14 +21,15 @@ public class ResultsController : MonoBehaviour
         sort_text.text = "0";
         yeast_text.text = "0";
         boil_text.text = "0";
-        total_text.text = "0";
+        total_text.text = main_con.total_amount.ToString();
 
         AnimateNumber(sanitization_text, 0, main_con.sanitization_score, true);
         AnimateNumber(sort_text, 0, main_con.corn_score);
         AnimateNumber(yeast_text, 0, main_con.yeast_score);
         AnimateNumber(boil_text, 0, main_con.boil_score);
 
-        AnimateNumber(total_text, 0, main_con.amount_produced, true, 3f);
+
+        AnimateNumber(total_text, main_con.total_amount, main_con.total_amount + main_con.amount_produced, true, 3f);
     }
 
     void AnimateNumber(Text box, int orig, int score, bool sound = false, float delay = 0)
