@@ -28,7 +28,7 @@ public class ResultsController : MonoBehaviour
         AnimateNumber(yeast_text, 0, main_con.yeast_score);
         AnimateNumber(boil_text, 0, main_con.boil_score);
 
-        AnimateNumber(total_text, main_con.total_amount, main_con.amount_produced + main_con.total_amount, true, 3f);
+        AnimateNumber(total_text, 0, main_con.amount_produced, true, 3f);
     }
 
     void AnimateNumber(Text box, int orig, int score, bool sound = false, float delay = 0)
