@@ -10,11 +10,13 @@ public class ExpositionController : MonoBehaviour
 
     public MainController main;
     TownsPersonController dialogue_holder;
+    AudioSource source;
     public Text exposition_box;
 
     void Start()
     {
         dialogue_holder = GameObject.Find("DialogueManager").gameObject.GetComponent<TownsPersonController>();
+        source = GetComponent<AudioSource>();
         main.gameObject.GetComponent<Fading>().BeginFade(-1);
         Talk();
     }
@@ -54,6 +56,8 @@ public class ExpositionController : MonoBehaviour
         int i = 0;
         while (i < strComplete.Length)
         {
+            source.Play();
+
             slow_string += strComplete[i++];
             exposition_box.GetComponentInChildren<Text>().text = slow_string;
             yield return new WaitForSeconds(0.03f);

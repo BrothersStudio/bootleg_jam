@@ -41,7 +41,7 @@ public class ResultsController : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        int i = 0;
+        int i = orig;
         while (i < score_complete + 1)
         {
             if (sound)
