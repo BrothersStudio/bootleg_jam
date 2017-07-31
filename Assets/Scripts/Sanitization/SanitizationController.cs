@@ -86,15 +86,15 @@ public class SanitizationController : GameControllers
             low_infections_per_kettle = 3;
             high_infections_per_kettle = 4;
 
-            kettle_spawn_period = 2.3f;
+            kettle_spawn_period = 2.2f;
         }
         else if (difficulty == 9)
         {
             infection_options = 5;
-            low_infections_per_kettle = 3;
+            low_infections_per_kettle = 2;
             high_infections_per_kettle = 4;
 
-            kettle_spawn_period = 2.4f;
+            kettle_spawn_period = 2.3f;
         }
         else if (difficulty == 8)
         {
