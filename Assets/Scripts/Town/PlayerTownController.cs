@@ -60,7 +60,7 @@ public class PlayerTownController : MonoBehaviour
 
     public void SanitizationUpgrade()
     {
-        if (main_controller.total_amount > sanitization_cost && !main_controller.sanitization_upgrade)
+        if (main_controller.total_amount >= sanitization_cost && !main_controller.sanitization_upgrade)
         {
             AnimateNumber(main_controller.total_amount, main_controller.total_amount - sanitization_cost);
             main_controller.total_amount -= sanitization_cost;
@@ -70,7 +70,7 @@ public class PlayerTownController : MonoBehaviour
 
     public void CornUpgrade()
     {
-        if (main_controller.total_amount > corn_cost && !main_controller.corn_upgrade)
+        if (main_controller.total_amount >= corn_cost && !main_controller.corn_upgrade)
         {
             AnimateNumber(main_controller.total_amount, main_controller.total_amount - corn_cost);
             main_controller.total_amount -= corn_cost;
@@ -80,7 +80,7 @@ public class PlayerTownController : MonoBehaviour
 
     public void YeastUpgrade()
     {
-        if (main_controller.total_amount > yeast_cost && !main_controller.yeast_upgrade)
+        if (main_controller.total_amount >= yeast_cost && !main_controller.yeast_upgrade)
         {
             AnimateNumber(main_controller.total_amount, main_controller.total_amount - yeast_cost);
             main_controller.total_amount -= yeast_cost;
@@ -90,7 +90,7 @@ public class PlayerTownController : MonoBehaviour
 
     public void BoilUpgrade()
     {
-        if (main_controller.total_amount > boil_cost && !main_controller.boil_upgrade)
+        if (main_controller.total_amount >= boil_cost && !main_controller.boil_upgrade)
         {
             AnimateNumber(main_controller.total_amount, main_controller.total_amount - boil_cost);
             main_controller.total_amount -= boil_cost;
@@ -176,7 +176,7 @@ public class PlayerTownController : MonoBehaviour
         }
 
         // Continue button greyed out if haven't bought food and can.
-        if (main_controller.total_amount > food_cost && !fed)
+        if (main_controller.total_amount >= food_cost && !fed)
         {
             continue_button.interactable = false;
         }
