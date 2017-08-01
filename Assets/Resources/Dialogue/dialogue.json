@@ -28,13 +28,13 @@
         },
         {
             "id": 4,
-            "line": "My family is going to starve unless I turn to the one thing I told myself I would never do.",
+            "line": "My family is going to starve unless I do the one thing I told myself I would never do.",
             "yes_line": "",
             "no_line": ""
         },
         {
             "id": 5,
-            "line": "Bootlegging illegal moonshine with the leftover crop I do have.",
+            "line": "Bootlegging illegal moonshine.",
             "yes_line": "",
             "no_line": ""
         },
@@ -46,13 +46,13 @@
         },
         {
             "id": 7,
-            "line": "Sanitize the equipment, pick out bugs from the corn, let the yeast make alcohol from the sugars, and finally heat and distill the moonshine.",
+            "line": "Sanitize the equipment.",
             "yes_line": "",
             "no_line": ""
         },
         {
             "id": 8,
-            "line": "Well, let's get started.",
+            "line": "Pick out the bugs from the corn.",
             "yes_line": "",
             "no_line": ""
         },
@@ -120,6 +120,24 @@
         {
             "id": 19,
             "line": "I never thought this day would come. Prohibition has ended. People are celebrating in the streets with MY booze. Everyone is asking me if I plan on continuing. I just know I need to buy one final month of food for my family with this batch!",
+            "yes_line": "",
+            "no_line": ""
+        },
+        {
+            "id": 20,
+            "line": "Let the yeast make alcohol from the sugars.",
+            "yes_line": "",
+            "no_line": ""
+        },
+        {
+            "id": 21,
+            "line": "And, finally, heat and distill the moonshine.",
+            "yes_line": "",
+            "no_line": ""
+        },
+        {
+            "id": 22,
+            "line": "Well, let's get to work.",
             "yes_line": "",
             "no_line": ""
         }

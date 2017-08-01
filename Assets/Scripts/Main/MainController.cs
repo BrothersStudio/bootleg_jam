@@ -28,6 +28,9 @@ public class MainController : MonoBehaviour
     public GameObject event_system;
     public ResultsController results_controller;
 
+    AudioSource music_source;
+    public AudioSource cricket_source;
+
     void ResetFields()
     {
         sanitization_done = false;
@@ -42,6 +45,11 @@ public class MainController : MonoBehaviour
         yeast_score = 0;
         boil_score = 0;
         amount_produced = 0;
+    }
+
+    void Start()
+    {
+        music_source = GetComponent<AudioSource>();
     }
 
     void StartGame()
@@ -77,10 +85,10 @@ public class MainController : MonoBehaviour
 
     public void RunNext()
     {
-        GetComponent<AudioListener>().enabled = false;
-
         if (!sanitization_done)
         {
+            cricket_source.Stop();
+
             ResetFields();
             barn.SetActive(false);
             current_difficulty++;
@@ -92,6 +100,8 @@ public class MainController : MonoBehaviour
             }
             GetComponent<Fading>().enabled = false;
             SceneManager.LoadScene("Sanitization", LoadSceneMode.Additive);
+            music_source.Play();
+            GetComponent<AudioListener>().enabled = false;
             exposition_screen.SetActive(false);
         }
         else if (!corn_done)
@@ -128,6 +138,8 @@ public class MainController : MonoBehaviour
             GetComponent<AudioListener>().enabled = false;
             event_system.SetActive(false);
             results_screen.SetActive(false);
+
+            music_source.Stop();
 
             SceneManager.LoadScene("Town", LoadSceneMode.Additive);
         }
