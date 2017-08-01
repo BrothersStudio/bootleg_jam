@@ -16,7 +16,15 @@ public class YeastGameController : GameControllers
     public bool yeast_upgrade = false;
 
     new void Start()
-    {
+    { 
+        base.Start();
+
+        if (main_controller != null)
+        {
+            difficulty = main_controller.current_difficulty;
+            yeast_upgrade = main_controller.yeast_upgrade;
+        }
+
         SetUpgrades();
         SetDifficulty();
 
@@ -27,14 +35,6 @@ public class YeastGameController : GameControllers
             Vector3 sugar_velocity = Random.onUnitSphere * 1f;
             sugar_velocity.y = 0f;
             sugar.GetComponent<Rigidbody>().velocity = sugar_velocity;
-        }
-
-        base.Start();
-
-        if (main_controller != null)
-        {
-            difficulty = main_controller.current_difficulty;
-            yeast_upgrade = main_controller.yeast_upgrade;
         }
 
         StartCoroutine(StartCountdown("Eat!"));
