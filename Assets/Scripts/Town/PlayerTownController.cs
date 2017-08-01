@@ -152,6 +152,11 @@ public class PlayerTownController : MonoBehaviour
     void Update()
     {
         SetButtonsInteractible();
+        
+        if (!GetComponent<Animation>().isPlaying)
+        {
+            GetComponent<Animation>().Play("walk_cycle");
+        }
 
         // Rotate to face destination
         if (Vector3.Distance(dest, transform.position) > 1)
@@ -185,19 +190,39 @@ public class PlayerTownController : MonoBehaviour
             continue_button.interactable = true;
         }
 
-        // Other upgrade buttons greyed out if you can't afford them AND food
-        if ((main_controller.total_amount < (food_cost + sanitization_cost) && !fed) || (main_controller.total_amount < sanitization_cost))
+        if ((main_controller.total_amount < (food_cost + sanitization_cost) && !fed) || (main_controller.total_amount < sanitization_cost) || (main_controller.sanitization_upgrade))
         {
             upgrade1.interactable = false;
-            upgrade2.interactable = false;
-            upgrade3.interactable = false;
-            upgrade4.interactable = false;
         }
         else
         {
             upgrade1.interactable = true;
+        }
+
+        if ((main_controller.total_amount < (food_cost + sanitization_cost) && !fed) || (main_controller.total_amount < sanitization_cost) || (main_controller.corn_upgrade))
+        {
+            upgrade2.interactable = false;
+        }
+        else
+        {
             upgrade2.interactable = true;
+        }
+
+        if ((main_controller.total_amount < (food_cost + sanitization_cost) && !fed) || (main_controller.total_amount < sanitization_cost) || (main_controller.yeast_upgrade))
+        {
+            upgrade3.interactable = false;
+        }
+        else
+        {
             upgrade3.interactable = true;
+        }
+
+        if ((main_controller.total_amount < (food_cost + sanitization_cost) && !fed) || (main_controller.total_amount < sanitization_cost) || (main_controller.boil_upgrade))
+        {
+            upgrade4.interactable = false;
+        }
+        else
+        {
             upgrade4.interactable = true;
         }
     }
