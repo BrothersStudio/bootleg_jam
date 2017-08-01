@@ -8,6 +8,9 @@ public class KettleController : MonoBehaviour
 
     public float kettle_speed;
 
+    bool frozen = false;
+    Vector3 old_velocity;
+
     Rigidbody rigid;
 
     void Start ()
@@ -19,17 +22,23 @@ public class KettleController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!controller.freeze)
+        if (controller.freeze)
         {
-            if (transform.position.y < 5f)
-            {
-                rigid.AddForce(Vector3.right * kettle_speed);
-                Vector3 current_velocity = GetComponent<Rigidbody>().velocity;
-                float new_x = Mathf.Clamp(current_velocity.x, 0, kettle_speed);
-                current_velocity.x = new_x;
+            old_velocity = rigid.velocity;
+            rigid.velocity = new Vector3(0f, 0f, 0f);
+            frozen = true;
+            return;
+        }
 
-                GetComponent<Rigidbody>().velocity = current_velocity;
-            }
+        if (frozen)
+        {
+            rigid.velocity = old_velocity;
+            frozen = false;
+        }
+
+        if (transform.position.y < 0.1f)
+        {
+            rigid.velocity = Vector3.right * kettle_speed;
         }
     } 
 }
