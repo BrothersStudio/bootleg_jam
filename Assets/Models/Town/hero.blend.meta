@@ -64,6 +64,7 @@ ModelImporter:
     7400000: Default Take
     7400002: walk_cycle
     7400004: idle
+    7400006: walk_cycle (1)
     9500000: //RootNode
     11100000: //RootNode
     13700000: Cube
@@ -89,7 +90,211 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: walk_cycle (1)
+      takeName: walk_cycle
+      firstFrame: 0
+      lastFrame: 29
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/left_thigh
+        weight: 1
+      - path: Armature/left_thigh/left_shin
+        weight: 1
+      - path: Armature/left_thigh/left_shin/Bone
+        weight: 1
+      - path: Armature/Leg_IK_L
+        weight: 1
+      - path: Armature/Leg_IK_L/left_ankle
+        weight: 1
+      - path: Armature/Leg_IK_R
+        weight: 1
+      - path: Armature/Leg_IK_R/right_ankle
+        weight: 1
+      - path: Armature/right_thigh
+        weight: 1
+      - path: Armature/right_thigh/right_shin
+        weight: 1
+      - path: Armature/right_thigh/right_shin/Bone_007
+        weight: 1
+      - path: Armature/stomach
+        weight: 1
+      - path: Armature/stomach/chest
+        weight: 1
+      - path: Armature/stomach/chest/head
+        weight: 1
+      - path: Armature/UpperArm_L
+        weight: 1
+      - path: Armature/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: Armature/UpperArm_R
+        weight: 1
+      - path: Armature/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: idle
+      takeName: idle
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/left_thigh
+        weight: 1
+      - path: Armature/left_thigh/left_shin
+        weight: 1
+      - path: Armature/left_thigh/left_shin/Bone
+        weight: 1
+      - path: Armature/Leg_IK_L
+        weight: 1
+      - path: Armature/Leg_IK_L/left_ankle
+        weight: 1
+      - path: Armature/Leg_IK_R
+        weight: 1
+      - path: Armature/Leg_IK_R/right_ankle
+        weight: 1
+      - path: Armature/right_thigh
+        weight: 1
+      - path: Armature/right_thigh/right_shin
+        weight: 1
+      - path: Armature/right_thigh/right_shin/Bone_007
+        weight: 1
+      - path: Armature/stomach
+        weight: 1
+      - path: Armature/stomach/chest
+        weight: 1
+      - path: Armature/stomach/chest/head
+        weight: 1
+      - path: Armature/UpperArm_L
+        weight: 1
+      - path: Armature/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: Armature/UpperArm_R
+        weight: 1
+      - path: Armature/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: walk_cycle
+      takeName: walk_cycle
+      firstFrame: 0
+      lastFrame: 29
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/left_thigh
+        weight: 1
+      - path: Armature/left_thigh/left_shin
+        weight: 1
+      - path: Armature/left_thigh/left_shin/Bone
+        weight: 1
+      - path: Armature/Leg_IK_L
+        weight: 1
+      - path: Armature/Leg_IK_L/left_ankle
+        weight: 1
+      - path: Armature/Leg_IK_R
+        weight: 1
+      - path: Armature/Leg_IK_R/right_ankle
+        weight: 1
+      - path: Armature/right_thigh
+        weight: 1
+      - path: Armature/right_thigh/right_shin
+        weight: 1
+      - path: Armature/right_thigh/right_shin/Bone_007
+        weight: 1
+      - path: Armature/stomach
+        weight: 1
+      - path: Armature/stomach/chest
+        weight: 1
+      - path: Armature/stomach/chest/head
+        weight: 1
+      - path: Armature/UpperArm_L
+        weight: 1
+      - path: Armature/UpperArm_L/LowerArm_L
+        weight: 1
+      - path: Armature/UpperArm_R
+        weight: 1
+      - path: Armature/UpperArm_R/LowerArm_R
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

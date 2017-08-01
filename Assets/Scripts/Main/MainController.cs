@@ -127,7 +127,7 @@ public class MainController : MonoBehaviour
             GetComponent<AudioListener>().enabled = true;
             event_system.SetActive(true);
             results_screen.SetActive(true);
-            amount_produced = 5 + (int)((sanitization_score + corn_score + yeast_score + boil_score) / 16f);
+            amount_produced = (int)((sanitization_score + corn_score + yeast_score + boil_score) / 13.3333333333333333333f);
             results_controller.ExecuteResults();
             total_amount += amount_produced;
             results_done = true;
