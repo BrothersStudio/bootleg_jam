@@ -86,9 +86,9 @@ public class SanitizationController : GameControllers
         {
             infection_options = 5;
             low_infections_per_kettle = 3;
-            high_infections_per_kettle = 4;
+            high_infections_per_kettle = 5;
 
-            kettle_spawn_period = 2.5f;
+            kettle_spawn_period = 2.2f;
         }
         else if (difficulty == 9)
         {
@@ -96,7 +96,7 @@ public class SanitizationController : GameControllers
             low_infections_per_kettle = 2;
             high_infections_per_kettle = 4;
 
-            kettle_spawn_period = 2.5f;
+            kettle_spawn_period = 2.3f;
         }
         else if (difficulty == 8)
         {
@@ -104,7 +104,7 @@ public class SanitizationController : GameControllers
             low_infections_per_kettle = 3;
             high_infections_per_kettle = 3;
 
-            kettle_spawn_period = 2.5f;
+            kettle_spawn_period = 2.4f;
         }
         else if (difficulty == 7)
         {
@@ -112,7 +112,7 @@ public class SanitizationController : GameControllers
             low_infections_per_kettle = 2;
             high_infections_per_kettle = 3;
 
-            kettle_spawn_period = 2.5f;
+            kettle_spawn_period = 2.4f;
         }
         else if (difficulty == 6)
         {
