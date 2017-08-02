@@ -126,7 +126,7 @@ public class SanitizationController : GameControllers
         {
             infection_options = 4;
             low_infections_per_kettle = 2;
-            high_infections_per_kettle = 4;
+            high_infections_per_kettle = 3;
 
             kettle_spawn_period = 2.5f;
         }
