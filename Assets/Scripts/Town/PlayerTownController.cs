@@ -103,11 +103,13 @@ public class PlayerTownController : MonoBehaviour
         // Check win and lose conditions
         if (!fed)
         {
+            player_source.Stop();
             lose_game_screen.SetActive(true);
             return;
         }
         else if (fed && main_controller.current_difficulty == 10)
         {
+            player_source.Stop();
             win_game_screen.SetActive(true);
             return;
         }
@@ -153,9 +155,9 @@ public class PlayerTownController : MonoBehaviour
     {
         SetButtonsInteractible();
         
-        if (!GetComponent<Animation>().isPlaying)
+        if (!GetComponentInChildren<Animation>().isPlaying)
         {
-            GetComponent<Animation>().Play("walk_cycle");
+            GetComponentInChildren<Animation>().Play();
         }
 
         // Rotate to face destination
