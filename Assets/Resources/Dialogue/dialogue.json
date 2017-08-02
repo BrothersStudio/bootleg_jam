@@ -83,7 +83,7 @@
         },
         {
             "id": 13,
-            "line": "My son walked in on me last brew cycle. That was hard to explain. I can't imagine what would happen if I were caught. My wife isn't asking questions, bless her heart.",
+            "line": "My son walked in on me last brew cycle. That was hard to explain away. I can't imagine what would happen to my family if I were caught. My wife isn't asking questions, bless her heart.",
             "yes_line": "",
             "no_line": ""
         },
@@ -95,13 +95,13 @@
         },
         {
             "id": 15,
-            "line": "There were some suits around town this month asking questions about local bootlegging operations. Fortunately, we are pretty tight-knit here. Plus, I don't think the townsfolk want their supply cut off.",
+            "line": "There were some suits around town this month asking questions about local bootlegging operations. Fortunately, we are pretty tight-knit around here. Plus, I don't think the townsfolk want their supply cut off.",
             "yes_line": "",
             "no_line": ""
         },
         {
             "id": 16,
-            "line": "Things are getting a little tricky now. The supplies are definitely worsening as the months go on. My equipment is so grimy and dirty, now. It usually needs a few sprays to get totally clean. Whew, this is hard work.",
+            "line": "Things are getting a little tricky now. My supplies are definitely worsening as the months go on. My brewing equipment is so grimy and dirty, now. It usually needs a few sprays to get them totally clean. Whew, this is hard work.",
             "yes_line": "",
             "no_line": ""
         },
