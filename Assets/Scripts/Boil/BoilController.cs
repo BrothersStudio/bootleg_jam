@@ -40,7 +40,7 @@ public class BoilController : GameControllers
     {
         if (boil_upgrade)
         {
-            arrow.arrow_speed = 400;
+            arrow.arrow_speed = 450;
             Physics.gravity = new Vector3(0, -20F, 0);
         }
         else
@@ -122,7 +122,12 @@ public class BoilController : GameControllers
         Cursor.visible = true;
         Physics.gravity = new Vector3(0, -9.8F, 0);
 
-        game_score = Mathf.Clamp((int)((float)game_score / (float)potential_score * 100f * 6.25f) + 1, 0, 100);
+        game_score = Mathf.Clamp((int)((float)game_score / (float)potential_score * 100f * 6.75f) + 1, 0, 100);
+        if (boil_upgrade)
+        {
+            game_score = Mathf.Clamp(game_score + 20, 0, 100);
+        }
+
         Debug.Log("Boil Game Score:");
         Debug.Log(game_score);
 
