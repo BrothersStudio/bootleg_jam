@@ -16,6 +16,9 @@ public class PlayerTownController : MonoBehaviour
     AudioSource player_source;
     public AudioClip coin_clip;
 
+    public AudioSource town_camera;
+    public AudioClip win_clip;
+
     public Button food_button;
     public Button upgrade1;
     public Button upgrade2;
@@ -53,6 +56,12 @@ public class PlayerTownController : MonoBehaviour
         }
 
         player_source = GetComponent<AudioSource>();
+
+        if (main_controller.current_difficulty == 10)
+        {
+            town_camera.clip = win_clip;
+            town_camera.Play();
+        }
 
         gallons_text.text = "Gallons of Booze:\n" + main_controller.total_amount;
         month_text.text = "Month " + main_controller.current_difficulty;
@@ -103,6 +112,7 @@ public class PlayerTownController : MonoBehaviour
         // Check win and lose conditions
         if (!fed)
         {
+            town_camera.Stop();
             player_source.Stop();
             lose_game_screen.SetActive(true);
             return;
